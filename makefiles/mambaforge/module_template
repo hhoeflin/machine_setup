@@ -1,0 +1,57 @@
+help([==[
+
+Description
+===========
+Mamba is a fast, robust, and cross-platform package manager. It is based on conda.
+This version does not rely on the Anaconda channel.
+
+More information
+================
+ - Homepage: https://mamba.readthedocs.io/en/latest/index.html
+
+]==])
+
+whatis([==[Description: Mamba is a fast, robust, and cross-platform package manager. It is based on conda. This version does not rely on the Anaconda channel.]==])
+whatis([==[Homepage: https://mamba.readthedocs.io/en/latest/index.html]==])
+
+local root = "$APP_PREFIX"
+
+conflict("Mambaforge")
+
+setenv("CONDA_PKGS_DIR", root .. "/pkgs:$HOME/.conda/pkgs")
+setenv("CONDA_ENVS_DIR", "$HOME/.conda/envs")
+prepend_path("MANPATH", pathJoin(root, "share/man"))
+-- don't need to append the path as the conda script already does that
+load_str="source " .. root .. "/etc/profile.d/conda.sh; " ..
+    "source " .. root .. "/etc/profile.d/mamba.sh; " ..
+    "export CONDA_SHLVL; " ..
+    "export CONDA_EXE; " ..
+    "export _CE_M; " ..
+    "export _CE_CONDA; " ..
+    "export CONDA_PYTHON_EXE; " ..
+    "export -f conda; " ..
+    "export -f mamba; " ..
+    "export -f __conda_exe; " ..
+    "export -f __conda_activate; " ..
+    "export -f __conda_reactivate; " ..
+    "export -f __conda_hashr; " ..
+    "export -f __add_sys_prefix_to_path"
+unload_str="unset CONDA_SHLVL; " ..
+    "unset CONDA_EXE; " ..
+    "unset _CE_M; " ..
+    "unset _CE_CONDA; " ..
+    "unset CONDA_PYTHON_EXE; " ..
+    "unset -f conda; " ..
+    "unset -f mamba; " ..
+    "unset -f __conda_exe; " ..
+    "unset -f __conda_activate; " ..
+    "unset -f __conda_reactivate; " ..
+    "unset -f __conda_hashr; " ..
+    "unset -f __add_sys_prefix_to_path"
+
+execute{cmd=load_str, modeA={"load"}}
+execute{cmd=unload_str, modeA={"unload"}}
+
+if (mode() == "unload") then
+    remove_path("PATH", root .. "/condabin")
+end

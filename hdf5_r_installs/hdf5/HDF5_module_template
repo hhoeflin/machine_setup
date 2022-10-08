@@ -1,0 +1,22 @@
+#%Module1.0#####################################################################
+##
+## modules HDF5
+##
+## modules/hdf5/$HDF5_VERSION  Written by Holger Hoefling
+##
+proc ModulesHelp { } {
+        global version modroot
+
+        puts stderr "hdf5/$HDF5_VERSION - sets the PATH nad LIBRARY variables for HDF5 version $HDF5_VERSION"
+}
+
+module-whatis   "hdf5/$HDF5_VERSION - sets the PATH and LIBRARY variables for hdf5/$HDF5_VERSION"
+
+conflict hdf5
+
+set root $HDF5_INSTALL_DIR/hdf5-$HDF5_VERSION
+
+prepend-path	CPATH	$root/include
+prepend-path	LD_LIBRARY_PATH	$root/lib
+prepend-path 	LIBRARY_PATH	$root/lib
+prepend-path    PATH    $root/bin

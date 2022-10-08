@@ -1,0 +1,9 @@
+help([[
+rust module by Holger Hoefling
+]])
+
+conflict("Rust")
+
+setenv("RUSTUP_HOME", "${APP_PREFIX}")
+setenv("CARGO_HOME", "${APP_PREFIX}")
+prepend_path( "PATH","${APP_PREFIX}/bin")

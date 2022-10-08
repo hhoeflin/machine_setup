@@ -1,0 +1,16 @@
+#%Module1.0#####################################################################
+##
+## modules R
+##
+## modules/R/$R_VERSION  Written by Holger Hoefling
+##
+proc ModulesHelp { } {
+        global version modroot
+
+        puts stderr "R/$R_VERSION - sets the PATH for R version $R_VERSION"
+}
+
+module-whatis   "R/$R_VERSION - sets the PATH for R/$R_VERSION"
+
+conflict R
+prepend-path    PATH            $R_INSTALL_DIR/R-$R_VERSION/bin

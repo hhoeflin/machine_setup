@@ -1,0 +1,5 @@
+help([[
+git module by Holger Hoefling
+]])
+
+prepend_path( "PATH","${APP_PREFIX}/bin")
