@@ -1,6 +1,6 @@
 .ONESHELL:
 
-PREFIX=${HOME}/.local
+PREFIX=${HOME}/.stow
 export PREFIX
 
 .PHONY: all clean uninstall
@@ -39,11 +39,11 @@ all clean uninstall:
 	$(MAKE) -C rust_app APP=mcfly APP_BINARY=mcfly $@
 	$(MAKE) -C rust_app APP=starship $@
 	# go apps
-	$(MAKE) -C go_app APP_URL=github.com/charmbracelet/glow@latest APP_BINARY=glow $@
-	$(MAKE) -C go_app APP_URL=github.com/jesseduffield/lazygit@latest APP_BINARY=lazygit $@
-	$(MAKE) -C go_app APP_URL=github.com/muesli/duf@latest APP_BINARY=duf $@
-	$(MAKE) -C go_app APP_URL=github.com/go-task/task/v3/cmd/task@latest APP_BINARY=task $@
-	$(MAKE) -C go_app APP_URL=github.com/twpayne/chezmoi@latest APP_BINARY=chezmoi $@
+	$(MAKE) -C go_app APP_URL=github.com/charmbracelet/glow APP_BINARY=glow $@
+	$(MAKE) -C go_app APP_URL=github.com/jesseduffield/lazygit APP_BINARY=lazygit $@
+	$(MAKE) -C go_app APP_URL=github.com/muesli/duf APP_BINARY=duf $@
+	$(MAKE) -C go_app APP_URL=github.com/go-task/task/v3/cmd/task APP_BINARY=task $@
+	$(MAKE) -C go_app APP_URL=github.com/twpayne/chezmoi APP_BINARY=chezmoi $@
 	# pipx apps
 	$(MAKE) -C pipx_app APP=isort $@
 	$(MAKE) -C pipx_app APP=mypy $@
