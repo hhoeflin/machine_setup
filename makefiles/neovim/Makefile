@@ -7,7 +7,7 @@ endif
 APP_PREFIX=${PREFIX}/nvim
 VERSION=0.8.0
 APP_TARFILE=v${VERSION}.tar.gz
-MODULE_PATH=${PREFIX}/modules/home/neovim/default.lua
+MODULE_PATH=${PREFIX}/modules/home/nvim/default.lua
 
 .PHONY: all
 
@@ -16,17 +16,16 @@ all: ${APP_PREFIX}/bin/nvim ${MODULE_PATH}
 ${APP_TARFILE}:
 	wget https://github.com/neovim/neovim/archive/refs/tags/${APP_TARFILE}
 
-
 .PHONY: deps
 deps:
 	$(MAKE) -C ../cmake
+	$(MAKE) -C ../git
 
 ${APP_PREFIX}/bin/nvim: ${APP_TARFILE} | deps
 	tar zxvf ${APP_TARFILE}
 	cd neovim-${VERSION}
-	export PATH=${PREFIX}/cmake/bin:${PATH}
-	make CMAKE_BUILD_TYPE=Release
-	make CMAKE_INSTALL_PREFIX=${APP_PREFIX} install
+	export PATH=${PREFIX}/cmake/bin:${PREFIX}/git/bin:${PATH}
+	make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX=${APP_PREFIX} install
 
 ${MODULE_PATH}: module_template
 	mkdir -p $$(dirname ${MODULE_PATH})
@@ -40,3 +39,4 @@ clean:
 .PHONY: uninstall
 uninstall:
 	rm -rf ${APP_PREFIX}
+	rm -f ${MODULE_PATH}

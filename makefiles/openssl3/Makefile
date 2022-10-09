@@ -4,23 +4,23 @@ ifndef PREFIX
 $(error PREFIX is not set)
 endif
 
-APP_PREFIX=${PREFIX}/openssl
-VERSION=1.1.1q
-MODULE_PATH=${PREFIX}/modules/home/openssl/${VERSION}.lua
+APP_PREFIX=${PREFIX}/openssl3
+VERSION=3.0.5
+MODULE_PATH=${PREFIX}/modules/home/openssl3/${VERSION}.lua
 APP_TARFILE=openssl-${VERSION}.tar.gz
 
 .PHONY: all
-all: ${APP_PREFIX}/lib/libssl.so.1.1 ${MODULE_PATH}
+all: ${APP_PREFIX}/lib/libssl.so.3.0 ${MODULE_PATH}
 
 ${APP_TARFILE}:
 	wget https://www.openssl.org/source/${APP_TARFILE}
 
 
-${APP_PREFIX}/lib/libssl.so.1.1: ${APP_TARFILE}
+${APP_PREFIX}/lib/libssl.so.3.0: ${APP_TARFILE}
 	tar zxvf ${APP_TARFILE}
 	cd openssl-${VERSION}
 	mkdir -p ${APP_PREFIX}
-	./config --prefix=${APP_PREFIX}
+	./Configure --prefix=${APP_PREFIX}
 	$(MAKE) -j && $(MAKE) install
 
 ${MODULE_PATH}: module_template

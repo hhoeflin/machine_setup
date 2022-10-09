@@ -23,8 +23,11 @@ all: ${CARGO_HOME}/bin/${APP_BINARY}
 
 .PHONY: deps
 	$(MAKE) -C ../rust
+	$(MAKE) -C ../cmake
 
 ${CARGO_HOME}/bin/${APP_BINARY}: | deps
+	# some need cmake; make it available (starship)
+	export PATH=${PREFIX}/cmake/bin:${PATH}
 	${CARGO_HOME}/bin/cargo install ${APP}
 
 .PHONY: clean

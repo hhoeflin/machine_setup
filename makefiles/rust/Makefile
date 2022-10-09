@@ -30,3 +30,4 @@ clean:
 .PHONY: uninstall
 uninstall:
 	rm -rf ${APP_PREFIX}
+	rm -f ${MODULE_PATH}

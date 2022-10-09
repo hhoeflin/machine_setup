@@ -15,12 +15,16 @@ all: ${APP_PREFIX}/lib/libevent.a ${MODULE_PATH}
 ${APP_TARFILE}:
 	wget https://github.com/libevent/libevent/releases/download/release-${VERSION}-stable/${APP_TARFILE}
 
+.PHONY: deps
+deps:
+	$(MAKE) -C ../openssl
 
-${APP_PREFIX}/lib/libevent.a: ${APP_TARFILE}
+${APP_PREFIX}/lib/libevent.a: ${APP_TARFILE} | deps
 	tar zxvf ${APP_TARFILE}
 	cd libevent-${VERSION}-stable
 	mkdir -p ${APP_PREFIX}
-	./configure --prefix=${APP_PREFIX}
+
+	PKG_CONFIG_PATH=${PREFIX}/openssl/lib/pkgconfig ./configure --prefix=${APP_PREFIX}
 	$(MAKE) -j && $(MAKE) install
 
 ${MODULE_PATH}: module_template
@@ -35,3 +39,4 @@ clean:
 .PHONY: uninstall
 uninstall:
 	rm -rf ${APP_PREFIX}
+	rm -f ${MODULE_PATH}

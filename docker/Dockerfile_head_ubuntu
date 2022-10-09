@@ -1,0 +1,15 @@
+FROM ubuntu:20.04
+
+ENV PREFIX=/home/docker/.local
+
+RUN apt-get -y update \
+    && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata \
+    && apt -y install build-essential wget gettext pkg-config zlib1g-dev \
+        dh-autoreconf libcurl4-gnutls-dev libexpat1-dev libssl-dev libtool
+
+RUN useradd -ms /bin/bash docker
+USER docker
+WORKDIR /home/docker
+COPY --chown=docker:docker makefiles/Makefile /home/docker/makefiles/Makefile
+
+WORKDIR /home/docker/makefiles

@@ -18,7 +18,9 @@ ${APP_TARFILE}:
 ${APP_PREFIX}/include/ncurses/ncurses.h: ${APP_TARFILE}
 	tar zxvf ${APP_TARFILE}
 	cd ncurses-${VERSION}/
-	./configure --prefix=${APP_PREFIX}
+	mkdir -p ${APP_PREFIX}/lib/pkgconfig
+	./configure --prefix=${APP_PREFIX} --with-shared --with-termlib --enable-pc-files \
+		--with-pkg-config-libdir=${APP_PREFIX}/lib/pkgconfig
 	$(MAKE) -j && $(MAKE) install
 
 ${MODULE_PATH}: module_template
@@ -33,3 +35,4 @@ clean:
 .PHONY: uninstall
 uninstall:
 	rm -rf ${APP_PREFIX}
+	rm -f ${MODULE_PATH}

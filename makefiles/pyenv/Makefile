@@ -15,8 +15,12 @@ ${APP_DWNLOAD}:
 	wget --output-document ${APP_DWNLOAD} \
 		https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/${APP_DWNLOAD}
 
+.PHONY: deps
+deps:
+	$(MAKE) -C ../git
 
-${APP_PREFIX}/bin/pyenv: ${APP_DWNLOAD}
+${APP_PREFIX}/bin/pyenv: ${APP_DWNLOAD} | deps
+	export PATH=${PREFIX}/git/bin:${PATH}
 	export PYENV_ROOT=${APP_PREFIX}
 	chmod 770 ${APP_DWNLOAD}
 	bash ${APP_DWNLOAD}
@@ -34,3 +38,4 @@ clean:
 .PHONY: uninstall
 uninstall:
 	rm -rf ${APP_PREFIX}
+	rm -f ${MODULE_PATH}

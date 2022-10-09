@@ -6,6 +6,7 @@ export PREFIX
 .PHONY: all clean uninstall
 all clean uninstall:
 	set -e
+	$(MAKE) -C openssl $@
 	$(MAKE) -C libevent $@
 	$(MAKE) -C ncurses $@
 	$(MAKE) -C tmux $@
@@ -15,7 +16,6 @@ all clean uninstall:
 	$(MAKE) -C cmake $@
 	$(MAKE) -C git $@
 	$(MAKE) -C neovim $@
-	$(MAKE) -C openssl $@
 	$(MAKE) -C pyenv $@
 	$(MAKE) -C pipx $@
 	$(MAKE) -C zotero $@

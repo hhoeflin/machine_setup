@@ -26,9 +26,7 @@ ${APP_PREFIX}/bin/tmux: ${APP_TARFILE} | deps
 	tar zxvf ${APP_TARFILE}
 	cd tmux-${VERSION}
 	# the CPPFLAGS and LDFLAGS are important, make sure you have written them correctly, or the build will fail
-	./configure --prefix=${APP_PREFIX} \
-		CPPFLAGS="-I${PREFIX}/libevent/include -I${PREFIX}/ncurses/include/ncurses" \
-		LDFLAGS="-L${PREFIX}/libevent/lib -L${PREFIX}/ncurses/lib"
+	PKG_CONFIG_PATH="${PREFIX}/libevent/lib/pkgconfig:${PREFIX}/ncurses/lib/pkgconfig" ./configure --prefix=${APP_PREFIX}
 	$(MAKE) -j && $(MAKE) install
 
 ${MODULE_PATH}: module_template
@@ -44,3 +42,4 @@ clean:
 .PHONY: uninstall
 uninstall:
 	rm -rf ${APP_PREFIX}
+	rm -f ${MODULE_PATH}

@@ -33,3 +33,4 @@ clean:
 .PHONY: uninstall
 uninstall:
 	${CARGO_HOME}/bin/cargo uninstall ${APP}
+	rm -f ${MODULE_PATH}

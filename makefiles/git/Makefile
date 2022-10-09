@@ -20,7 +20,7 @@ ${APP_PREFIX}/bin/git: ${APP_TARFILE}
 	tar zxvf ${APP_TARFILE}
 	cd git-${VERSION}
 	make configure
-	./configure --prefix=${APP_PREFIX}
+	./configure --prefix=${APP_PREFIX} --without-tcltk
 	$(MAKE) -j && $(MAKE) install
 
 ${MODULE_PATH}: module_template
@@ -35,3 +35,4 @@ clean:
 .PHONY: uninstall
 uninstall:
 	rm -rf ${APP_PREFIX}
+	rm -f ${MODULE_PATH}

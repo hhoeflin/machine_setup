@@ -1,0 +1,141 @@
+FROM ubuntu:20.04
+
+ENV PREFIX=/home/docker/.local
+
+RUN apt-get -y update \
+    && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata \
+    && apt -y install build-essential wget gettext pkg-config zlib1g-dev \
+        dh-autoreconf libcurl4-gnutls-dev libexpat1-dev libssl-dev
+
+RUN useradd -ms /bin/bash docker
+USER docker
+WORKDIR /home/docker
+COPY --chown=docker:docker makefiles/Makefile /home/docker/makefiles/Makefile
+
+WORKDIR /home/docker/makefiles
+
+
+COPY --chown=docker:docker makefiles/openssl/Makefile /home/docker/makefiles/openssl/Makefile
+COPY --chown=docker:docker makefiles/openssl/module_template /home/docker/makefiles/openssl/module_template
+RUN make -C openssl all
+
+COPY --chown=docker:docker makefiles/libevent/Makefile /home/docker/makefiles/libevent/Makefile
+COPY --chown=docker:docker makefiles/libevent/module_template /home/docker/makefiles/libevent/module_template
+RUN make -C libevent all
+
+COPY --chown=docker:docker makefiles/ncurses/Makefile /home/docker/makefiles/ncurses/Makefile
+COPY --chown=docker:docker makefiles/ncurses/module_template /home/docker/makefiles/ncurses/module_template
+RUN make -C ncurses all
+
+COPY --chown=docker:docker makefiles/tmux/Makefile /home/docker/makefiles/tmux/Makefile
+COPY --chown=docker:docker makefiles/tmux/module_template /home/docker/makefiles/tmux/module_template
+RUN make -C tmux all
+
+COPY --chown=docker:docker makefiles/mambaforge/Makefile /home/docker/makefiles/mambaforge/Makefile
+COPY --chown=docker:docker makefiles/mambaforge/mambaforge-init-template.sh /home/docker/makefiles/mambaforge/mambaforge-init-template.sh
+COPY --chown=docker:docker makefiles/mambaforge/module_template /home/docker/makefiles/mambaforge/module_template
+RUN make -C mambaforge all
+
+COPY --chown=docker:docker makefiles/golang/Makefile /home/docker/makefiles/golang/Makefile
+COPY --chown=docker:docker makefiles/golang/module_template /home/docker/makefiles/golang/module_template
+RUN make -C golang all
+
+COPY --chown=docker:docker makefiles/rust/Makefile /home/docker/makefiles/rust/Makefile
+COPY --chown=docker:docker makefiles/rust/module_template /home/docker/makefiles/rust/module_template
+RUN make -C rust all
+
+COPY --chown=docker:docker makefiles/cmake/Makefile /home/docker/makefiles/cmake/Makefile
+COPY --chown=docker:docker makefiles/cmake/module_template /home/docker/makefiles/cmake/module_template
+RUN make -C cmake all
+
+COPY --chown=docker:docker makefiles/git/Makefile /home/docker/makefiles/git/Makefile
+COPY --chown=docker:docker makefiles/git/module_template /home/docker/makefiles/git/module_template
+RUN make -C git all
+
+USER root
+RUN apt-get install -y libtool-bin zip unzip
+USER docker
+
+COPY --chown=docker:docker makefiles/neovim/Makefile /home/docker/makefiles/neovim/Makefile
+COPY --chown=docker:docker makefiles/neovim/module_template /home/docker/makefiles/neovim/module_template
+RUN make -C neovim all
+
+COPY --chown=docker:docker makefiles/pyenv/Makefile /home/docker/makefiles/pyenv/Makefile
+COPY --chown=docker:docker makefiles/pyenv/module_template /home/docker/makefiles/pyenv/module_template
+RUN make -C pyenv all
+
+COPY --chown=docker:docker makefiles/pipx/Makefile /home/docker/makefiles/pipx/Makefile
+COPY --chown=docker:docker makefiles/pipx/module_template /home/docker/makefiles/pipx/module_template
+RUN make -C pipx all
+
+COPY --chown=docker:docker makefiles/zotero/Makefile /home/docker/makefiles/zotero/Makefile
+COPY --chown=docker:docker makefiles/zotero/module_template /home/docker/makefiles/zotero/module_template
+RUN make -C zotero all
+
+COPY --chown=docker:docker makefiles/buildg/Makefile /home/docker/makefiles/buildg/Makefile
+COPY --chown=docker:docker makefiles/buildg/module_template /home/docker/makefiles/buildg/module_template
+RUN make -C buildg all
+
+COPY --chown=docker:docker makefiles/lua/Makefile /home/docker/makefiles/lua/Makefile
+RUN make -C lua all
+
+COPY --chown=docker:docker makefiles/luarocks/Makefile /home/docker/makefiles/luarocks/Makefile
+RUN make -C luarocks all
+
+USER root
+RUN apt-get install -y tcl-dev bzip2 bc
+USER docker
+
+COPY --chown=docker:docker makefiles/lmod/Makefile /home/docker/makefiles/lmod/Makefile
+RUN make -C lmod all
+
+COPY --chown=docker:docker makefiles/libgit2/Makefile /home/docker/makefiles/libgit2/Makefile
+COPY --chown=docker:docker makefiles/libgit2/module_template /home/docker/makefiles/libgit2/module_template
+RUN make -C libgit2 all
+
+COPY --chown=docker:docker makefiles/exa/Makefile /home/docker/makefiles/exa/Makefile
+COPY --chown=docker:docker makefiles/exa/module_template /home/docker/makefiles/exa/module_template
+RUN make -C exa all
+
+COPY --chown=docker:docker makefiles/rust_app/Makefile /home/docker/makefiles/rust_app/Makefile
+RUN make -C rust_app APP=bat all
+
+RUN make -C rust_app APP=broot all
+
+RUN make -C rust_app APP=ripgrep APP_BINARY=rg all
+
+RUN make -C rust_app APP=tealdeer APP_BINARY=tldr all
+
+RUN make -C rust_app APP=zoxide all
+
+RUN make -C rust_app APP=du-dust APP_BINARY=dust all
+
+RUN make -C rust_app APP=fd-find APP_BINARY=fd all
+
+RUN make -C rust_app APP=git-delta APP_BINARY=delta all
+
+RUN make -C rust_app APP=bottom APP_BINARY=btm all
+
+RUN make -C rust_app APP=mcfly APP_BINARY=mcfly all
+
+RUN make -C rust_app APP=starship all
+
+COPY --chown=docker:docker makefiles/go_app/Makefile /home/docker/makefiles/go_app/Makefile
+RUN make -C go_app APP_URL=github.com/charmbracelet/glow@latest APP_BINARY=glow all
+
+RUN make -C go_app APP_URL=github.com/jesseduffield/lazygit@latest APP_BINARY=lazygit all
+
+RUN make -C go_app APP_URL=github.com/muesli/duf@latest APP_BINARY=duf all
+
+RUN make -C go_app APP_URL=github.com/go-task/task/v3/cmd/task@latest APP_BINARY=task all
+
+RUN make -C go_app APP_URL=github.com/twpayne/chezmoi@latest APP_BINARY=chezmoi all
+
+COPY --chown=docker:docker makefiles/pipx_app/Makefile /home/docker/makefiles/pipx_app/Makefile
+RUN make -C pipx_app APP=isort all
+
+RUN make -C pipx_app APP=mypy all
+
+RUN make -C pipx_app APP=black all
+
+RUN make -C pipx_app APP=pyright all

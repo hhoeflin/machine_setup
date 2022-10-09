@@ -25,7 +25,7 @@ ${APP_PREFIX}/lib/libgit2.so: ${APP_TARFILE} | deps
 	mkdir build
 	cd build
 	export PATH=${PREFIX}/cmake/bin:${PATH}
-	cmake .. -DCMAKE_INSTALL_PREFIX=${APP_PREFIX}
+	cmake .. -DCMAKE_INSTALL_PREFIX=${APP_PREFIX} -DBUILD_TESTS=OFF
 	cmake --build . --target install
 
 ${MODULE_PATH}: module_template
@@ -40,3 +40,4 @@ clean:
 .PHONY: uninstall
 uninstall:
 	rm -rf ${APP_PREFIX}
+	rm -f ${MODULE_PATH}
