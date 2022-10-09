@@ -25,6 +25,7 @@ all clean uninstall:
 	$(MAKE) -C lmod $@
 	$(MAKE) -C libgit2 $@
 	$(MAKE) -C exa $@
+	$(MAKE) -C stow $@
 	# rust apps
 	$(MAKE) -C rust_app APP=bat $@
 	$(MAKE) -C rust_app APP=broot $@

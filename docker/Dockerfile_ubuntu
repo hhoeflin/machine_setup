@@ -5,7 +5,7 @@ ENV PREFIX=/home/docker/.local
 RUN apt-get -y update \
     && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata \
     && apt -y install build-essential wget gettext pkg-config zlib1g-dev \
-        dh-autoreconf libcurl4-gnutls-dev libexpat1-dev libssl-dev
+        dh-autoreconf libcurl4-gnutls-dev libexpat1-dev libssl-dev libtool
 
 RUN useradd -ms /bin/bash docker
 USER docker
@@ -52,10 +52,6 @@ COPY --chown=docker:docker makefiles/git/Makefile /home/docker/makefiles/git/Mak
 COPY --chown=docker:docker makefiles/git/module_template /home/docker/makefiles/git/module_template
 RUN make -C git all
 
-USER root
-RUN apt-get install -y libtool-bin zip unzip
-USER docker
-
 COPY --chown=docker:docker makefiles/neovim/Makefile /home/docker/makefiles/neovim/Makefile
 COPY --chown=docker:docker makefiles/neovim/module_template /home/docker/makefiles/neovim/module_template
 RUN make -C neovim all
@@ -82,10 +78,6 @@ RUN make -C lua all
 COPY --chown=docker:docker makefiles/luarocks/Makefile /home/docker/makefiles/luarocks/Makefile
 RUN make -C luarocks all
 
-USER root
-RUN apt-get install -y tcl-dev bzip2 bc
-USER docker
-
 COPY --chown=docker:docker makefiles/lmod/Makefile /home/docker/makefiles/lmod/Makefile
 RUN make -C lmod all
 
@@ -96,6 +88,8 @@ RUN make -C libgit2 all
 COPY --chown=docker:docker makefiles/exa/Makefile /home/docker/makefiles/exa/Makefile
 COPY --chown=docker:docker makefiles/exa/module_template /home/docker/makefiles/exa/module_template
 RUN make -C exa all
+
+RUN make -C stow all
 
 COPY --chown=docker:docker makefiles/rust_app/Makefile /home/docker/makefiles/rust_app/Makefile
 RUN make -C rust_app APP=bat all
