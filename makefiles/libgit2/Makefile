@@ -10,7 +10,7 @@ MODULE_PATH=${PREFIX}/modules/home/libgit2/default.lua
 APP_TARFILE=v${VERSION}.tar.gz
 
 .PHONY: all
-all: ${APP_PREFIX}/lib64/libgit2.so ${MODULE_PATH}
+all: ${APP_PREFIX}/bin/git2_cli ${MODULE_PATH}
 
 ${APP_TARFILE}:
 	wget https://github.com/libgit2/libgit2/archive/refs/tags/${APP_TARFILE}
@@ -19,7 +19,7 @@ ${APP_TARFILE}:
 deps:
 	$(MAKE) -C ../cmake
 
-${APP_PREFIX}/lib64/libgit2.so: ${APP_TARFILE} | deps
+${APP_PREFIX}/bin/git2_cli: ${APP_TARFILE} | deps
 	tar zxvf ${APP_TARFILE}
 	cd libgit2-${VERSION}
 	mkdir build
