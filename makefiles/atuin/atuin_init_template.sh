@@ -34,7 +34,8 @@ fi
 
 if [[ -z ${ATUIN_NOBIND} ]]; then
     bind -x '"\C-r": __atuin_history'
-    bind -x '"\e[A": __atuin_history'
-    bind -x '"\eOA": __atuin_history'
+    # up-key does not call atuin
+    # bind -x '"\e[A": __atuin_history'
+    # bind -x '"\eOA": __atuin_history'
 fi
 

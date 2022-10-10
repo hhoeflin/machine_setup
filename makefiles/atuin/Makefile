@@ -38,11 +38,11 @@ ${APP_PREFIX}/bin/${APP_BINARY}: | deps
 	cp ./bash-preexec.sh ${APP_PREFIX}/shell
 	ATUIN_BIN=${APP_PREFIX}/bin/${APP_BINARY} envsubst '$$ATUIN_BIN' < ./atuin_init_template.sh > ${APP_PREFIX}/shell/atuin_init.sh
 
-${APP_PREFIX}/shell/atuin_init.sh:
+${APP_PREFIX}/shell/atuin_init.sh: ./atuin_init_template.sh
 	mkdir -p ${APP_PREFIX}/shell
 	ATUIN_BIN=${APP_PREFIX}/bin/${APP_BINARY} envsubst '$$ATUIN_BIN' < ./atuin_init_template.sh > ${APP_PREFIX}/shell/atuin_init.sh
 
-${APP_PREFIX}/shell/bash-preexec.sh:
+${APP_PREFIX}/shell/bash-preexec.sh: ./bash-preexec.sh
 	mkdir -p ${APP_PREFIX}/shell
 	cp ./bash-preexec.sh ${APP_PREFIX}/shell
 
