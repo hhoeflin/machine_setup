@@ -40,10 +40,11 @@ all clean uninstall:
 	$(MAKE) -C rust_app APP=starship $@
 	# go apps
 	$(MAKE) -C go_app APP_URL=github.com/charmbracelet/glow APP_BINARY=glow $@
-	$(MAKE) -C go_app APP_URL=github.com/jesseduffield/lazygit APP_BINARY=lazygit $@
 	$(MAKE) -C go_app APP_URL=github.com/muesli/duf APP_BINARY=duf $@
 	$(MAKE) -C go_app APP_URL=github.com/go-task/task/v3/cmd/task APP_BINARY=task $@
 	$(MAKE) -C go_app APP_URL=github.com/twpayne/chezmoi APP_BINARY=chezmoi $@
+	# go app with custom module
+	$(MAKE) -C lazygit $@
 	# pipx apps
 	$(MAKE) -C pipx_app APP=isort $@
 	$(MAKE) -C pipx_app APP=mypy $@

@@ -6,3 +6,6 @@ load('home/openssl')
 load('home/libgit2')
 
 prepend_path( "PATH","${APP_PREFIX}/bin")
+set_alias( "ll", "exa -lahF")
+set_alias( "ls", "exa -F")
+set_alias( "lt", "exa -lahF --tree")
