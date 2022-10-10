@@ -30,12 +30,13 @@ all clean uninstall:
 	$(MAKE) -C libgit2 $@
 	$(MAKE) -C exa $@
 	$(MAKE) -C stow $@
+	$(MAKE) -C atuin $@
+	$(MAKE) -C zoxide $@
 	# rust apps
 	$(MAKE) -C rust_app APP=bat $@
 	$(MAKE) -C rust_app APP=broot $@
 	$(MAKE) -C rust_app APP=ripgrep APP_BINARY=rg $@
 	$(MAKE) -C rust_app APP=tealdeer APP_BINARY=tldr $@
-	$(MAKE) -C rust_app APP=zoxide $@
 	$(MAKE) -C rust_app APP=du-dust APP_BINARY=dust $@
 	$(MAKE) -C rust_app APP=fd-find APP_BINARY=fd $@
 	$(MAKE) -C rust_app APP=git-delta APP_BINARY=delta $@
