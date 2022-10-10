@@ -6,7 +6,7 @@ endif
 
 APP_PREFIX=${PREFIX}/stow
 VERSION=2.3.1
-MODULE_PATH=${PREFIX}/modules/home/ncurses/default.lua
+MODULE_PATH=${PREFIX}/modules/home/stow/default.lua
 APP_TARFILE=stow-${VERSION}.tar.gz
 
 all: ${APP_PREFIX}/bin/stow ${MODULE_PATH}
