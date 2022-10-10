@@ -15,7 +15,7 @@ all clean uninstall:
 	$(MAKE) -C rust $@
 	$(MAKE) -C cmake $@
 	$(MAKE) -C git $@
-	$(MAKE) -C neovim $@
+	$(MAKE) -C nvim $@
 	$(MAKE) -C pyenv $@
 	$(MAKE) -C pipx $@
 	$(MAKE) -C zotero $@
