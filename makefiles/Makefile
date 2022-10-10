@@ -1,6 +1,10 @@
 .ONESHELL:
 
+# can define PREFIX from the outside, otherwise
+ifndef PREFIX
 PREFIX=${HOME}/.stow
+endif
+
 export PREFIX
 
 .PHONY: all clean uninstall
@@ -50,3 +54,5 @@ all clean uninstall:
 	$(MAKE) -C pipx_app APP=mypy $@
 	$(MAKE) -C pipx_app APP=black $@
 	$(MAKE) -C pipx_app APP=pyright $@
+	# install the std_module
+	$(MAKE) -C std_module $@
