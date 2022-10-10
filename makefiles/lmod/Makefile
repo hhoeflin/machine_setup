@@ -28,7 +28,7 @@ ${APP_PREFIX}/lmod/init/profile: ${VERSION}.tar.gz | deps
 	${LUAROCKS_PREFIX}/bin/luarocks install luaposix
 	tar xvf ${VERSION}.tar.gz
 	cd Lmod-${VERSION}
-	./configure --prefix=${PREFIX}
+	./configure --prefix=${PREFIX} --with-fastTCLInterp=no
 	make -j; make install
 
 .PHONY: clean
