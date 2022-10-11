@@ -9,7 +9,7 @@ MODULE_PATH=${PREFIX}/modules/home/std.lua
 .PHONY: all uninstall clean
 all: ${PREFIX}/modules/home/std.lua
 
-${PREFIX}/modules/home/std.lua:
+${PREFIX}/modules/home/std.lua: std_module.lua
 	cp ./std_module.lua ${MODULE_PATH}
 
 clean:
