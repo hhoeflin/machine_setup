@@ -55,5 +55,6 @@ all clean uninstall:
 	$(MAKE) -C pipx_app APP=mypy $@
 	$(MAKE) -C pipx_app APP=black $@
 	$(MAKE) -C pipx_app APP=pyright $@
+	$(MAKE) -C pipx_app APP=ranger-fm APP_BINARY=ranger $@
 	# install the std_module
 	$(MAKE) -C std_module $@
