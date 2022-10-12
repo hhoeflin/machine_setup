@@ -19,7 +19,7 @@ ${APP_PREFIX}/include/ncurses/ncurses.h: ${APP_TARFILE}
 	tar zxvf ${APP_TARFILE}
 	cd ncurses-${VERSION}/
 	mkdir -p ${APP_PREFIX}/lib/pkgconfig
-	./configure --prefix=${APP_PREFIX} --with-shared --with-termlib --enable-pc-files \
+	./configure --prefix=${APP_PREFIX} --with-shared --enable-pc-files \
 		--with-pkg-config-libdir=${APP_PREFIX}/lib/pkgconfig
 	$(MAKE) -j && $(MAKE) install
 
