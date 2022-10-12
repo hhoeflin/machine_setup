@@ -5,7 +5,8 @@ ENV PREFIX=/home/docker/.local
 RUN apt-get -y update \
     && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata \
     && apt -y install build-essential wget gettext pkg-config zlib1g-dev \
-        dh-autoreconf libcurl4-gnutls-dev libexpat1-dev libssl-dev libtool
+        dh-autoreconf libcurl4-gnutls-dev libexpat1-dev libssl-dev libtool-bin \
+        zip unzip tclsh bc
 
 RUN useradd -ms /bin/bash docker
 USER docker
@@ -52,9 +53,9 @@ COPY --chown=docker:docker makefiles/git/Makefile /home/docker/makefiles/git/Mak
 COPY --chown=docker:docker makefiles/git/module_template /home/docker/makefiles/git/module_template
 RUN make -C git all
 
-COPY --chown=docker:docker makefiles/neovim/Makefile /home/docker/makefiles/neovim/Makefile
-COPY --chown=docker:docker makefiles/neovim/module_template /home/docker/makefiles/neovim/module_template
-RUN make -C neovim all
+COPY --chown=docker:docker makefiles/nvim/Makefile /home/docker/makefiles/nvim/Makefile
+COPY --chown=docker:docker makefiles/nvim/module_template /home/docker/makefiles/nvim/module_template
+RUN make -C nvim all
 
 COPY --chown=docker:docker makefiles/pyenv/Makefile /home/docker/makefiles/pyenv/Makefile
 COPY --chown=docker:docker makefiles/pyenv/module_template /home/docker/makefiles/pyenv/module_template
@@ -89,9 +90,23 @@ COPY --chown=docker:docker makefiles/exa/Makefile /home/docker/makefiles/exa/Mak
 COPY --chown=docker:docker makefiles/exa/module_template /home/docker/makefiles/exa/module_template
 RUN make -C exa all
 
+COPY --chown=docker:docker makefiles/stow/Makefile /home/docker/makefiles/stow/Makefile
+COPY --chown=docker:docker makefiles/stow/module_template /home/docker/makefiles/stow/module_template
 RUN make -C stow all
 
+COPY --chown=docker:docker makefiles/atuin/Makefile /home/docker/makefiles/atuin/Makefile
+COPY --chown=docker:docker makefiles/atuin/atuin_init_template.sh /home/docker/makefiles/atuin/atuin_init_template.sh
+COPY --chown=docker:docker makefiles/atuin/bash-preexec.sh /home/docker/makefiles/atuin/bash-preexec.sh
+COPY --chown=docker:docker makefiles/atuin/module_template /home/docker/makefiles/atuin/module_template
+RUN make -C atuin all
+
+COPY --chown=docker:docker makefiles/zoxide/Makefile /home/docker/makefiles/zoxide/Makefile
+COPY --chown=docker:docker makefiles/zoxide/module_template /home/docker/makefiles/zoxide/module_template
+COPY --chown=docker:docker makefiles/zoxide/zoxide_init_template.sh /home/docker/makefiles/zoxide/zoxide_init_template.sh
+RUN make -C zoxide all
+
 COPY --chown=docker:docker makefiles/rust_app/Makefile /home/docker/makefiles/rust_app/Makefile
+COPY --chown=docker:docker makefiles/rust_app/module_template /home/docker/makefiles/rust_app/module_template
 RUN make -C rust_app APP=bat all
 
 RUN make -C rust_app APP=broot all
@@ -99,8 +114,6 @@ RUN make -C rust_app APP=broot all
 RUN make -C rust_app APP=ripgrep APP_BINARY=rg all
 
 RUN make -C rust_app APP=tealdeer APP_BINARY=tldr all
-
-RUN make -C rust_app APP=zoxide all
 
 RUN make -C rust_app APP=du-dust APP_BINARY=dust all
 
@@ -115,17 +128,21 @@ RUN make -C rust_app APP=mcfly APP_BINARY=mcfly all
 RUN make -C rust_app APP=starship all
 
 COPY --chown=docker:docker makefiles/go_app/Makefile /home/docker/makefiles/go_app/Makefile
-RUN make -C go_app APP_URL=github.com/charmbracelet/glow@latest APP_BINARY=glow all
+COPY --chown=docker:docker makefiles/go_app/module_template /home/docker/makefiles/go_app/module_template
+RUN make -C go_app APP_URL=github.com/charmbracelet/glow APP_BINARY=glow all
 
-RUN make -C go_app APP_URL=github.com/jesseduffield/lazygit@latest APP_BINARY=lazygit all
+RUN make -C go_app APP_URL=github.com/muesli/duf APP_BINARY=duf all
 
-RUN make -C go_app APP_URL=github.com/muesli/duf@latest APP_BINARY=duf all
+RUN make -C go_app APP_URL=github.com/go-task/task/v3/cmd/task APP_BINARY=task all
 
-RUN make -C go_app APP_URL=github.com/go-task/task/v3/cmd/task@latest APP_BINARY=task all
+RUN make -C go_app APP_URL=github.com/twpayne/chezmoi APP_BINARY=chezmoi all
 
-RUN make -C go_app APP_URL=github.com/twpayne/chezmoi@latest APP_BINARY=chezmoi all
+COPY --chown=docker:docker makefiles/lazygit/Makefile /home/docker/makefiles/lazygit/Makefile
+COPY --chown=docker:docker makefiles/lazygit/module_template /home/docker/makefiles/lazygit/module_template
+RUN make -C lazygit all
 
 COPY --chown=docker:docker makefiles/pipx_app/Makefile /home/docker/makefiles/pipx_app/Makefile
+COPY --chown=docker:docker makefiles/pipx_app/module_template /home/docker/makefiles/pipx_app/module_template
 RUN make -C pipx_app APP=isort all
 
 RUN make -C pipx_app APP=mypy all
@@ -133,3 +150,18 @@ RUN make -C pipx_app APP=mypy all
 RUN make -C pipx_app APP=black all
 
 RUN make -C pipx_app APP=pyright all
+
+RUN make -C pipx_app APP=ranger-fm APP_BINARY=ranger all
+
+COPY --chown=docker:docker makefiles/std_module/Makefile /home/docker/makefiles/std_module/Makefile
+COPY --chown=docker:docker makefiles/std_module/std_module.lua /home/docker/makefiles/std_module/std_module.lua
+RUN make -C std_module all
+
+COPY --chown=docker:docker makefiles/angband/Makefile /home/docker/makefiles/angband/Makefile
+COPY --chown=docker:docker makefiles/angband/module_template /home/docker/makefiles/angband/module_template
+RUN make -C angband all
+
+COPY --chown=docker:docker makefiles/brogueCE/Makefile /home/docker/makefiles/brogueCE/Makefile
+COPY --chown=docker:docker makefiles/brogueCE/config.mk /home/docker/makefiles/brogueCE/config.mk
+COPY --chown=docker:docker makefiles/brogueCE/module_template /home/docker/makefiles/brogueCE/module_template
+RUN make -C brogueCE all

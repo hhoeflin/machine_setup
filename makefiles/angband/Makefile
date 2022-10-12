@@ -11,7 +11,7 @@ APP_TARFILE=${VERSION}.tar.gz
 
 .PHONY: all
 
-all: ${APP_PREFIX}/bin/angband ${MODULE_PATH}
+all: ${APP_PREFIX}/games/angband ${MODULE_PATH}
 
 ${APP_TARFILE}:
 	wget https://github.com/angband/angband/archive/refs/tags/${APP_TARFILE}
@@ -21,7 +21,7 @@ ${APP_TARFILE}:
 deps:
 	$(MAKE) -C ../ncurses
 
-${APP_PREFIX}/bin/angband: ${APP_TARFILE} | deps
+${APP_PREFIX}/games/angband: ${APP_TARFILE} | deps
 	tar zxvf ${APP_TARFILE}
 	cd angband-${VERSION}
 	# the CPPFLAGS and LDFLAGS are important, make sure you have written them correctly, or the build will fail

@@ -9,17 +9,17 @@ VERSION=6.3
 MODULE_PATH=${PREFIX}/modules/home/ncurses/default.lua
 APP_TARFILE=ncurses-${VERSION}.tar.gz
 
-all: ${APP_PREFIX}/include/ncurses/ncurses.h ${MODULE_PATH}
+all: ${APP_PREFIX}/include/ncursesw/ncurses.h ${MODULE_PATH}
 
 ${APP_TARFILE}:
 	wget https://ftp.gnu.org/pub/gnu/ncurses/${APP_TARFILE}
 
 
-${APP_PREFIX}/include/ncurses/ncurses.h: ${APP_TARFILE}
+${APP_PREFIX}/include/ncursesw/ncurses.h: ${APP_TARFILE}
 	tar zxvf ${APP_TARFILE}
 	cd ncurses-${VERSION}/
 	mkdir -p ${APP_PREFIX}/lib/pkgconfig
-	./configure --prefix=${APP_PREFIX} --with-shared --enable-pc-files \
+	./configure --prefix=${APP_PREFIX} --with-shared --enable-pc-files --enable-widec \
 		--with-pkg-config-libdir=${APP_PREFIX}/lib/pkgconfig
 	$(MAKE) -j && $(MAKE) install
 
