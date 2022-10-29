@@ -5,10 +5,9 @@ pyenv module by Holger Hoefling
 load("home/openssl")
 local root = "$APP_PREFIX"
 
-conflict("Mambaforge")
-
 setenv( "PYENV_ROOT", "${APP_PREFIX}")
--- prepend_path( "PATH","${APP_PREFIX}/bin")
+prepend_path( "PATH","${APP_PREFIX}/bin")
+prepend_path( "PATH","${APP_PREFIX}/shims")
 prepend_path("MANPATH", pathJoin(root, "share/man"))
 
 load_str=". " .. root .. "/shell/init.sh; " ..

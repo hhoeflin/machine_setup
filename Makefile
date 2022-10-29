@@ -1,13 +1,19 @@
 .ONESHELL:
 .PHONY: docker
+SHELL=/bin/bash
+
+PREFIX=~/.stow
 
 all: docker all-stow
 
 docker: docker/Dockerfile_ubuntu
 	 DOCKER_BUILDKIT=1 docker build -f docker/Dockerfile_ubuntu .
 
+include makefiles/lmod/setup_lmod.mk
+
 docker/Dockerfile_ubuntu: makefiles/Makefile docker/Dockerfile_head_ubuntu docker/create_dockerfile.py
-	. ${HOME}/.stow/mambaforge/shell/init_bash.sh
+	${INIT_LMOD}
+	ml home/mambaforge
 	mamba activate docker/conda_env
 	python docker/create_dockerfile.py makefiles/Makefile docker/Dockerfile_head_ubuntu docker/Dockerfile_ubuntu
 	mamba deactivate
@@ -16,7 +22,7 @@ progs=openssl libevent ncurses tmux mambaforge golang rust cmake \
 	  git nvim pyenv pipx zotero buildg lua luarocks libgit2 exa stow \
 	  bat broot ripgrep tealdeer zoxide du-dust fd-find git-delta \
 	  bottom mcfly starship glow lazygit duf task chezmoi \
-	  isort mypy black pyright
+	  isort mypy black pyright python angband brogueCE
 
 all-stow-targets:= $(foreach prog, ${progs}, stow-${prog})
 all-unstow-targets:= $(foreach prog, ${progs}, unstow-${prog})

@@ -1,37 +1,19 @@
-.ONESHELL:
+APP=luarocks
+APP_VERSION=3.9.1
 
-ifndef PREFIX
-$(error PREFIX is not set)
-endif
+include ../default.mk
 
-APP_PREFIX=${PREFIX}/luarocks
-VERSION=3.9.1
-
-.PHONY: all
-
-all: ${APP_PREFIX}/bin/luarocks
-
-luarocks-${VERSION}.tar.gz:
-	wget https://luarocks.org/releases/luarocks-${VERSION}.tar.gz
+luarocks-${APP_VERSION}.tar.gz:
+	wget https://luarocks.org/releases/luarocks-${APP_VERSION}.tar.gz
 
 .PHONY: deps
 deps:
 	$(MAKE) -C ../lua
 
-${APP_PREFIX}/bin/luarocks: luarocks-${VERSION}.tar.gz | deps
+${BINARY_TARGET}: luarocks-${APP_VERSION}.tar.gz | deps
 	set -e
 	export PATH=${PREFIX}/lua/bin:${PATH}
-	tar xvf luarocks-${VERSION}.tar.gz
-	cd luarocks-${VERSION}
+	tar xvf luarocks-${APP_VERSION}.tar.gz
+	cd luarocks-${APP_VERSION}
 	./configure --prefix=${APP_PREFIX} --with-lua=${PREFIX}/lua
 	make -j; make install
-
-.PHONY: clean
-clean:
-	rm -f luarocks-${VERSION}.tar.gz
-	rm -rf luarocks-${VERSION}
-
-.PHONY: uninstall
-uninstall:
-	rm -rf ${APP_PREFIX}
-	rm -f ${MODULE_PATH}

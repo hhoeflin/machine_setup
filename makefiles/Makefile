@@ -1,15 +1,22 @@
 .ONESHELL:
-
+SHELL=/bin/bash
 # can define PREFIX from the outside, otherwise
 ifndef PREFIX
 PREFIX=${HOME}/.stow
 endif
+
+AT_WORK ?= TRUE
 
 export PREFIX
 
 .PHONY: all clean uninstall
 all clean uninstall:
 	set -e
+	# first we set up lmod
+	$(MAKE) -C lua $@
+	$(MAKE) -C luarocks $@
+	$(MAKE) -C lmod $@
+	# all subsequent installs can rely on lmod to set up dependencies
 	$(MAKE) -C openssl $@
 	$(MAKE) -C libevent $@
 	$(MAKE) -C ncurses $@
@@ -24,14 +31,11 @@ all clean uninstall:
 	$(MAKE) -C pipx $@
 	$(MAKE) -C zotero $@
 	$(MAKE) -C buildg $@
-	$(MAKE) -C lua $@
-	$(MAKE) -C luarocks $@
-	$(MAKE) -C lmod $@
 	$(MAKE) -C libgit2 $@
 	$(MAKE) -C exa $@
-	$(MAKE) -C stow $@
 	$(MAKE) -C atuin $@
 	$(MAKE) -C zoxide $@
+	$(MAKE) -C python $@
 	# rust apps
 	$(MAKE) -C rust_app APP=bat $@
 	$(MAKE) -C rust_app APP=broot $@
@@ -58,6 +62,9 @@ all clean uninstall:
 	$(MAKE) -C pipx_app APP=ranger-fm APP_BINARY=ranger $@
 	# install the std_module
 	$(MAKE) -C std_module $@
+
+	# stop here if at work; below here only games
+	if [ ${AT_WORK} = 'TRUE' ]; then exit 0; fi
 	# text-based roguelikes
 	$(MAKE) -C angband $@
 	$(MAKE) -C brogueCE $@

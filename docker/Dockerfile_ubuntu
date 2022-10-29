@@ -12,9 +12,23 @@ RUN useradd -ms /bin/bash docker
 USER docker
 WORKDIR /home/docker
 COPY --chown=docker:docker makefiles/Makefile /home/docker/makefiles/Makefile
+COPY --chown=docker:docker makefiles/default.mk /home/docker/makefiles/default.mk
 
 WORKDIR /home/docker/makefiles
 
+
+COPY --chown=docker:docker makefiles/lua/Makefile /home/docker/makefiles/lua/Makefile
+COPY --chown=docker:docker makefiles/lua/module_template /home/docker/makefiles/lua/module_template
+RUN make -C lua all
+
+COPY --chown=docker:docker makefiles/luarocks/Makefile /home/docker/makefiles/luarocks/Makefile
+COPY --chown=docker:docker makefiles/luarocks/module_template /home/docker/makefiles/luarocks/module_template
+RUN make -C luarocks all
+
+COPY --chown=docker:docker makefiles/lmod/Makefile /home/docker/makefiles/lmod/Makefile
+COPY --chown=docker:docker makefiles/lmod/module_target.mk /home/docker/makefiles/lmod/module_target.mk
+COPY --chown=docker:docker makefiles/lmod/setup_lmod.mk /home/docker/makefiles/lmod/setup_lmod.mk
+RUN make -C lmod all
 
 COPY --chown=docker:docker makefiles/openssl/Makefile /home/docker/makefiles/openssl/Makefile
 COPY --chown=docker:docker makefiles/openssl/module_template /home/docker/makefiles/openssl/module_template
@@ -73,15 +87,6 @@ COPY --chown=docker:docker makefiles/buildg/Makefile /home/docker/makefiles/buil
 COPY --chown=docker:docker makefiles/buildg/module_template /home/docker/makefiles/buildg/module_template
 RUN make -C buildg all
 
-COPY --chown=docker:docker makefiles/lua/Makefile /home/docker/makefiles/lua/Makefile
-RUN make -C lua all
-
-COPY --chown=docker:docker makefiles/luarocks/Makefile /home/docker/makefiles/luarocks/Makefile
-RUN make -C luarocks all
-
-COPY --chown=docker:docker makefiles/lmod/Makefile /home/docker/makefiles/lmod/Makefile
-RUN make -C lmod all
-
 COPY --chown=docker:docker makefiles/libgit2/Makefile /home/docker/makefiles/libgit2/Makefile
 COPY --chown=docker:docker makefiles/libgit2/module_template /home/docker/makefiles/libgit2/module_template
 RUN make -C libgit2 all
@@ -89,10 +94,6 @@ RUN make -C libgit2 all
 COPY --chown=docker:docker makefiles/exa/Makefile /home/docker/makefiles/exa/Makefile
 COPY --chown=docker:docker makefiles/exa/module_template /home/docker/makefiles/exa/module_template
 RUN make -C exa all
-
-COPY --chown=docker:docker makefiles/stow/Makefile /home/docker/makefiles/stow/Makefile
-COPY --chown=docker:docker makefiles/stow/module_template /home/docker/makefiles/stow/module_template
-RUN make -C stow all
 
 COPY --chown=docker:docker makefiles/atuin/Makefile /home/docker/makefiles/atuin/Makefile
 COPY --chown=docker:docker makefiles/atuin/atuin_init_template.sh /home/docker/makefiles/atuin/atuin_init_template.sh
@@ -104,6 +105,12 @@ COPY --chown=docker:docker makefiles/zoxide/Makefile /home/docker/makefiles/zoxi
 COPY --chown=docker:docker makefiles/zoxide/module_template /home/docker/makefiles/zoxide/module_template
 COPY --chown=docker:docker makefiles/zoxide/zoxide_init_template.sh /home/docker/makefiles/zoxide/zoxide_init_template.sh
 RUN make -C zoxide all
+
+RUN echo "check_certificate = off" >> ~/.wgetrc
+
+COPY --chown=docker:docker makefiles/python/Makefile /home/docker/makefiles/python/Makefile
+COPY --chown=docker:docker makefiles/python/module_template /home/docker/makefiles/python/module_template
+RUN make -C python all
 
 COPY --chown=docker:docker makefiles/rust_app/Makefile /home/docker/makefiles/rust_app/Makefile
 COPY --chown=docker:docker makefiles/rust_app/module_template /home/docker/makefiles/rust_app/module_template
@@ -157,11 +164,13 @@ COPY --chown=docker:docker makefiles/std_module/Makefile /home/docker/makefiles/
 COPY --chown=docker:docker makefiles/std_module/std_module.lua /home/docker/makefiles/std_module/std_module.lua
 RUN make -C std_module all
 
+COPY --chown=docker:docker makefiles/angband/4.2.4.tar.gz /home/docker/makefiles/angband/4.2.4.tar.gz
 COPY --chown=docker:docker makefiles/angband/Makefile /home/docker/makefiles/angband/Makefile
 COPY --chown=docker:docker makefiles/angband/module_template /home/docker/makefiles/angband/module_template
 RUN make -C angband all
 
 COPY --chown=docker:docker makefiles/brogueCE/Makefile /home/docker/makefiles/brogueCE/Makefile
+COPY --chown=docker:docker makefiles/brogueCE/brogue_script.sh /home/docker/makefiles/brogueCE/brogue_script.sh
 COPY --chown=docker:docker makefiles/brogueCE/config.mk /home/docker/makefiles/brogueCE/config.mk
 COPY --chown=docker:docker makefiles/brogueCE/module_template /home/docker/makefiles/brogueCE/module_template
 RUN make -C brogueCE all

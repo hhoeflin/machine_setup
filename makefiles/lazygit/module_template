@@ -3,9 +3,8 @@ ${APP} module by Holger Hoefling
 ]])
 
 prepend_path( "PATH","${APP_PREFIX}/bin")
-load_str = 'function lg { lazygit "$@"; }; ' ..
-    'export -f lg; '
-unload_str = 'unset -f lg; '
-
+load_str="function lg { lazygit $@; }; " ..
+    "export -f lg; "
+unload_str="unset -f lg; "
 execute{cmd=load_str, modeA={"load"}}
 execute{cmd=unload_str, modeA={"unload"}}

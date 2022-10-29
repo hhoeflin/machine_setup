@@ -1,13 +1,11 @@
-.ONESHELL:
+APP=libgit2
+APP_VERSION=1.5.0
+OMIT_ALL=True
 
-ifndef PREFIX
-$(error PREFIX is not set)
-endif
+include ../default.mk
+include ../lmod/setup_lmod.mk
 
-APP_PREFIX=${PREFIX}/libgit2
-VERSION=1.5.0
-MODULE_PATH=${PREFIX}/modules/home/libgit2/default.lua
-APP_TARFILE=v${VERSION}.tar.gz
+APP_TARFILE=v${APP_VERSION}.tar.gz
 
 .PHONY: all
 all: ${APP_PREFIX}/bin/git2_cli ${MODULE_PATH}
@@ -18,26 +16,16 @@ ${APP_TARFILE}:
 .PHONY: deps
 deps:
 	$(MAKE) -C ../cmake
+	$(MAKE) -C ../openssl
 
 ${APP_PREFIX}/bin/git2_cli: ${APP_TARFILE} | deps
 	tar zxvf ${APP_TARFILE}
-	cd libgit2-${VERSION}
+	cd libgit2-${APP_VERSION}
 	mkdir build
 	cd build
-	export PATH=${PREFIX}/cmake/bin:${PATH}
+
+	${INIT_LMOD}
+	module load home/cmake
+	module load home/openssl
 	cmake .. -DCMAKE_INSTALL_PREFIX=${APP_PREFIX} -DBUILD_TESTS=OFF
 	cmake --build . --target install
-
-${MODULE_PATH}: module_template
-	mkdir -p $$(dirname ${MODULE_PATH})
-	APP_PREFIX=${APP_PREFIX} envsubst '$$APP_PREFIX' < module_template > ${MODULE_PATH}
-
-.PHONY: clean
-clean:
-	rm -rf libgit2-${VERSION}
-	rm -f ${APP_TARFILE}
-
-.PHONY: uninstall
-uninstall:
-	rm -rf ${APP_PREFIX}
-	rm -f ${MODULE_PATH}

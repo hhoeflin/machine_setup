@@ -1,17 +1,10 @@
-.ONESHELL:
+APP=nvim
+APP_VERSION=0.8.0
 
-ifndef PREFIX
-$(error PREFIX is not set)
-endif
+include ../default.mk
+include ../lmod/setup_lmod.mk
 
-APP_PREFIX=${PREFIX}/nvim
-VERSION=0.8.0
-APP_TARFILE=v${VERSION}.tar.gz
-MODULE_PATH=${PREFIX}/modules/home/nvim/default.lua
-
-.PHONY: all
-
-all: ${APP_PREFIX}/bin/nvim ${MODULE_PATH}
+APP_TARFILE=v${APP_VERSION}.tar.gz
 
 ${APP_TARFILE}:
 	wget https://github.com/neovim/neovim/archive/refs/tags/${APP_TARFILE}
@@ -23,20 +16,8 @@ deps:
 
 ${APP_PREFIX}/bin/nvim: ${APP_TARFILE} | deps
 	tar zxvf ${APP_TARFILE}
-	cd neovim-${VERSION}
-	export PATH=${PREFIX}/cmake/bin:${PREFIX}/git/bin:${PATH}
+	cd neovim-${APP_VERSION}
+
+	${INIT_LMOD}
+	module load home/cmake home/git
 	make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX=${APP_PREFIX} install
-
-${MODULE_PATH}: module_template
-	mkdir -p $$(dirname ${MODULE_PATH})
-	APP_PREFIX=${APP_PREFIX} envsubst '$$APP_PREFIX' < module_template > ${MODULE_PATH}
-
-.PHONY: clean
-clean:
-	rm -rf neovim-${VERSION}
-	rm -f ${APP_TARFILE}
-
-.PHONY: uninstall
-uninstall:
-	rm -rf ${APP_PREFIX}
-	rm -f ${MODULE_PATH}

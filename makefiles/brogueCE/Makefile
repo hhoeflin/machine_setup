@@ -1,29 +1,21 @@
-.ONESHELL:
+APP=brogueCE
+APP_BINARY=brogue
+APP_VERSION=1.11.1
 
-ifndef PREFIX
-$(error PREFIX is not set)
-endif
+include ../default.mk
 
-APP_PREFIX=${PREFIX}/brogueCE
-VERSION=1.11.1
-MODULE_PATH=${PREFIX}/modules/home/brogueCE/default.lua
-APP_TARFILE=v${VERSION}.tar.gz
-
-.PHONY: all
-
-all: ${APP_PREFIX}/bin/brogue ${MODULE_PATH}
+APP_TARFILE=v${APP_VERSION}.tar.gz
 
 ${APP_TARFILE}:
 	wget https://github.com/tmewett/BrogueCE/archive/refs/tags/${APP_TARFILE}
-
 
 .PHONY: deps
 deps:
 	$(MAKE) -C ../ncurses
 
-${APP_PREFIX}/bin/brogue: ${APP_TARFILE} config.mk | deps
+${BINARY_TARGET}: ${APP_TARFILE} config.mk | deps
 	tar zxvf ${APP_TARFILE}
-	cd BrogueCE-${VERSION}
+	cd BrogueCE-${APP_VERSION}
 	cp -f ../config.mk .
 	# the CPPFLAGS and LDFLAGS are important, make sure you have written them correctly, or the build will fail
 	CPPFLAGS="-I${PREFIX}/ncurses/include" LDFLAGS="-L${PREFIX}/ncurses/lib" make bin/brogue
@@ -37,18 +29,3 @@ ${APP_PREFIX}/bin/brogue: ${APP_TARFILE} config.mk | deps
 	cd ..
 	APP_PREFIX=${APP_PREFIX} envsubst '$$APP_PREFIX' < brogue_script.sh > ${APP_PREFIX}/bin/brogue
 	chmod +x ${APP_PREFIX}/bin/brogue
-
-${MODULE_PATH}: module_template
-	mkdir -p $$(dirname ${MODULE_PATH})
-	APP_PREFIX=${APP_PREFIX} envsubst '$$APP_PREFIX' < module_template > ${MODULE_PATH}
-
-
-.PHONY: clean
-clean:
-	rm -rf BrogueCE-${VERSION}
-	rm -f ${APP_TARFILE}
-
-.PHONY: uninstall
-uninstall:
-	rm -rf ${APP_PREFIX}
-	rm -f ${MODULE_PATH}

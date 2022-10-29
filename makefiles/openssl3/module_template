@@ -1,5 +1,0 @@
-help([[
-openssl module by Holger Hoefling
-]])
-
-prepend_path( "LD_LIBRARY_PATH","${APP_PREFIX}/lib")

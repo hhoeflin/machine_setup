@@ -1,5 +1,5 @@
 help([[
-${APP} module by Holger Hoefling
+Atuin module by Holger Hoefling
 ]])
 
 prepend_path( "PATH","${APP_PREFIX}/bin")

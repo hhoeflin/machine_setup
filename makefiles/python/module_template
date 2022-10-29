@@ -1,0 +1,9 @@
+help([[
+Python/${APP_VERSION} module by Holger Hoefling
+
+Provided via pyenv
+]])
+
+load('home/pyenv')
+setenv("PYENV_VERSION", "${APP_VERSION}")
+prepend_path( "PATH","${APP_PREFIX}/bin")

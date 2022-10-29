@@ -1,5 +1,5 @@
 help([[
-stow module by Holger Hoefling
+lua module by Holger Hoefling
 ]])
 
 prepend_path( "PATH","${APP_PREFIX}/bin")

@@ -12,5 +12,6 @@ RUN useradd -ms /bin/bash docker
 USER docker
 WORKDIR /home/docker
 COPY --chown=docker:docker makefiles/Makefile /home/docker/makefiles/Makefile
+COPY --chown=docker:docker makefiles/default.mk /home/docker/makefiles/default.mk
 
 WORKDIR /home/docker/makefiles
