@@ -58,8 +58,9 @@ all clean uninstall:
 	$(MAKE) -C pipx_app APP=isort $@
 	$(MAKE) -C pipx_app APP=mypy $@
 	$(MAKE) -C pipx_app APP=black $@
-	$(MAKE) -C pipx_app APP=pyright $@
 	$(MAKE) -C pipx_app APP=ranger-fm APP_BINARY=ranger $@
+	# nodejs apps
+	$(MAKE) -C nodejs_app APP=pyright $@
 	# install the std_module
 	$(MAKE) -C std_module $@
 

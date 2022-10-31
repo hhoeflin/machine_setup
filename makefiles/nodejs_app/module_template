@@ -1,0 +1,6 @@
+help([[
+${APP} module by Holger Hoefling
+]])
+
+load("home/nodejs")
+prepend_path( "PATH","${APP_PREFIX}/bin")

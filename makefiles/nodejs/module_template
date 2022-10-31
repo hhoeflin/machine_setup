@@ -1,0 +1,8 @@
+help([[
+nodejs module by Holger Hoefling
+]])
+
+load('home/libevent')
+load('home/ncurses')
+
+prepend_path( "PATH","${APP_PREFIX}/bin")
