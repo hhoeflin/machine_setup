@@ -106,7 +106,7 @@ COPY --chown=docker:docker makefiles/zoxide/module_template /home/docker/makefil
 COPY --chown=docker:docker makefiles/zoxide/zoxide_init_template.sh /home/docker/makefiles/zoxide/zoxide_init_template.sh
 RUN make -C zoxide all
 
-RUN echo "check_certificate = off" >> ~/.wgetrc
+RUN make -C bzip2 all
 
 COPY --chown=docker:docker makefiles/python/Makefile /home/docker/makefiles/python/Makefile
 COPY --chown=docker:docker makefiles/python/module_template /home/docker/makefiles/python/module_template
@@ -156,9 +156,11 @@ RUN make -C pipx_app APP=mypy all
 
 RUN make -C pipx_app APP=black all
 
-RUN make -C pipx_app APP=pyright all
-
 RUN make -C pipx_app APP=ranger-fm APP_BINARY=ranger all
+
+COPY --chown=docker:docker makefiles/nodejs_app/Makefile /home/docker/makefiles/nodejs_app/Makefile
+COPY --chown=docker:docker makefiles/nodejs_app/module_template /home/docker/makefiles/nodejs_app/module_template
+RUN make -C nodejs_app APP=pyright all
 
 COPY --chown=docker:docker makefiles/std_module/Makefile /home/docker/makefiles/std_module/Makefile
 COPY --chown=docker:docker makefiles/std_module/std_module.lua /home/docker/makefiles/std_module/std_module.lua

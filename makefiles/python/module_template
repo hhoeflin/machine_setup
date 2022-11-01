@@ -5,5 +5,7 @@ Provided via pyenv
 ]])
 
 load('home/pyenv')
+load('home/openssl')
+load('home/bzip2')
 setenv("PYENV_VERSION", "${APP_VERSION}")
 prepend_path( "PATH","${APP_PREFIX}/bin")

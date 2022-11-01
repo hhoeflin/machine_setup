@@ -60,4 +60,5 @@ ${MODULE_PATH}: module_template
 	mkdir -p $$(dirname ${MODULE_PATH})
 	APP_PREFIX=${APP_PREFIX} APP=${APP} APP_VERSION=${APP_VERSION} \
 		envsubst '$$APP_PREFIX $$APP $$APP_VERSION' < module_template > ${MODULE_PATH}
+	for GLOBAL_MODULE in ${GLOBAL_MODULES}; do echo "load(\"$${GLOBAL_MODULE}\")" >> ${MODULE_PATH}; done;
 endif

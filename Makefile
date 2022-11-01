@@ -22,7 +22,7 @@ progs=openssl libevent ncurses tmux mambaforge golang rust cmake \
 	  git nvim pyenv pipx zotero buildg lua luarocks libgit2 exa stow \
 	  bat broot ripgrep tealdeer zoxide du-dust fd-find git-delta \
 	  bottom mcfly starship glow lazygit duf task chezmoi \
-	  isort mypy black pyright python angband brogueCE
+	  isort mypy black pyright bzip2 python angband brogueCE
 
 all-stow-targets:= $(foreach prog, ${progs}, stow-${prog})
 all-unstow-targets:= $(foreach prog, ${progs}, unstow-${prog})
