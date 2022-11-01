@@ -1,0 +1,9 @@
+help([[
+sqlite3 module by Holger Hoefling
+]])
+
+prepend_path("CPATH", "${APP_PREFIX}/include")
+prepend_path("LD_LIBRARY_PATH","${APP_PREFIX}/lib")
+prepend_path("LIBRARY_PATH","${APP_PREFIX}/lib")
+prepend_path("PKG_CONFIG_PATH", "${APP_PREFIX}/lib/pkgconfig")
+prepend_path("PATH","${APP_PREFIX}/bin")
