@@ -14,5 +14,7 @@ deps:
 ${BINARY_TARGET}: | deps
 	set -e
 	${INIT_LMOD}
-	module load home/pyenv home/openssl home/bzip2
+	module load home/pyenv
+	CPPFLAGS="-I${PREFIX}/openssl/include -I${PREFIX}/bzip2/include" \
+	LDFLAGS="-L${PREFIX}/openssl/lib -L${PREFIX}/bzip2/lib" \
 	pyenv install ${APP_VERSION}
