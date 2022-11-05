@@ -51,6 +51,7 @@ endif
 ifndef OMIT_CLEAN
 .PHONY: clean
 clean:
+	shopt -s extglob
 	rm -rf !(Makefile|module_template)
 endif
 
