@@ -19,5 +19,7 @@ ${PIPX_BIN_DIR}/${APP_BINARY}: | deps
 	module load home/mambaforge
 	mamba activate ${PREFIX}/pipx/conda_env
 	pipx install -f ${APP}
-	if [[ 'x${PIPX_INJECT}' != x ]]; then pipx inject -f ${APP} ${PIPX_INJECT}; fi
+	if [[ 'x${PIPX_INJECT}' != x ]]; then 
+		pipx inject --include-apps --include-deps -f ${APP} ${PIPX_INJECT}; 
+	fi
 	mamba deactivate
