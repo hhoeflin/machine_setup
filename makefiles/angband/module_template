@@ -5,4 +5,4 @@ tmux module by Holger Hoefling
 load('home/libevent')
 load('home/ncurses')
 
-prepend_path( "PATH","${APP_PREFIX}/bin")
+prepend_path( "PATH","${APP_PREFIX}/games")
