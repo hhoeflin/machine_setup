@@ -10,11 +10,12 @@ deps:
 	$(MAKE) -C ../pyenv
 	$(MAKE) -C ../openssl
 	$(MAKE) -C ../bzip2
+	$(MAKE) -C ../sqlite3
 
 ${BINARY_TARGET}: | deps
 	set -e
 	${INIT_LMOD}
-	module load home/pyenv
-	CPPFLAGS="-I${PREFIX}/openssl/include -I${PREFIX}/bzip2/include" \
-	LDFLAGS="-L${PREFIX}/openssl/lib -L${PREFIX}/bzip2/lib" \
+	module load home/pyenv home/sqlite3
+	CPPFLAGS="-I${PREFIX}/openssl/include -I${PREFIX}/bzip2/include -I${PREFIX}/sqlite3/include" \
+	LDFLAGS="-L${PREFIX}/openssl/lib -L${PREFIX}/bzip2/lib -L${PREFIX}/sqlite3/lib" \
 	pyenv install ${APP_VERSION}

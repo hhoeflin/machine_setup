@@ -2,21 +2,30 @@
 .DEFAULT_GOAL = all
 SHELL=/bin/bash
 
+#####################
+# global settings
+#####################
 ifndef PREFIX
 $(error PREFIX is not set)
 endif
 export PREFIX
 
+# module category is home if not otherwise set
+MODULE_CATEG ?= home
+export MODULE_CATEG
+# default location for the MODULE_ROOT if not otherwise set
+MODULE_ROOT ?= ${PREFIX}/modules
+export MODULE_ROOT
+
+####################
+# APP settings
+####################
 ifndef APP
 $(error APP is not set)
 endif
 
 # set APP_VERSION to latest if not otherwise set
 APP_VERSION ?= latest
-# module category is home if not otherwise set
-MODULE_CATEG ?= home
-# default location for the MODULE_ROOT if not otherwise set
-MODULE_ROOT ?= ${PREFIX}/modules
 
 # set the paths for installation and modules but make them overwritable
 ifdef MULTI_VERSION
@@ -33,6 +42,9 @@ APP_BINARY ?= ${APP}
 # set the default binary target
 BINARY_TARGET ?= ${APP_PREFIX}/bin/${APP_BINARY}
 
+############################
+# Customizations for targets
+############################
 # set the default target for all
 ifndef OMIT_ALL
 .PHONY: all
