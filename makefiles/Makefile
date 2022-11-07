@@ -66,6 +66,8 @@ all clean uninstall:
 	$(MAKE) -C pipx_app APP=mypy $@
 	$(MAKE) -C pipx_app APP=black $@
 	$(MAKE) -C pipx_app APP=ranger-fm APP_BINARY=ranger $@
+	$(MAKE) -C pipx_app APP=python-lsp-server APP_BINARY=pylsp \
+		PIPX_INJECT='pylsp-mypy pyls-isort python-lsp-black pylsp-rope' $@
 	# nodejs apps
 	$(MAKE) -C nodejs_app APP=pyright $@
 	# install the std_module

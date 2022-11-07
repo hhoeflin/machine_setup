@@ -15,6 +15,7 @@ ${APP_TARFILE}:
 deps:
 	$(MAKE) -C ../libevent
 	$(MAKE) -C ../ncurses
+	$(MAKE) -C ../utf8proc
 	$(MAKE) -C ../lmod
 
 ${APP_PREFIX}/bin/tmux: ${APP_TARFILE} | deps
@@ -22,8 +23,10 @@ ${APP_PREFIX}/bin/tmux: ${APP_TARFILE} | deps
 	cd tmux-${APP_VERSION}
 
 	${INIT_LMOD}
-	module load home/libevent home/ncurses
+	module load home/libevent home/ncurses home/utf8proc
 	# the CPPFLAGS and LDFLAGS are important, make sure you have written them correctly, or the build will fail
-	echo $${PKG_CONFIG_PATH}
-	./configure --prefix=${APP_PREFIX}
+	PKG_CONFIG_PATH=$PKG_CONFIG_PATH \
+	CPPFLAGS="-I${PREFIX}/utf8proc/include" \
+	LDFLAGS="-L${PREFIX}/utf8proc/lib" \
+	./configure --enable-static --enable-utf8proc --prefix=${APP_PREFIX}
 	$(MAKE) -j && $(MAKE) install
