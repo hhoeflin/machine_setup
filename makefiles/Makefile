@@ -1,14 +1,15 @@
 .ONESHELL:
+
 SHELL=/bin/bash
 # can define PREFIX from the outside, otherwise
 ifndef PREFIX
-PREFIX=${HOME}/.stow
+	PREFIX=${HOME}/.stow
 endif
 
 # with GLOBAL_MODULES can set a number of modules that should be loaded
 # during compilation; will be picked up in lmod setup and module creation
 ifdef GLOBAL_MODULES
-export GLOBAL_MODULES
+	export GLOBAL_MODULES
 endif
 
 AT_WORK ?= TRUE
@@ -70,9 +71,9 @@ all clean uninstall:
 		PIPX_INJECT='pylsp-mypy pyls-isort python-lsp-black pylsp-rope' $@
 	# nodejs apps
 	$(MAKE) -C nodejs_app APP=pyright $@
+	$(MAKE) -C nodejs_app APP=purescript BINARY=purs $@
 	# install the std_module
 	$(MAKE) -C std_module $@
-
 	# stop here if at work; below here only games
 	if [ ${AT_WORK} = 'TRUE' ]; then exit 0; fi
 	# text-based roguelikes
