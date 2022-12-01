@@ -44,6 +44,8 @@ all clean uninstall:
 	$(MAKE) -C zoxide $@
 	$(MAKE) -C bzip2 $@
 	$(MAKE) -C python $@
+	$(MAKE) -C nodejs $@
+	$(MAKE) -C purescript $@
 	# rust apps
 	$(MAKE) -C rust_app APP=bat $@
 	$(MAKE) -C rust_app APP=broot $@
@@ -71,7 +73,6 @@ all clean uninstall:
 		PIPX_INJECT='pylsp-mypy pyls-isort python-lsp-black pylsp-rope' $@
 	# nodejs apps
 	$(MAKE) -C nodejs_app APP=pyright $@
-	$(MAKE) -C nodejs_app APP=purescript BINARY=purs $@
 	# install the std_module
 	$(MAKE) -C std_module $@
 	# stop here if at work; below here only games
