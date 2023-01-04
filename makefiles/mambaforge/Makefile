@@ -1,6 +1,6 @@
 APP=mambaforge
 APP_BINARY=mamba
-APP_VERSION=4.14.0-0
+APP_VERSION=22.9.0-2
 
 include ../default.mk
 
