@@ -1,5 +1,6 @@
 APP=pyenv
 
+include ../funcs.mk
 include ../default.mk
 
 APP_DWNLOAD=pyenv-installer
@@ -11,6 +12,8 @@ ${APP_DWNLOAD}:
 .PHONY: deps
 deps:
 	$(MAKE) -C ../git
+
+GIT_PREFIX=$(call LATEST_VERSION_DIR,${PREFIX}/git)
 
 ${BINARY_TARGET}: ${APP_DWNLOAD} | deps
 	export PATH=${PREFIX}/git/bin:${PATH}

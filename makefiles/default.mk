@@ -19,13 +19,8 @@ MODULE_CATEG ?= home
 MODULE_ROOT ?= ${PREFIX}/modules
 
 # set the paths for installation and modules but make them overwritable
-ifdef MULTI_VERSION
 APP_PREFIX ?= ${PREFIX}/${APP}/${APP_VERSION}
 MODULE_PATH ?= ${MODULE_ROOT}/${MODULE_CATEG}/${APP}/${APP_VERSION}.lua
-else
-APP_PREFIX ?= ${PREFIX}/${APP}
-MODULE_PATH ?= ${MODULE_ROOT}/${MODULE_CATEG}/${APP}/sole.lua
-endif
 
 # default app-binary is named like the app
 APP_BINARY ?= ${APP}
@@ -63,3 +58,4 @@ ${MODULE_PATH}: module_template
 		envsubst '$$APP_PREFIX $$APP $$APP_VERSION' < module_template > ${MODULE_PATH}
 	for GLOBAL_MODULE in ${GLOBAL_MODULES}; do echo "load(\"$${GLOBAL_MODULE}\")" >> ${MODULE_PATH}; done;
 endif
+

@@ -1,5 +1,6 @@
-APP=go
+APP=golang
 APP_VERSION=1.19.2
+APP_BINARY=go
 
 include ../default.mk
 
@@ -11,5 +12,6 @@ ${APP_TARFILE}:
 
 
 ${BINARY_TARGET}: ${APP_TARFILE}
-	tar zxvf ${APP_TARFILE} --directory ${PREFIX}
+	mkdir -p ${APP_PREFIX}
+	tar zxvf ${APP_TARFILE} --directory ${APP_PREFIX} --strip-components=1
 	touch ${BINARY_TARGET}

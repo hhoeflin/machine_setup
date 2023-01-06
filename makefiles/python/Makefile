@@ -1,6 +1,11 @@
 APP=python
 APP_VERSION=3.10.8
-BINARY_TARGET=${PREFIX}/pyenv/versions/${APP_VERSION}/bin/python3
+
+include ../funcs.mk
+
+PYENV_PREFIX=$(call LATEST_VERSION_DIR,${PREFIX}/pyenv)
+
+BINARY_TARGET=${PYENV_PREFIX}/versions/${APP_VERSION}/bin/python3
 MULTI_VERSION=True
 
 include ../default.mk
@@ -11,10 +16,13 @@ deps:
 	$(MAKE) -C ../openssl
 	$(MAKE) -C ../bzip2
 
+OPENSSL_PREFIX=$(call LATEST_VERSION_DIR,${PREFIX}/openssl)
+BZIP2_PREFIX=$(call LATEST_VERSION_DIR,${PREFIX}/bzip2)
+
 ${BINARY_TARGET}: | deps
 	set -e
 	${INIT_LMOD}
 	module load home/pyenv
-	CPPFLAGS="-I${PREFIX}/openssl/include -I${PREFIX}/bzip2/include" \
-	LDFLAGS="-L${PREFIX}/openssl/lib -L${PREFIX}/bzip2/lib" \
+	CPPFLAGS="-I${OPENSSL_PREFIX}/include -I${BZIP2_PREFIX}/include" \
+	LDFLAGS="-L${OPENSSL_PREFIX}/lib -L${BZIP2_PREFIX}/lib" \
 	pyenv install ${APP_VERSION}

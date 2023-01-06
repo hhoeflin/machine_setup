@@ -1,6 +1,5 @@
 APP=utf8proc
 APP_VERSION=2.8.0
-OMIT_ALL=True
 BINARY_TARGET=${APP_PREFIX}/lib/libutf8proc.so
 
 include ../default.mk

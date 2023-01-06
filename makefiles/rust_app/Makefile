@@ -8,4 +8,4 @@ include ../lmod/setup_lmod.mk
 ${APP_PREFIX}/bin/${APP_BINARY}: | deps
 	${INIT_LMOD}
 	module load home/cmake home/rust
-	cargo install ${APP} --root=${APP_PREFIX}
+	cargo install ${APP} --root=${APP_PREFIX} --version ${APP_VERSION}
