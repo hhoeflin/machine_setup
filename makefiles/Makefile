@@ -3,7 +3,7 @@
 SHELL=/bin/bash
 # can define PREFIX from the outside, otherwise
 ifndef PREFIX
-PREFIX=${HOME}/.stow
+PREFIX=${HOME}/.local/progs
 endif
 
 # with GLOBAL_MODULES can set a number of modules that should be loaded
@@ -26,6 +26,7 @@ all clean uninstall:
 	# all subsequent installs can rely on lmod to set up dependencies
 	$(MAKE) -C openssl $@
 	$(MAKE) -C libevent $@
+	$(MAKE) -C utf8proc $@
 	$(MAKE) -C ncurses $@
 	$(MAKE) -C tmux $@
 	$(MAKE) -C mambaforge $@
@@ -36,6 +37,8 @@ all clean uninstall:
 	$(MAKE) -C nvim $@
 	$(MAKE) -C pyenv $@
 	$(MAKE) -C pipx $@
+	$(MAKE) -C bzip2 $@
+	$(MAKE) -C python $@
 	$(MAKE) -C zotero $@
 	$(MAKE) -C buildg $@
 	$(MAKE) -C libgit2 $@
@@ -43,7 +46,6 @@ all clean uninstall:
 	$(MAKE) -C atuin $@
 	$(MAKE) -C zoxide $@
 	$(MAKE) -C bzip2 $@
-	$(MAKE) -C python $@
 	$(MAKE) -C nodejs $@
 	$(MAKE) -C purescript $@
 	# rust apps

@@ -16,7 +16,7 @@ deps:
 GIT_PREFIX=$(call LATEST_VERSION_DIR,${PREFIX}/git)
 
 ${BINARY_TARGET}: ${APP_DWNLOAD} | deps
-	export PATH=${PREFIX}/git/bin:${PATH}
+	export PATH=${GIT_PREFIX}/bin:${PATH}
 	export PYENV_ROOT=${APP_PREFIX}
 	chmod 770 ${APP_DWNLOAD}
 	bash ${APP_DWNLOAD}

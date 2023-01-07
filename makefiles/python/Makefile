@@ -6,7 +6,6 @@ include ../funcs.mk
 PYENV_PREFIX=$(call LATEST_VERSION_DIR,${PREFIX}/pyenv)
 
 BINARY_TARGET=${PYENV_PREFIX}/versions/${APP_VERSION}/bin/python3
-MULTI_VERSION=True
 
 include ../default.mk
 include ../lmod/setup_lmod.mk

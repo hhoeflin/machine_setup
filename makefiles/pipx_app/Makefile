@@ -22,7 +22,12 @@ ${PIPX_BIN_DIR}/${APP_BINARY}: | deps
 	${INIT_LMOD}
 	module load home/mambaforge
 	mamba activate ${PIPX_PREFIX}/conda_env
-	pipx install -f ${APP}@${APP_VERSION}
+	if [[ x${APP_VERSION} -eq 'xlatest' ]]
+	then
+		pipx install -f ${APP}
+	else
+		pipx install -f ${APP}@${APP_VERSION}
+	fi
 	if [[ 'x${PIPX_INJECT}' != x ]]; then
 		pipx inject --include-apps --include-deps -f ${APP} ${PIPX_INJECT};
 	fi

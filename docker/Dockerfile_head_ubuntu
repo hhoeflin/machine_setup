@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 ENV PREFIX=/home/docker/.local
 
@@ -6,12 +6,13 @@ RUN apt-get -y update \
     && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata \
     && apt -y install build-essential wget gettext pkg-config zlib1g-dev \
         dh-autoreconf libcurl4-gnutls-dev libexpat1-dev libssl-dev libtool-bin \
-        zip unzip tclsh bc
+        zip unzip tclsh bc vim
 
 RUN useradd -ms /bin/bash docker
 USER docker
 WORKDIR /home/docker
 COPY --chown=docker:docker makefiles/Makefile /home/docker/makefiles/Makefile
 COPY --chown=docker:docker makefiles/default.mk /home/docker/makefiles/default.mk
+COPY --chown=docker:docker makefiles/funcs.mk /home/docker/makefiles/funcs.mk
 
 WORKDIR /home/docker/makefiles

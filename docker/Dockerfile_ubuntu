@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 ENV PREFIX=/home/docker/.local
 
@@ -6,13 +6,14 @@ RUN apt-get -y update \
     && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata \
     && apt -y install build-essential wget gettext pkg-config zlib1g-dev \
         dh-autoreconf libcurl4-gnutls-dev libexpat1-dev libssl-dev libtool-bin \
-        zip unzip tclsh bc
+        zip unzip tclsh bc vim
 
 RUN useradd -ms /bin/bash docker
 USER docker
 WORKDIR /home/docker
 COPY --chown=docker:docker makefiles/Makefile /home/docker/makefiles/Makefile
 COPY --chown=docker:docker makefiles/default.mk /home/docker/makefiles/default.mk
+COPY --chown=docker:docker makefiles/funcs.mk /home/docker/makefiles/funcs.mk
 
 WORKDIR /home/docker/makefiles
 
@@ -37,6 +38,10 @@ RUN make -C openssl all
 COPY --chown=docker:docker makefiles/libevent/Makefile /home/docker/makefiles/libevent/Makefile
 COPY --chown=docker:docker makefiles/libevent/module_template /home/docker/makefiles/libevent/module_template
 RUN make -C libevent all
+
+COPY --chown=docker:docker makefiles/utf8proc/Makefile /home/docker/makefiles/utf8proc/Makefile
+COPY --chown=docker:docker makefiles/utf8proc/module_template /home/docker/makefiles/utf8proc/module_template
+RUN make -C utf8proc all
 
 COPY --chown=docker:docker makefiles/ncurses/Makefile /home/docker/makefiles/ncurses/Makefile
 COPY --chown=docker:docker makefiles/ncurses/module_template /home/docker/makefiles/ncurses/module_template
@@ -79,6 +84,14 @@ COPY --chown=docker:docker makefiles/pipx/Makefile /home/docker/makefiles/pipx/M
 COPY --chown=docker:docker makefiles/pipx/module_template /home/docker/makefiles/pipx/module_template
 RUN make -C pipx all
 
+COPY --chown=docker:docker makefiles/bzip2/Makefile /home/docker/makefiles/bzip2/Makefile
+COPY --chown=docker:docker makefiles/bzip2/module_template /home/docker/makefiles/bzip2/module_template
+RUN make -C bzip2 all
+
+COPY --chown=docker:docker makefiles/python/Makefile /home/docker/makefiles/python/Makefile
+COPY --chown=docker:docker makefiles/python/module_template /home/docker/makefiles/python/module_template
+RUN make -C python all
+
 COPY --chown=docker:docker makefiles/zotero/Makefile /home/docker/makefiles/zotero/Makefile
 COPY --chown=docker:docker makefiles/zotero/module_template /home/docker/makefiles/zotero/module_template
 RUN make -C zotero all
@@ -108,45 +121,45 @@ RUN make -C zoxide all
 
 RUN make -C bzip2 all
 
-COPY --chown=docker:docker makefiles/python/Makefile /home/docker/makefiles/python/Makefile
-COPY --chown=docker:docker makefiles/python/module_template /home/docker/makefiles/python/module_template
-RUN make -C python all
+COPY --chown=docker:docker makefiles/nodejs/Makefile /home/docker/makefiles/nodejs/Makefile
+COPY --chown=docker:docker makefiles/nodejs/module_template /home/docker/makefiles/nodejs/module_template
+RUN make -C nodejs all
+
+COPY --chown=docker:docker makefiles/purescript/Makefile /home/docker/makefiles/purescript/Makefile
+COPY --chown=docker:docker makefiles/purescript/module_template /home/docker/makefiles/purescript/module_template
+RUN make -C purescript all
 
 COPY --chown=docker:docker makefiles/rust_app/Makefile /home/docker/makefiles/rust_app/Makefile
 COPY --chown=docker:docker makefiles/rust_app/module_template /home/docker/makefiles/rust_app/module_template
-RUN make -C rust_app APP=bat all
+RUN make -C rust_app APP=bat APP_VERSION=0.22.1 all
 
-RUN make -C rust_app APP=broot all
+RUN make -C rust_app APP=broot APP_VERSION=1.18.0 all
 
-RUN make -C rust_app APP=ripgrep APP_BINARY=rg all
+RUN make -C rust_app APP=ripgrep APP_BINARY=rg APP_VERSION=13.0.0 all
 
-RUN make -C rust_app APP=tealdeer APP_BINARY=tldr all
+RUN make -C rust_app APP=tealdeer APP_BINARY=tldr APP_VERSION=1.6.1 all
 
-RUN make -C rust_app APP=du-dust APP_BINARY=dust all
+RUN make -C rust_app APP=du-dust APP_BINARY=dust APP_VERSION=0.8.3 all
 
-RUN make -C rust_app APP=fd-find APP_BINARY=fd all
+RUN make -C rust_app APP=fd-find APP_BINARY=fd APP_VERSION=8.6.0 all
 
-RUN make -C rust_app APP=git-delta APP_BINARY=delta all
+RUN make -C rust_app APP=git-delta APP_BINARY=delta APP_VERSION=0.15.1 all
 
-RUN make -C rust_app APP=bottom APP_BINARY=btm all
+RUN make -C rust_app APP=bottom APP_BINARY=btm APP_VERSION=0.6.0 all
 
-RUN make -C rust_app APP=mcfly APP_BINARY=mcfly all
-
-RUN make -C rust_app APP=starship all
+RUN make -C rust_app APP=starship APP_VERSION=1.12.0 all
 
 COPY --chown=docker:docker makefiles/go_app/Makefile /home/docker/makefiles/go_app/Makefile
 COPY --chown=docker:docker makefiles/go_app/module_template /home/docker/makefiles/go_app/module_template
-RUN make -C go_app APP_URL=github.com/charmbracelet/glow APP_BINARY=glow all
+RUN make -C go_app APP_URL=github.com/charmbracelet/glow APP_BINARY=glow APP_VERSION=v1.4.1 all
 
-RUN make -C go_app APP_URL=github.com/muesli/duf APP_BINARY=duf all
+RUN make -C go_app APP_URL=github.com/muesli/duf APP_BINARY=duf APP_VERSION=v0.8.1 all
 
-RUN make -C go_app APP_URL=github.com/go-task/task/v3/cmd/task APP_BINARY=task all
+RUN make -C go_app APP_URL=github.com/go-task/task/v3/cmd/task APP_BINARY=task APP_VERSION=v3.19.1 all
 
-RUN make -C go_app APP_URL=github.com/twpayne/chezmoi APP_BINARY=chezmoi all
+RUN make -C go_app APP_URL=github.com/twpayne/chezmoi APP_BINARY=chezmoi APP_VERSION=latest all
 
-COPY --chown=docker:docker makefiles/lazygit/Makefile /home/docker/makefiles/lazygit/Makefile
-COPY --chown=docker:docker makefiles/lazygit/module_template /home/docker/makefiles/lazygit/module_template
-RUN make -C lazygit all
+RUN make -C go_app APP_URL=github.com/jesseduffield/lazygit APP_BINARY=lazygit APP_VERSION=v0.36.0 all
 
 COPY --chown=docker:docker makefiles/pipx_app/Makefile /home/docker/makefiles/pipx_app/Makefile
 COPY --chown=docker:docker makefiles/pipx_app/module_template /home/docker/makefiles/pipx_app/module_template
@@ -158,9 +171,11 @@ RUN make -C pipx_app APP=black all
 
 RUN make -C pipx_app APP=ranger-fm APP_BINARY=ranger all
 
+RUN make -C pipx_app APP=python-lsp-server APP_BINARY=pylsp all
+
 COPY --chown=docker:docker makefiles/nodejs_app/Makefile /home/docker/makefiles/nodejs_app/Makefile
 COPY --chown=docker:docker makefiles/nodejs_app/module_template /home/docker/makefiles/nodejs_app/module_template
-RUN make -C nodejs_app APP=pyright all
+RUN make -C nodejs_app APP=pyright APP_VERSION=1.1.287 all
 
 COPY --chown=docker:docker makefiles/std_module/Makefile /home/docker/makefiles/std_module/Makefile
 COPY --chown=docker:docker makefiles/std_module/std_module.lua /home/docker/makefiles/std_module/std_module.lua

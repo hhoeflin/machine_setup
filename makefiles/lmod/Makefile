@@ -6,7 +6,8 @@ include ../funcs.mk
 include ../default.mk
 
 LUAROCKS_PREFIX=$(call LATEST_VERSION_DIR,${PREFIX}/luarocks)
-LUA_VERSION=$(shell ${PREFIX}/lua/bin/lua -e "print(_VERSION)" | cut --characters=5-7)
+LUA_PREFIX=$(call LATEST_VERSION_DIR,${PREFIX}/lua)
+LUA_VERSION=$(shell ${LUA_PREFIX}/bin/lua -e "print(_VERSION)" | cut --characters=5-7)
 
 .PHONY: all
 all: ${APP_PREFIX}/init/profile
