@@ -24,12 +24,11 @@ def create_docker_snippet_for_call(
 
         docker_root = Path("/home/docker/makefiles")
 
-        for file in tracked_files:
-            if Path(file).name == ".gitignore":
-                continue
-            docker_code.append(
-                f"COPY --chown=docker:docker {file} {str(docker_root / (Path(file).relative_to(root)))}"
-            )
+        docker_code.append(
+            "COPY --chown=docker:docker "
+            f"{' '.join([x for x in tracked_files if Path(x).name != '.gitignore'])} "
+            f"{str(docker_root / subdir)}/"
+        )
 
     # we need to change the call a bit
     call = call.replace("\t$(MAKE)", "make")

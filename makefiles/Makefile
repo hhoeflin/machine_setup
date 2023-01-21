@@ -48,7 +48,6 @@ all clean uninstall:
 	$(MAKE) -C bzip2 $@
 	$(MAKE) -C nodejs $@
 	$(MAKE) -C purescript $@
-	$(MAKE) -C lazygit
 	# rust apps
 	$(MAKE) -C rust_app APP=bat APP_VERSION=0.22.1 $@
 	$(MAKE) -C rust_app APP=broot APP_VERSION=1.18.0 $@
@@ -65,13 +64,13 @@ all clean uninstall:
 	$(MAKE) -C go_app APP_URL=github.com/go-task/task/v3/cmd/task APP_BINARY=task APP_VERSION=3.19.1 $@
 	$(MAKE) -C go_app APP_URL=github.com/twpayne/chezmoi APP_BINARY=chezmoi APP_VERSION=latest $@
 	$(MAKE) -C go_app APP_URL=github.com/jesseduffield/lazydocker APP_BINARY=lazydocker APP_VERSION=0.20.0 $@
+	$(MAKE) -C lazygit
 	# pipx apps
 	$(MAKE) -C pipx_app APP=isort $@
 	$(MAKE) -C pipx_app APP=mypy $@
 	$(MAKE) -C pipx_app APP=black $@
 	$(MAKE) -C pipx_app APP=ranger-fm APP_BINARY=ranger $@
-	$(MAKE) -C pipx_app APP=python-lsp-server APP_BINARY=pylsp \
-		PIPX_INJECT='pylsp-mypy pyls-isort python-lsp-black pylsp-rope' $@
+	$(MAKE) -C pipx_app APP=python-lsp-server APP_BINARY=pylsp PIPX_INJECT='pylsp-mypy pyls-isort python-lsp-black pylsp-rope' $@
 	# nodejs apps
 	$(MAKE) -C nodejs_app APP=pyright APP_VERSION=1.1.287 $@
 	# install the std_module
