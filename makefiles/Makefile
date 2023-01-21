@@ -48,6 +48,7 @@ all clean uninstall:
 	$(MAKE) -C bzip2 $@
 	$(MAKE) -C nodejs $@
 	$(MAKE) -C purescript $@
+	$(MAKE) -C lazygit
 	# rust apps
 	$(MAKE) -C rust_app APP=bat APP_VERSION=0.22.1 $@
 	$(MAKE) -C rust_app APP=broot APP_VERSION=1.18.0 $@
@@ -59,11 +60,11 @@ all clean uninstall:
 	$(MAKE) -C rust_app APP=bottom APP_BINARY=btm APP_VERSION=0.6.0 $@
 	$(MAKE) -C rust_app APP=starship APP_VERSION=1.12.0 $@
 	# go apps
-	$(MAKE) -C go_app APP_URL=github.com/charmbracelet/glow APP_BINARY=glow APP_VERSION=v1.4.1 $@
-	$(MAKE) -C go_app APP_URL=github.com/muesli/duf APP_BINARY=duf APP_VERSION=v0.8.1 $@
-	$(MAKE) -C go_app APP_URL=github.com/go-task/task/v3/cmd/task APP_BINARY=task APP_VERSION=v3.19.1 $@
+	$(MAKE) -C go_app APP_URL=github.com/charmbracelet/glow APP_BINARY=glow APP_VERSION=1.4.1 $@
+	$(MAKE) -C go_app APP_URL=github.com/muesli/duf APP_BINARY=duf APP_VERSION=0.8.1 $@
+	$(MAKE) -C go_app APP_URL=github.com/go-task/task/v3/cmd/task APP_BINARY=task APP_VERSION=3.19.1 $@
 	$(MAKE) -C go_app APP_URL=github.com/twpayne/chezmoi APP_BINARY=chezmoi APP_VERSION=latest $@
-	$(MAKE) -C go_app APP_URL=github.com/jesseduffield/lazygit APP_BINARY=lazygit APP_VERSION=v0.36.0 $@
+	$(MAKE) -C go_app APP_URL=github.com/jesseduffield/lazydocker APP_BINARY=lazydocker APP_VERSION=0.20.0 $@
 	# pipx apps
 	$(MAKE) -C pipx_app APP=isort $@
 	$(MAKE) -C pipx_app APP=mypy $@

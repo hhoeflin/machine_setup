@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-ENV PREFIX=/home/docker/.local
+ENV PREFIX=/home/docker/.local/progs
 
 RUN apt-get -y update \
     && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata \
@@ -171,7 +171,7 @@ RUN make -C pipx_app APP=black all
 
 RUN make -C pipx_app APP=ranger-fm APP_BINARY=ranger all
 
-RUN make -C pipx_app APP=python-lsp-server APP_BINARY=pylsp all
+RUN make -C pipx_app APP=python-lsp-server APP_BINARY=pylsp \
 
 COPY --chown=docker:docker makefiles/nodejs_app/Makefile /home/docker/makefiles/nodejs_app/Makefile
 COPY --chown=docker:docker makefiles/nodejs_app/module_template /home/docker/makefiles/nodejs_app/module_template
