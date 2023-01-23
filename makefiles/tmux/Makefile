@@ -25,7 +25,7 @@ ${APP_PREFIX}/bin/tmux: ${APP_TARFILE} | deps
 	${INIT_LMOD}
 	module load home/libevent home/ncurses home/utf8proc
 	# the CPPFLAGS and LDFLAGS are important, make sure you have written them correctly, or the build will fail
-	PKG_CONFIG_PATH=$PKG_CONFIG_PATH \
+	PKG_CONFIG_PATH=${PKG_CONFIG_PATH} \
 	CPPFLAGS="-I${PREFIX}/utf8proc/include" \
 	LDFLAGS="-L${PREFIX}/utf8proc/lib" \
 	./configure --enable-static --enable-utf8proc --prefix=${APP_PREFIX}
