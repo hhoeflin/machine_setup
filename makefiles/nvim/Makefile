@@ -1,5 +1,5 @@
 APP=nvim
-APP_VERSION=0.8.0
+APP_VERSION=0.8.2
 
 include ../default.mk
 include ../lmod/setup_lmod.mk
@@ -17,7 +17,6 @@ deps:
 ${APP_PREFIX}/bin/nvim: ${APP_TARFILE} | deps
 	tar zxvf ${APP_TARFILE}
 	cd neovim-${APP_VERSION}
-
 	${INIT_LMOD}
 	module load home/cmake home/git
 	make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX=${APP_PREFIX} install

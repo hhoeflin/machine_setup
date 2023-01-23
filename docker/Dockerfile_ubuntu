@@ -1,155 +1,136 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
-ENV PREFIX=/home/docker/.local
+ENV PREFIX=/home/docker/.local/progs
 
 RUN apt-get -y update \
     && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata \
     && apt -y install build-essential wget gettext pkg-config zlib1g-dev \
         dh-autoreconf libcurl4-gnutls-dev libexpat1-dev libssl-dev libtool-bin \
-        zip unzip tclsh bc
+        zip unzip tclsh bc vim
 
 RUN useradd -ms /bin/bash docker
 USER docker
 WORKDIR /home/docker
-COPY --chown=docker:docker makefiles/Makefile /home/docker/makefiles/Makefile
 COPY --chown=docker:docker makefiles/default.mk /home/docker/makefiles/default.mk
+COPY --chown=docker:docker makefiles/funcs.mk /home/docker/makefiles/funcs.mk
 
 WORKDIR /home/docker/makefiles
 
 
-COPY --chown=docker:docker makefiles/lua/Makefile /home/docker/makefiles/lua/Makefile
-COPY --chown=docker:docker makefiles/lua/module_template /home/docker/makefiles/lua/module_template
+COPY --chown=docker:docker makefiles/lua/Makefile makefiles/lua/module_template /home/docker/makefiles/lua/
 RUN make -C lua all
 
-COPY --chown=docker:docker makefiles/luarocks/Makefile /home/docker/makefiles/luarocks/Makefile
-COPY --chown=docker:docker makefiles/luarocks/module_template /home/docker/makefiles/luarocks/module_template
+COPY --chown=docker:docker makefiles/luarocks/Makefile makefiles/luarocks/module_template /home/docker/makefiles/luarocks/
 RUN make -C luarocks all
 
-COPY --chown=docker:docker makefiles/lmod/Makefile /home/docker/makefiles/lmod/Makefile
-COPY --chown=docker:docker makefiles/lmod/module_target.mk /home/docker/makefiles/lmod/module_target.mk
-COPY --chown=docker:docker makefiles/lmod/setup_lmod.mk /home/docker/makefiles/lmod/setup_lmod.mk
+COPY --chown=docker:docker makefiles/lmod/Makefile makefiles/lmod/module_target.mk makefiles/lmod/setup_lmod.mk /home/docker/makefiles/lmod/
 RUN make -C lmod all
 
-COPY --chown=docker:docker makefiles/openssl/Makefile /home/docker/makefiles/openssl/Makefile
-COPY --chown=docker:docker makefiles/openssl/module_template /home/docker/makefiles/openssl/module_template
+COPY --chown=docker:docker makefiles/openssl/Makefile makefiles/openssl/module_template /home/docker/makefiles/openssl/
 RUN make -C openssl all
 
-COPY --chown=docker:docker makefiles/libevent/Makefile /home/docker/makefiles/libevent/Makefile
-COPY --chown=docker:docker makefiles/libevent/module_template /home/docker/makefiles/libevent/module_template
+COPY --chown=docker:docker makefiles/libevent/Makefile makefiles/libevent/module_template /home/docker/makefiles/libevent/
 RUN make -C libevent all
 
-COPY --chown=docker:docker makefiles/ncurses/Makefile /home/docker/makefiles/ncurses/Makefile
-COPY --chown=docker:docker makefiles/ncurses/module_template /home/docker/makefiles/ncurses/module_template
+COPY --chown=docker:docker makefiles/utf8proc/Makefile makefiles/utf8proc/module_template /home/docker/makefiles/utf8proc/
+RUN make -C utf8proc all
+
+COPY --chown=docker:docker makefiles/ncurses/Makefile makefiles/ncurses/module_template /home/docker/makefiles/ncurses/
 RUN make -C ncurses all
 
-COPY --chown=docker:docker makefiles/tmux/Makefile /home/docker/makefiles/tmux/Makefile
-COPY --chown=docker:docker makefiles/tmux/module_template /home/docker/makefiles/tmux/module_template
+COPY --chown=docker:docker makefiles/tmux/Makefile makefiles/tmux/module_template /home/docker/makefiles/tmux/
 RUN make -C tmux all
 
-COPY --chown=docker:docker makefiles/mambaforge/Makefile /home/docker/makefiles/mambaforge/Makefile
-COPY --chown=docker:docker makefiles/mambaforge/mambaforge-init-template.sh /home/docker/makefiles/mambaforge/mambaforge-init-template.sh
-COPY --chown=docker:docker makefiles/mambaforge/module_template /home/docker/makefiles/mambaforge/module_template
+COPY --chown=docker:docker makefiles/mambaforge/Makefile makefiles/mambaforge/mambaforge-init-template.sh makefiles/mambaforge/module_template /home/docker/makefiles/mambaforge/
 RUN make -C mambaforge all
 
-COPY --chown=docker:docker makefiles/golang/Makefile /home/docker/makefiles/golang/Makefile
-COPY --chown=docker:docker makefiles/golang/module_template /home/docker/makefiles/golang/module_template
+COPY --chown=docker:docker makefiles/golang/Makefile makefiles/golang/module_template /home/docker/makefiles/golang/
 RUN make -C golang all
 
-COPY --chown=docker:docker makefiles/rust/Makefile /home/docker/makefiles/rust/Makefile
-COPY --chown=docker:docker makefiles/rust/module_template /home/docker/makefiles/rust/module_template
+COPY --chown=docker:docker makefiles/rust/Makefile makefiles/rust/module_template /home/docker/makefiles/rust/
 RUN make -C rust all
 
-COPY --chown=docker:docker makefiles/cmake/Makefile /home/docker/makefiles/cmake/Makefile
-COPY --chown=docker:docker makefiles/cmake/module_template /home/docker/makefiles/cmake/module_template
+COPY --chown=docker:docker makefiles/cmake/Makefile makefiles/cmake/module_template /home/docker/makefiles/cmake/
 RUN make -C cmake all
 
-COPY --chown=docker:docker makefiles/git/Makefile /home/docker/makefiles/git/Makefile
-COPY --chown=docker:docker makefiles/git/module_template /home/docker/makefiles/git/module_template
+COPY --chown=docker:docker makefiles/git/Makefile makefiles/git/module_template /home/docker/makefiles/git/
 RUN make -C git all
 
-COPY --chown=docker:docker makefiles/nvim/Makefile /home/docker/makefiles/nvim/Makefile
-COPY --chown=docker:docker makefiles/nvim/module_template /home/docker/makefiles/nvim/module_template
+COPY --chown=docker:docker makefiles/nvim/Makefile makefiles/nvim/module_template /home/docker/makefiles/nvim/
 RUN make -C nvim all
 
-COPY --chown=docker:docker makefiles/pyenv/Makefile /home/docker/makefiles/pyenv/Makefile
-COPY --chown=docker:docker makefiles/pyenv/module_template /home/docker/makefiles/pyenv/module_template
+COPY --chown=docker:docker makefiles/pyenv/Makefile makefiles/pyenv/module_template /home/docker/makefiles/pyenv/
 RUN make -C pyenv all
 
-COPY --chown=docker:docker makefiles/pipx/Makefile /home/docker/makefiles/pipx/Makefile
-COPY --chown=docker:docker makefiles/pipx/module_template /home/docker/makefiles/pipx/module_template
+COPY --chown=docker:docker makefiles/pipx/Makefile makefiles/pipx/module_template /home/docker/makefiles/pipx/
 RUN make -C pipx all
 
-COPY --chown=docker:docker makefiles/zotero/Makefile /home/docker/makefiles/zotero/Makefile
-COPY --chown=docker:docker makefiles/zotero/module_template /home/docker/makefiles/zotero/module_template
+COPY --chown=docker:docker makefiles/bzip2/Makefile makefiles/bzip2/module_template /home/docker/makefiles/bzip2/
+RUN make -C bzip2 all
+
+COPY --chown=docker:docker makefiles/python/Makefile makefiles/python/module_template /home/docker/makefiles/python/
+RUN make -C python all
+
+COPY --chown=docker:docker makefiles/zotero/Makefile makefiles/zotero/module_template /home/docker/makefiles/zotero/
 RUN make -C zotero all
 
-COPY --chown=docker:docker makefiles/buildg/Makefile /home/docker/makefiles/buildg/Makefile
-COPY --chown=docker:docker makefiles/buildg/module_template /home/docker/makefiles/buildg/module_template
+COPY --chown=docker:docker makefiles/buildg/Makefile makefiles/buildg/module_template /home/docker/makefiles/buildg/
 RUN make -C buildg all
 
-COPY --chown=docker:docker makefiles/libgit2/Makefile /home/docker/makefiles/libgit2/Makefile
-COPY --chown=docker:docker makefiles/libgit2/module_template /home/docker/makefiles/libgit2/module_template
+COPY --chown=docker:docker makefiles/libgit2/Makefile makefiles/libgit2/module_template /home/docker/makefiles/libgit2/
 RUN make -C libgit2 all
 
-COPY --chown=docker:docker makefiles/exa/Makefile /home/docker/makefiles/exa/Makefile
-COPY --chown=docker:docker makefiles/exa/module_template /home/docker/makefiles/exa/module_template
+COPY --chown=docker:docker makefiles/exa/Makefile makefiles/exa/module_template /home/docker/makefiles/exa/
 RUN make -C exa all
 
-COPY --chown=docker:docker makefiles/atuin/Makefile /home/docker/makefiles/atuin/Makefile
-COPY --chown=docker:docker makefiles/atuin/atuin_init_template.sh /home/docker/makefiles/atuin/atuin_init_template.sh
-COPY --chown=docker:docker makefiles/atuin/bash-preexec.sh /home/docker/makefiles/atuin/bash-preexec.sh
-COPY --chown=docker:docker makefiles/atuin/module_template /home/docker/makefiles/atuin/module_template
+COPY --chown=docker:docker makefiles/atuin/Makefile makefiles/atuin/atuin_init_template.sh makefiles/atuin/bash-preexec.sh makefiles/atuin/module_template /home/docker/makefiles/atuin/
 RUN make -C atuin all
 
-COPY --chown=docker:docker makefiles/zoxide/Makefile /home/docker/makefiles/zoxide/Makefile
-COPY --chown=docker:docker makefiles/zoxide/module_template /home/docker/makefiles/zoxide/module_template
-COPY --chown=docker:docker makefiles/zoxide/zoxide_init_template.sh /home/docker/makefiles/zoxide/zoxide_init_template.sh
+COPY --chown=docker:docker makefiles/zoxide/Makefile makefiles/zoxide/module_template makefiles/zoxide/zoxide_init_template.sh /home/docker/makefiles/zoxide/
 RUN make -C zoxide all
 
 RUN make -C bzip2 all
 
-COPY --chown=docker:docker makefiles/python/Makefile /home/docker/makefiles/python/Makefile
-COPY --chown=docker:docker makefiles/python/module_template /home/docker/makefiles/python/module_template
-RUN make -C python all
+COPY --chown=docker:docker makefiles/nodejs/Makefile makefiles/nodejs/module_template /home/docker/makefiles/nodejs/
+RUN make -C nodejs all
 
-COPY --chown=docker:docker makefiles/rust_app/Makefile /home/docker/makefiles/rust_app/Makefile
-COPY --chown=docker:docker makefiles/rust_app/module_template /home/docker/makefiles/rust_app/module_template
-RUN make -C rust_app APP=bat all
+COPY --chown=docker:docker makefiles/purescript/Makefile makefiles/purescript/module_template /home/docker/makefiles/purescript/
+RUN make -C purescript all
 
-RUN make -C rust_app APP=broot all
+COPY --chown=docker:docker makefiles/rust_app/Makefile makefiles/rust_app/module_template /home/docker/makefiles/rust_app/
+RUN make -C rust_app APP=bat APP_VERSION=0.22.1 all
 
-RUN make -C rust_app APP=ripgrep APP_BINARY=rg all
+RUN make -C rust_app APP=broot APP_VERSION=1.18.0 all
 
-RUN make -C rust_app APP=tealdeer APP_BINARY=tldr all
+RUN make -C rust_app APP=ripgrep APP_BINARY=rg APP_VERSION=13.0.0 all
 
-RUN make -C rust_app APP=du-dust APP_BINARY=dust all
+RUN make -C rust_app APP=tealdeer APP_BINARY=tldr APP_VERSION=1.6.1 all
 
-RUN make -C rust_app APP=fd-find APP_BINARY=fd all
+RUN make -C rust_app APP=du-dust APP_BINARY=dust APP_VERSION=0.8.3 all
 
-RUN make -C rust_app APP=git-delta APP_BINARY=delta all
+RUN make -C rust_app APP=fd-find APP_BINARY=fd APP_VERSION=8.6.0 all
 
-RUN make -C rust_app APP=bottom APP_BINARY=btm all
+RUN make -C rust_app APP=git-delta APP_BINARY=delta APP_VERSION=0.15.1 all
 
-RUN make -C rust_app APP=mcfly APP_BINARY=mcfly all
+RUN make -C rust_app APP=bottom APP_BINARY=btm APP_VERSION=0.6.0 all
 
-RUN make -C rust_app APP=starship all
+RUN make -C rust_app APP=starship APP_VERSION=1.12.0 all
 
-COPY --chown=docker:docker makefiles/go_app/Makefile /home/docker/makefiles/go_app/Makefile
-COPY --chown=docker:docker makefiles/go_app/module_template /home/docker/makefiles/go_app/module_template
-RUN make -C go_app APP_URL=github.com/charmbracelet/glow APP_BINARY=glow all
+COPY --chown=docker:docker makefiles/go_app/Makefile makefiles/go_app/module_template /home/docker/makefiles/go_app/
+RUN make -C go_app APP_URL=github.com/charmbracelet/glow APP_BINARY=glow APP_VERSION=1.4.1 all
 
-RUN make -C go_app APP_URL=github.com/muesli/duf APP_BINARY=duf all
+RUN make -C go_app APP_URL=github.com/muesli/duf APP_BINARY=duf APP_VERSION=0.8.1 all
 
-RUN make -C go_app APP_URL=github.com/go-task/task/v3/cmd/task APP_BINARY=task all
+RUN make -C go_app APP_URL=github.com/go-task/task/v3/cmd/task APP_BINARY=task APP_VERSION=3.19.1 all
 
-RUN make -C go_app APP_URL=github.com/twpayne/chezmoi APP_BINARY=chezmoi all
+RUN make -C go_app APP_URL=github.com/twpayne/chezmoi APP_BINARY=chezmoi APP_VERSION=latest all
 
-COPY --chown=docker:docker makefiles/lazygit/Makefile /home/docker/makefiles/lazygit/Makefile
-COPY --chown=docker:docker makefiles/lazygit/module_template /home/docker/makefiles/lazygit/module_template
-RUN make -C lazygit all
+RUN make -C go_app APP_URL=github.com/jesseduffield/lazydocker APP_BINARY=lazydocker APP_VERSION=0.20.0 all
 
-COPY --chown=docker:docker makefiles/pipx_app/Makefile /home/docker/makefiles/pipx_app/Makefile
-COPY --chown=docker:docker makefiles/pipx_app/module_template /home/docker/makefiles/pipx_app/module_template
+COPY --chown=docker:docker makefiles/lazygit/Makefile makefiles/lazygit/module_template /home/docker/makefiles/lazygit/
+RUN make -C lazygit
+
+COPY --chown=docker:docker makefiles/pipx_app/Makefile makefiles/pipx_app/module_template /home/docker/makefiles/pipx_app/
 RUN make -C pipx_app APP=isort all
 
 RUN make -C pipx_app APP=mypy all
@@ -158,21 +139,16 @@ RUN make -C pipx_app APP=black all
 
 RUN make -C pipx_app APP=ranger-fm APP_BINARY=ranger all
 
-COPY --chown=docker:docker makefiles/nodejs_app/Makefile /home/docker/makefiles/nodejs_app/Makefile
-COPY --chown=docker:docker makefiles/nodejs_app/module_template /home/docker/makefiles/nodejs_app/module_template
-RUN make -C nodejs_app APP=pyright all
+RUN make -C pipx_app APP=python-lsp-server APP_BINARY=pylsp PIPX_INJECT='pylsp-mypy pyls-isort python-lsp-black pylsp-rope' all
 
-COPY --chown=docker:docker makefiles/std_module/Makefile /home/docker/makefiles/std_module/Makefile
-COPY --chown=docker:docker makefiles/std_module/std_module.lua /home/docker/makefiles/std_module/std_module.lua
+COPY --chown=docker:docker makefiles/nodejs_app/Makefile makefiles/nodejs_app/module_template /home/docker/makefiles/nodejs_app/
+RUN make -C nodejs_app APP=pyright APP_VERSION=1.1.287 all
+
+COPY --chown=docker:docker makefiles/std_module/Makefile makefiles/std_module/std_module.lua /home/docker/makefiles/std_module/
 RUN make -C std_module all
 
-COPY --chown=docker:docker makefiles/angband/4.2.4.tar.gz /home/docker/makefiles/angband/4.2.4.tar.gz
-COPY --chown=docker:docker makefiles/angband/Makefile /home/docker/makefiles/angband/Makefile
-COPY --chown=docker:docker makefiles/angband/module_template /home/docker/makefiles/angband/module_template
+COPY --chown=docker:docker makefiles/angband/4.2.4.tar.gz makefiles/angband/Makefile makefiles/angband/module_template /home/docker/makefiles/angband/
 RUN make -C angband all
 
-COPY --chown=docker:docker makefiles/brogueCE/Makefile /home/docker/makefiles/brogueCE/Makefile
-COPY --chown=docker:docker makefiles/brogueCE/brogue_script.sh /home/docker/makefiles/brogueCE/brogue_script.sh
-COPY --chown=docker:docker makefiles/brogueCE/config.mk /home/docker/makefiles/brogueCE/config.mk
-COPY --chown=docker:docker makefiles/brogueCE/module_template /home/docker/makefiles/brogueCE/module_template
+COPY --chown=docker:docker makefiles/brogueCE/Makefile makefiles/brogueCE/brogue_script.sh makefiles/brogueCE/config.mk makefiles/brogueCE/module_template /home/docker/makefiles/brogueCE/
 RUN make -C brogueCE all

@@ -1,17 +1,20 @@
 help([==[
 
-Description
-===========
-Mamba is a fast, robust, and cross-platform package manager. It is based on conda.
-This version does not rely on the Anaconda channel.
+        Description
+        ===========
+        Mamba is a fast, robust, and cross-platform package manager. It is based on conda.
+        This version does not rely on the Anaconda channel.
 
-More information
-================
- - Homepage: https://mamba.readthedocs.io/en/latest/index.html
+        More information
+        ================
+        - Homepage: https://mamba.readthedocs.io/en/latest/index.html
 
 ]==])
 
-whatis([==[Description: Mamba is a fast, robust, and cross-platform package manager. It is based on conda. This version does not rely on the Anaconda channel.]==])
+whatis([==[
+        Description: Mamba is a fast, robust, and cross-platform package manager. It is based on conda. This version does not rely on the Anaconda channel.
+]==])
+
 whatis([==[Homepage: https://mamba.readthedocs.io/en/latest/index.html]==])
 
 local root = "$APP_PREFIX"
@@ -34,8 +37,7 @@ load_str="source " .. root .. "/etc/profile.d/conda.sh; " ..
     "export -f __conda_exe; " ..
     "export -f __conda_activate; " ..
     "export -f __conda_reactivate; " ..
-    "export -f __conda_hashr; " ..
-    "export -f __add_sys_prefix_to_path"
+    "export -f __conda_hashr; "
 unload_str="unset CONDA_SHLVL; " ..
     "unset CONDA_EXE; " ..
     "unset _CE_M; " ..
@@ -46,12 +48,11 @@ unload_str="unset CONDA_SHLVL; " ..
     "unset -f __conda_exe; " ..
     "unset -f __conda_activate; " ..
     "unset -f __conda_reactivate; " ..
-    "unset -f __conda_hashr; " ..
-    "unset -f __add_sys_prefix_to_path"
+    "unset -f __conda_hashr; "
 
 execute{cmd=load_str, modeA={"load"}}
 execute{cmd=unload_str, modeA={"unload"}}
 
 if (mode() == "unload") then
-    remove_path("PATH", root .. "/condabin")
+remove_path("PATH", root .. "/condabin")
 end

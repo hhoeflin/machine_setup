@@ -1,7 +1,10 @@
+include ../funcs.mk
 include ../default.mk
 
+PIPX_PREFIX=$(call LATEST_VERSION_DIR,${PREFIX}/pipx)
+
 PIPX_INJECT ?= ''
-PIPX_HOME=${PREFIX}/pipx
+PIPX_HOME=${PIPX_PREFIX}
 PIPX_BIN_DIR=${APP_PREFIX}/bin
 export PIPX_HOME
 export PIPX_BIN_DIR
@@ -14,12 +17,18 @@ all: ${PIPX_BIN_DIR}/${APP_BINARY} ${MODULE_PATH}
 
 include ../lmod/setup_lmod.mk
 
+
 ${PIPX_BIN_DIR}/${APP_BINARY}: | deps
 	${INIT_LMOD}
 	module load home/mambaforge
-	mamba activate ${PREFIX}/pipx/conda_env
-	pipx install -f ${APP}
-	if [[ 'x${PIPX_INJECT}' != x ]]; then 
-		pipx inject --include-apps --include-deps -f ${APP} ${PIPX_INJECT}; 
+	mamba activate ${PIPX_PREFIX}/conda_env
+	if [[ x${APP_VERSION} -eq 'xlatest' ]]
+	then
+		pipx install -f ${APP}
+	else
+		pipx install -f ${APP}@${APP_VERSION}
+	fi
+	if [[ 'x${PIPX_INJECT}' != x ]]; then
+		pipx inject --include-apps --include-deps -f ${APP} ${PIPX_INJECT};
 	fi
 	mamba deactivate

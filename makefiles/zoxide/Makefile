@@ -1,4 +1,5 @@
 APP=zoxide
+APP_VERSION=0.8.3
 OMIT_ALL=True
 OMIT_CLEAN=True
 
@@ -17,7 +18,7 @@ all: ${APP_PREFIX}/bin/${APP_BINARY} ${MODULE_PATH} ${ZOXIDE_INIT}
 ${BINARY_TARGET}: | deps
 	${INIT_LMOD}
 	module load home/rust home/cmake
-	cargo install ${APP} --root=${APP_PREFIX}
+	cargo install ${APP} --root=${APP_PREFIX} --version ${APP_VERSION}
 
 include ../lmod/module_target.mk
 

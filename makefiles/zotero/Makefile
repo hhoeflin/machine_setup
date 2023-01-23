@@ -12,6 +12,7 @@ ${APP_TARFILE}:
 ${APP_PREFIX}/bin/zotero: ${APP_TARFILE}
 	set -e
 	tar xvf ${APP_TARFILE}
+	mkdir -p ${APP_PREFIX}
 	mv Zotero_linux-x86_64 ${APP_PREFIX}
 	mkdir -p ${APP_PREFIX}/bin
 	ln -sf ${APP_PREFIX}/zotero ${APP_PREFIX}/bin/zotero

@@ -1,4 +1,5 @@
 APP=rust
+APP_VERSION=1.64.0
 APP_BINARY=cargo
 
 include ../default.mk
@@ -11,3 +12,4 @@ ${APP_DWNLOAD}:
 ${APP_PREFIX}/bin/cargo: ${APP_DWNLOAD}
 	chmod 770 ${APP_DWNLOAD}
 	RUSTUP_HOME=${APP_PREFIX} CARGO_HOME=${APP_PREFIX}  ./${APP_DWNLOAD} --no-modify-path -y
+	RUSTUP_HOME=${APP_PREFIX} CARGO_HOME=${APP_PREFIX}  ${APP_PREFIX}/bin/rustup default ${APP_VERSION}
