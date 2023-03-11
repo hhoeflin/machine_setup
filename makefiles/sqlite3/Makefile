@@ -6,7 +6,7 @@ include ../default.mk
 APP_TARFILE=sqlite-autoconf-${APP_VERSION}.tar.gz
 
 ${APP_TARFILE}:
-	wget https://sqlite.org/2022/${APP_TARFILE}
+	wget https://sqlite.org/2023/${APP_TARFILE}
 
 ${BINARY_TARGET}: ${APP_TARFILE}
 	tar zxvf ${APP_TARFILE}
