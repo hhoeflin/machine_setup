@@ -50,29 +50,30 @@ all clean uninstall:
 	$(MAKE) -C purescript $@
 	# rust apps
 	$(MAKE) -C rust_app APP=bat APP_VERSION=0.22.1 $@
-	$(MAKE) -C rust_app APP=broot APP_VERSION=1.18.0 $@
+	$(MAKE) -C rust_app APP=broot APP_VERSION=1.20.2 $@
 	$(MAKE) -C rust_app APP=ripgrep APP_BINARY=rg APP_VERSION=13.0.0 $@
 	$(MAKE) -C rust_app APP=tealdeer APP_BINARY=tldr APP_VERSION=1.6.1 $@
-	$(MAKE) -C rust_app APP=du-dust APP_BINARY=dust APP_VERSION=0.8.3 $@
-	$(MAKE) -C rust_app APP=fd-find APP_BINARY=fd APP_VERSION=8.6.0 $@
+	$(MAKE) -C rust_app APP=du-dust APP_BINARY=dust APP_VERSION=0.8.4 $@
+	$(MAKE) -C rust_app APP=fd-find APP_BINARY=fd APP_VERSION=8.7.0 $@
 	$(MAKE) -C rust_app APP=git-delta APP_BINARY=delta APP_VERSION=0.15.1 $@
-	$(MAKE) -C rust_app APP=bottom APP_BINARY=btm APP_VERSION=0.6.0 $@
-	$(MAKE) -C rust_app APP=starship APP_VERSION=1.12.0 $@
+	$(MAKE) -C rust_app APP=bottom APP_BINARY=btm APP_VERSION=0.8.0 $@
+	$(MAKE) -C rust_app APP=starship APP_VERSION=1.13.1 $@
 	# go apps
-	$(MAKE) -C go_app APP_URL=github.com/charmbracelet/glow APP_BINARY=glow APP_VERSION=1.4.1 $@
+	$(MAKE) -C go_app APP_URL=github.com/charmbracelet/glow APP_BINARY=glow APP_VERSION=1.5.0 $@
 	$(MAKE) -C go_app APP_URL=github.com/muesli/duf APP_BINARY=duf APP_VERSION=0.8.1 $@
-	$(MAKE) -C go_app APP_URL=github.com/go-task/task/v3/cmd/task APP_BINARY=task APP_VERSION=3.19.1 $@
+	$(MAKE) -C go_app APP_URL=github.com/go-task/task/v3/cmd/task APP_BINARY=task APP_VERSION=3.22.0 $@
 	$(MAKE) -C go_app APP_URL=github.com/twpayne/chezmoi APP_BINARY=chezmoi APP_VERSION=latest $@
 	$(MAKE) -C go_app APP_URL=github.com/jesseduffield/lazydocker APP_BINARY=lazydocker APP_VERSION=0.20.0 $@
 	$(MAKE) -C lazygit
 	# pipx apps
 	$(MAKE) -C pipx_app APP=isort $@
+	$(MAKE) -C pipx_app APP=ruff $@
 	$(MAKE) -C pipx_app APP=mypy $@
 	$(MAKE) -C pipx_app APP=black $@
 	$(MAKE) -C pipx_app APP=ranger-fm APP_BINARY=ranger $@
 	$(MAKE) -C pipx_app APP=python-lsp-server APP_BINARY=pylsp PIPX_INJECT='pylsp-mypy pyls-isort python-lsp-black pylsp-rope' $@
 	# nodejs apps
-	$(MAKE) -C nodejs_app APP=pyright APP_VERSION=1.1.287 $@
+	$(MAKE) -C nodejs_app APP=pyright APP_VERSION=1.1.298 $@
 	# install the std_module
 	$(MAKE) -C std_module $@
 	# stop here if at work; below here only games

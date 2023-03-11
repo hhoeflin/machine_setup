@@ -1,6 +1,7 @@
 APP=mambaforge
 APP_BINARY=mamba
-APP_VERSION=22.9.0-2
+APP_VERSION=22.11.1-4
+OMIT_CLEAN=1
 
 include ../default.mk
 
@@ -17,3 +18,8 @@ ${BINARY_TARGET}: ${APP_DWNLOAD}
 
 ${APP_PREFIX}/shell/init_bash.sh: mambaforge-init-template.sh
 	MAMBA_PATH=${APP_PREFIX} envsubst '$$MAMBA_PATH' < mambaforge-init-template.sh > ${APP_PREFIX}/shell/init_bash.sh
+
+.PHONY: clean
+clean:
+	shopt -s extglob
+	rm -rf !(Makefile|module_template|mambaforge-init-template.sh)

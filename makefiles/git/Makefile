@@ -1,5 +1,5 @@
 APP=git
-APP_VERSION=2.38.0
+APP_VERSION=2.39.2
 
 include ../default.mk
 

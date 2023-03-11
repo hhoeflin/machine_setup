@@ -1,5 +1,5 @@
 APP=cmake
-APP_VERSION=3.24.2
+APP_VERSION=3.25.3
 
 include ../default.mk
 
