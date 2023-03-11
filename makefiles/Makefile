@@ -38,6 +38,7 @@ all clean uninstall:
 	$(MAKE) -C pyenv $@
 	$(MAKE) -C pipx $@
 	$(MAKE) -C bzip2 $@
+	$(MAKE) -C sqlite3 $@
 	$(MAKE) -C python $@
 	$(MAKE) -C zotero $@
 	$(MAKE) -C buildg $@

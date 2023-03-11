@@ -68,6 +68,9 @@ RUN make -C pipx all
 COPY --chown=docker:docker makefiles/bzip2/Makefile makefiles/bzip2/module_template /home/docker/makefiles/bzip2/
 RUN make -C bzip2 all
 
+COPY --chown=docker:docker makefiles/sqlite3/Makefile makefiles/sqlite3/module_template /home/docker/makefiles/sqlite3/
+RUN make -C sqlite3 all
+
 COPY --chown=docker:docker makefiles/python/Makefile makefiles/python/module_template /home/docker/makefiles/python/
 RUN make -C python all
 
@@ -100,28 +103,28 @@ RUN make -C purescript all
 COPY --chown=docker:docker makefiles/rust_app/Makefile makefiles/rust_app/module_template /home/docker/makefiles/rust_app/
 RUN make -C rust_app APP=bat APP_VERSION=0.22.1 all
 
-RUN make -C rust_app APP=broot APP_VERSION=1.18.0 all
+RUN make -C rust_app APP=broot APP_VERSION=1.20.2 all
 
 RUN make -C rust_app APP=ripgrep APP_BINARY=rg APP_VERSION=13.0.0 all
 
 RUN make -C rust_app APP=tealdeer APP_BINARY=tldr APP_VERSION=1.6.1 all
 
-RUN make -C rust_app APP=du-dust APP_BINARY=dust APP_VERSION=0.8.3 all
+RUN make -C rust_app APP=du-dust APP_BINARY=dust APP_VERSION=0.8.4 all
 
-RUN make -C rust_app APP=fd-find APP_BINARY=fd APP_VERSION=8.6.0 all
+RUN make -C rust_app APP=fd-find APP_BINARY=fd APP_VERSION=8.7.0 all
 
 RUN make -C rust_app APP=git-delta APP_BINARY=delta APP_VERSION=0.15.1 all
 
-RUN make -C rust_app APP=bottom APP_BINARY=btm APP_VERSION=0.6.0 all
+RUN make -C rust_app APP=bottom APP_BINARY=btm APP_VERSION=0.8.0 all
 
-RUN make -C rust_app APP=starship APP_VERSION=1.12.0 all
+RUN make -C rust_app APP=starship APP_VERSION=1.13.1 all
 
 COPY --chown=docker:docker makefiles/go_app/Makefile makefiles/go_app/module_template /home/docker/makefiles/go_app/
-RUN make -C go_app APP_URL=github.com/charmbracelet/glow APP_BINARY=glow APP_VERSION=1.4.1 all
+RUN make -C go_app APP_URL=github.com/charmbracelet/glow APP_BINARY=glow APP_VERSION=1.5.0 all
 
 RUN make -C go_app APP_URL=github.com/muesli/duf APP_BINARY=duf APP_VERSION=0.8.1 all
 
-RUN make -C go_app APP_URL=github.com/go-task/task/v3/cmd/task APP_BINARY=task APP_VERSION=3.19.1 all
+RUN make -C go_app APP_URL=github.com/go-task/task/v3/cmd/task APP_BINARY=task APP_VERSION=3.22.0 all
 
 RUN make -C go_app APP_URL=github.com/twpayne/chezmoi APP_BINARY=chezmoi APP_VERSION=latest all
 
@@ -133,6 +136,8 @@ RUN make -C lazygit
 COPY --chown=docker:docker makefiles/pipx_app/Makefile makefiles/pipx_app/module_template /home/docker/makefiles/pipx_app/
 RUN make -C pipx_app APP=isort all
 
+RUN make -C pipx_app APP=ruff all
+
 RUN make -C pipx_app APP=mypy all
 
 RUN make -C pipx_app APP=black all
@@ -142,7 +147,7 @@ RUN make -C pipx_app APP=ranger-fm APP_BINARY=ranger all
 RUN make -C pipx_app APP=python-lsp-server APP_BINARY=pylsp PIPX_INJECT='pylsp-mypy pyls-isort python-lsp-black pylsp-rope' all
 
 COPY --chown=docker:docker makefiles/nodejs_app/Makefile makefiles/nodejs_app/module_template /home/docker/makefiles/nodejs_app/
-RUN make -C nodejs_app APP=pyright APP_VERSION=1.1.287 all
+RUN make -C nodejs_app APP=pyright APP_VERSION=1.1.298 all
 
 COPY --chown=docker:docker makefiles/std_module/Makefile makefiles/std_module/std_module.lua /home/docker/makefiles/std_module/
 RUN make -C std_module all
