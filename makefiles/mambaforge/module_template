@@ -37,7 +37,8 @@ load_str="source " .. root .. "/etc/profile.d/conda.sh; " ..
     "export -f __conda_exe; " ..
     "export -f __conda_activate; " ..
     "export -f __conda_reactivate; " ..
-    "export -f __conda_hashr; "
+    "export -f __conda_hashr; " ..
+    "export -f __mamba_exe; "
 unload_str="unset CONDA_SHLVL; " ..
     "unset CONDA_EXE; " ..
     "unset _CE_M; " ..
@@ -48,7 +49,8 @@ unload_str="unset CONDA_SHLVL; " ..
     "unset -f __conda_exe; " ..
     "unset -f __conda_activate; " ..
     "unset -f __conda_reactivate; " ..
-    "unset -f __conda_hashr; "
+    "unset -f __conda_hashr; " ..
+    "unset -f __mamba_exe; "
 
 execute{cmd=load_str, modeA={"load"}}
 execute{cmd=unload_str, modeA={"unload"}}
