@@ -1,5 +1,5 @@
 APP=nvim
-APP_VERSION=0.8.3
+APP_VERSION=0.9.0
 
 include ../default.mk
 include ../lmod/setup_lmod.mk
