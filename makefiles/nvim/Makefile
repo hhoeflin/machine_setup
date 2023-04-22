@@ -15,7 +15,10 @@ deps:
 	$(MAKE) -C ../git
 
 ${APP_PREFIX}/bin/nvim: ${APP_TARFILE} | deps
-	tar zxvf ${APP_TARFILE}
+	if [[ ! -d "neovim-${APP_VERSION}" ]];
+	then
+		tar zxvf ${APP_TARFILE}
+	fi
 	cd neovim-${APP_VERSION}
 	${INIT_LMOD}
 	module load home/cmake home/git
