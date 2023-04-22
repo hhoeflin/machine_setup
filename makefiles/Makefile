@@ -48,7 +48,7 @@ all clean uninstall:
 	$(MAKE) -C zoxide $@
 	$(MAKE) -C bzip2 $@
 	$(MAKE) -C nodejs $@
-	$(MAKE) -C purescript $@
+	# $(MAKE) -C purescript $@
 	# rust apps
 	$(MAKE) -C rust_app APP=bat APP_VERSION=0.22.1 $@
 	$(MAKE) -C rust_app APP=broot APP_VERSION=1.20.2 $@

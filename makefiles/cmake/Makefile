@@ -17,8 +17,7 @@ deps:
 ${APP_PREFIX}/bin/cmake: ${APP_TARFILE} | deps
 	tar zxvf ${APP_TARFILE}
 	cd cmake-${APP_VERSION}
-
 	${INIT_LMOD}
 	module load home/openssl
-	./bootstrap --prefix=${APP_PREFIX}
+	./bootstrap --prefix=${APP_PREFIX} -- -DCMAKE_USE_OPENSSL=ON
 	$(MAKE) -j && $(MAKE) install
