@@ -60,6 +60,8 @@ all clean uninstall:
 	$(MAKE) -C rust_app APP=bottom APP_BINARY=btm APP_VERSION=0.8.0 $@
 	$(MAKE) -C rust_app APP=starship APP_VERSION=1.13.1 $@
 	$(MAKE) -C rust_app APP=tokei APP_VERSION=12.1.2 $@
+	$(MAKE) -C rust_app APP=zellij APP_VERSION=0.36.0 $@
+	$(MAKE) -C rust_app APP=joshuto APP_VERSION=0.9.4 $@
 	# go apps
 	$(MAKE) -C go_app APP_URL=github.com/charmbracelet/glow APP_BINARY=glow APP_VERSION=1.5.0 $@
 	$(MAKE) -C go_app APP_URL=github.com/muesli/duf APP_BINARY=duf APP_VERSION=0.8.1 $@

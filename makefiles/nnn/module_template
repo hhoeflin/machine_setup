@@ -1,0 +1,7 @@
+help([[
+nnn module by Holger Hoefling
+]])
+
+load('home/utf8proc')
+
+prepend_path( "PATH","${APP_PREFIX}/bin")
