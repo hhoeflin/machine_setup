@@ -19,7 +19,6 @@ export GOBIN
 
 include ../lmod/setup_lmod.mk
 
-ifndef OMIT_BINARY_TARGET
 ${BINARY_TARGET}: | deps
 	${INIT_LMOD}
 	module load home/golang
@@ -30,4 +29,3 @@ ${BINARY_TARGET}: | deps
 		go install ${APP_URL}@${APP_VERSION_PREFIX}${APP_VERSION}
 	fi
 
-endif

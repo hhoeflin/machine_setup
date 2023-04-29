@@ -1,7 +1,6 @@
 APP_URL=github.com/doronbehar/pistol/cmd/pistol
 APP_BINARY=pistol
 APP_VERSION=0.4.1
-OMIT_BINARY_TARGET=1
 
 include ../go_app/Makefile
 include ../funcs.mk
