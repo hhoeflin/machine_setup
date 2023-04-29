@@ -2,6 +2,10 @@ ifndef APP_URL
 $(error APP is not set)
 endif
 
+ifndef APP_VERSION_PREFIX
+APP_VERSION_PREFIX=v
+endif
+
 APP=$(shell basename ${APP_URL})
 
 include ../default.mk
@@ -15,6 +19,7 @@ export GOBIN
 
 include ../lmod/setup_lmod.mk
 
+ifndef OMIT_BINARY_TARGET
 ${BINARY_TARGET}: | deps
 	${INIT_LMOD}
 	module load home/golang
@@ -22,5 +27,7 @@ ${BINARY_TARGET}: | deps
 	if [[ x${APP_VERSION} == xlatest ]]; then
 		go install ${APP_URL}@latest
 	else
-		go install ${APP_URL}@v${APP_VERSION}
+		go install ${APP_URL}@${APP_VERSION_PREFIX}${APP_VERSION}
 	fi
+
+endif

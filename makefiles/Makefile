@@ -48,6 +48,7 @@ all clean uninstall:
 	$(MAKE) -C zoxide $@
 	$(MAKE) -C bzip2 $@
 	$(MAKE) -C nodejs $@
+	$(MAKE) -C libmagic $@
 	# $(MAKE) -C purescript $@
 	# rust apps
 	$(MAKE) -C rust_app APP=bat APP_VERSION=0.22.1 $@
@@ -69,6 +70,8 @@ all clean uninstall:
 	$(MAKE) -C go_app APP_URL=github.com/twpayne/chezmoi APP_BINARY=chezmoi APP_VERSION=latest $@
 	$(MAKE) -C go_app APP_URL=github.com/jesseduffield/lazydocker APP_BINARY=lazydocker APP_VERSION=0.20.0 $@
 	$(MAKE) -C lazygit
+	$(MAKE) -C pistol
+	$(MAKE) -C lf
 	# pipx apps
 	$(MAKE) -C pipx_app APP=isort $@
 	$(MAKE) -C pipx_app APP=ruff $@
