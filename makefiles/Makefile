@@ -49,6 +49,7 @@ all clean uninstall:
 	$(MAKE) -C bzip2 $@
 	$(MAKE) -C nodejs $@
 	$(MAKE) -C libmagic $@
+	# $(MAKE) -C nnn $@
 	# $(MAKE) -C purescript $@
 	# rust apps
 	$(MAKE) -C rust_app APP=bat APP_VERSION=0.22.1 $@
@@ -62,7 +63,7 @@ all clean uninstall:
 	$(MAKE) -C rust_app APP=starship APP_VERSION=1.13.1 $@
 	$(MAKE) -C rust_app APP=tokei APP_VERSION=12.1.2 $@
 	$(MAKE) -C rust_app APP=zellij APP_VERSION=0.36.0 $@
-	$(MAKE) -C rust_app APP=joshuto APP_VERSION=0.9.4 $@
+	# $(MAKE) -C rust_app APP=joshuto APP_VERSION=0.9.4 $@
 	# go apps
 	$(MAKE) -C go_app APP_URL=github.com/charmbracelet/glow APP_BINARY=glow APP_VERSION=1.5.0 $@
 	$(MAKE) -C go_app APP_URL=github.com/muesli/duf APP_BINARY=duf APP_VERSION=0.8.1 $@
@@ -77,7 +78,7 @@ all clean uninstall:
 	$(MAKE) -C pipx_app APP=ruff $@
 	$(MAKE) -C pipx_app APP=mypy $@
 	$(MAKE) -C pipx_app APP=black $@
-	$(MAKE) -C pipx_app APP=ranger-fm APP_BINARY=ranger $@
+	# $(MAKE) -C pipx_app APP=ranger-fm APP_BINARY=ranger $@
 	$(MAKE) -C pipx_app APP=python-lsp-server APP_BINARY=pylsp PIPX_INJECT='pylsp-mypy pyls-isort python-lsp-black pylsp-rope' $@
 	# nodejs apps
 	$(MAKE) -C nodejs_app APP=pyright APP_VERSION=1.1.298 $@
