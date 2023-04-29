@@ -4,3 +4,4 @@ ${APP} module by Holger Hoefling
 
 load("home/libmagic")
 prepend_path( "PATH","${APP_PREFIX}/bin")
+setenv("PISTOL_CHROMA_FORMATTER", "terminal256")
