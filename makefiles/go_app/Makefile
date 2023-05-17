@@ -19,13 +19,14 @@ export GOBIN
 
 include ../lmod/setup_lmod.mk
 
+ifndef OMIT_BINARY_TARGET
 ${BINARY_TARGET}: | deps
 	${INIT_LMOD}
 	module load home/golang
 	mkdir -p $$(dirname ${GOBIN})
-	if [[ x${APP_VERSION} == xlatest ]]; then
-		go install ${APP_URL}@latest
-	else
-		go install ${APP_URL}@${APP_VERSION_PREFIX}${APP_VERSION}
+	if [[ x${APP_VERSION} == xlatest ]]; then \
+		go install ${APP_URL}@latest \
+	else \
+		go install ${APP_URL}@${APP_VERSION_PREFIX}${APP_VERSION} \
 	fi
-
+endif

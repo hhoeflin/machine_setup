@@ -2,17 +2,14 @@ help([[
 exa module by Holger Hoefling
 ]])
 
-load('home/openssl')
-load('home/libgit2')
-
 conflict("ls")
 
 prepend_path( "PATH","${APP_PREFIX}/bin")
-load_str="function ll { exa -lahF $@; }; " ..
+load_str="function ll { lsd -lahF $@; }; " ..
     "export -f ll; " ..
-    "function ls { exa -F $@; }; " ..
+    "function ls { lsd -F $@; }; " ..
     "export -f ls; " ..
-    "function lt { exa -lahF --tree $@; }; " ..
+    "function lt { lsd -lahF --tree --depth 3 $@; }; " ..
     "export -f lt; "
 unload_str="unset -f ll; " ..
     "unset -f ls; " ..

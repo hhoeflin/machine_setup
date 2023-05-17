@@ -3,7 +3,8 @@ Module loading other standard modules by Holger Hoefling
 ]])
 
 load('home/tmux')
-load('home/exa')
+--load('home/exa')
+load('home/lsd')
 load('home/git')
 load('home/lazygit')
 load('home/mambaforge')

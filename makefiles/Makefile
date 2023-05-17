@@ -44,6 +44,7 @@ all clean uninstall:
 	$(MAKE) -C buildg $@
 	$(MAKE) -C libgit2 $@
 	$(MAKE) -C exa $@
+	$(MAKE) -C lsd $@
 	$(MAKE) -C atuin $@
 	$(MAKE) -C zoxide $@
 	$(MAKE) -C bzip2 $@
@@ -78,8 +79,8 @@ all clean uninstall:
 	$(MAKE) -C pipx_app APP=ruff $@
 	$(MAKE) -C pipx_app APP=mypy $@
 	$(MAKE) -C pipx_app APP=black $@
-	# $(MAKE) -C pipx_app APP=ranger-fm APP_BINARY=ranger $@
 	$(MAKE) -C pipx_app APP=python-lsp-server APP_BINARY=pylsp PIPX_INJECT='pylsp-mypy pyls-isort python-lsp-black pylsp-rope' $@
+	# $(MAKE) -C pipx_app APP=ranger-fm APP_BINARY=ranger $@
 	# nodejs apps
 	$(MAKE) -C nodejs_app APP=pyright APP_VERSION=1.1.298 $@
 	# install the std_module
