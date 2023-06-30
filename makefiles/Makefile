@@ -61,7 +61,7 @@ all clean uninstall:
 	$(MAKE) -C rust_app APP=fd-find APP_BINARY=fd APP_VERSION=8.7.0 $@
 	$(MAKE) -C rust_app APP=git-delta APP_BINARY=delta APP_VERSION=0.15.1 $@
 	$(MAKE) -C rust_app APP=bottom APP_BINARY=btm APP_VERSION=0.8.0 $@
-	$(MAKE) -C rust_app APP=starship APP_VERSION=1.13.1 $@
+	$(MAKE) -C rust_app APP=starship APP_VERSION=1.15.0 $@
 	$(MAKE) -C rust_app APP=tokei APP_VERSION=12.1.2 $@
 	$(MAKE) -C rust_app APP=zellij APP_VERSION=0.36.0 $@
 	# $(MAKE) -C rust_app APP=qsv APP_VERSION=0.103.1 $@
