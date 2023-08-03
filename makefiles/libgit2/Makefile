@@ -1,5 +1,5 @@
 APP=libgit2
-APP_VERSION=1.5.0
+APP_VERSION=1.7.0
 OMIT_ALL=True
 
 include ../default.mk

@@ -1,5 +1,5 @@
 APP=nodejs
-APP_VERSION=18.15.0
+APP_VERSION=18.17.0
 APP_BINARY=node
 
 include ../default.mk

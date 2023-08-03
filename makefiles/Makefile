@@ -44,35 +44,35 @@ all clean uninstall:
 	$(MAKE) -C buildg $@
 	$(MAKE) -C libgit2 $@
 	$(MAKE) -C exa $@
+	$(MAKE) -C eza $@
 	$(MAKE) -C lsd $@
 	$(MAKE) -C atuin $@
 	$(MAKE) -C zoxide $@
-	$(MAKE) -C bzip2 $@
 	$(MAKE) -C nodejs $@
 	$(MAKE) -C libmagic $@
 	# $(MAKE) -C nnn $@
 	# $(MAKE) -C purescript $@
 	# rust apps
-	$(MAKE) -C rust_app APP=bat APP_VERSION=0.22.1 $@
-	$(MAKE) -C rust_app APP=broot APP_VERSION=1.20.2 $@
+	$(MAKE) -C rust_app APP=bat APP_VERSION=0.23.0 $@
+	$(MAKE) -C rust_app APP=broot APP_VERSION=1.24.2 $@
 	$(MAKE) -C rust_app APP=ripgrep APP_BINARY=rg APP_VERSION=13.0.0 $@
 	$(MAKE) -C rust_app APP=tealdeer APP_BINARY=tldr APP_VERSION=1.6.1 $@
-	$(MAKE) -C rust_app APP=du-dust APP_BINARY=dust APP_VERSION=0.8.4 $@
+	$(MAKE) -C rust_app APP=du-dust APP_BINARY=dust APP_VERSION=0.8.6 $@
 	$(MAKE) -C rust_app APP=fd-find APP_BINARY=fd APP_VERSION=8.7.0 $@
-	$(MAKE) -C rust_app APP=git-delta APP_BINARY=delta APP_VERSION=0.15.1 $@
-	$(MAKE) -C rust_app APP=bottom APP_BINARY=btm APP_VERSION=0.8.0 $@
-	$(MAKE) -C rust_app APP=starship APP_VERSION=1.15.0 $@
+	$(MAKE) -C rust_app APP=git-delta APP_BINARY=delta APP_VERSION=0.16.5 $@
+	$(MAKE) -C rust_app APP=bottom APP_BINARY=btm APP_VERSION=0.9.3 $@
+	$(MAKE) -C rust_app APP=starship APP_VERSION=1.16.0 $@
 	$(MAKE) -C rust_app APP=tokei APP_VERSION=12.1.2 $@
-	$(MAKE) -C rust_app APP=zellij APP_VERSION=0.36.0 $@
+	$(MAKE) -C rust_app APP=zellij APP_VERSION=0.37.2 $@
 	# $(MAKE) -C rust_app APP=qsv APP_VERSION=0.103.1 $@
-	$(MAKE) -C rust_app APP=tidy-viewer APP_BINARY=tv APP_VERSION=1.4.30 $@
+	$(MAKE) -C rust_app APP=tidy-viewer APP_BINARY=tv APP_VERSION=1.5.2 $@
 	# $(MAKE) -C rust_app APP=joshuto APP_VERSION=0.9.4 $@
 	# go apps
-	$(MAKE) -C go_app APP_URL=github.com/charmbracelet/glow APP_BINARY=glow APP_VERSION=1.5.0 $@
+	$(MAKE) -C go_app APP_URL=github.com/charmbracelet/glow APP_BINARY=glow APP_VERSION=1.5.1 $@
 	$(MAKE) -C go_app APP_URL=github.com/muesli/duf APP_BINARY=duf APP_VERSION=0.8.1 $@
-	$(MAKE) -C go_app APP_URL=github.com/go-task/task/v3/cmd/task APP_BINARY=task APP_VERSION=3.22.0 $@
+	$(MAKE) -C go_app APP_URL=github.com/go-task/task/v3/cmd/task APP_BINARY=task APP_VERSION=3.28.0 $@
 	$(MAKE) -C go_app APP_URL=github.com/twpayne/chezmoi APP_BINARY=chezmoi APP_VERSION=latest $@
-	$(MAKE) -C go_app APP_URL=github.com/jesseduffield/lazydocker APP_BINARY=lazydocker APP_VERSION=0.20.0 $@
+	$(MAKE) -C go_app APP_URL=github.com/jesseduffield/lazydocker APP_BINARY=lazydocker APP_VERSION=0.21.1 $@
 	$(MAKE) -C lazygit
 	$(MAKE) -C pistol
 	$(MAKE) -C lf
@@ -84,7 +84,7 @@ all clean uninstall:
 	$(MAKE) -C pipx_app APP=python-lsp-server APP_BINARY=pylsp PIPX_INJECT='pylsp-mypy pyls-isort python-lsp-black pylsp-rope' $@
 	# $(MAKE) -C pipx_app APP=ranger-fm APP_BINARY=ranger $@
 	# nodejs apps
-	$(MAKE) -C nodejs_app APP=pyright APP_VERSION=1.1.298 $@
+	$(MAKE) -C nodejs_app APP=pyright APP_VERSION=1.1.320 $@
 	# install the std_module
 	$(MAKE) -C std_module $@
 	# stop here if at work; below here only games

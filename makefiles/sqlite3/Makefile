@@ -1,5 +1,5 @@
 APP=sqlite3
-APP_VERSION=3410100
+APP_VERSION=3420000
 
 include ../default.mk
 

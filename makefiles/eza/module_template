@@ -1,0 +1,21 @@
+help([[
+eza module by Holger Hoefling
+]])
+
+load('home/openssl')
+load('home/libgit2')
+
+conflict("ls")
+
+prepend_path( "PATH","${APP_PREFIX}/bin")
+load_str="function ll { eza -lahF $@; }; " ..
+    "export -f ll; " ..
+    "function ls { eza -F $@; }; " ..
+    "export -f ls; " ..
+    "function lt { eza -lahF --tree $@; }; " ..
+    "export -f lt; "
+unload_str="unset -f ll; " ..
+    "unset -f ls; " ..
+    "unset -f lt; "
+execute{cmd=load_str, modeA={"load"}}
+execute{cmd=unload_str, modeA={"unload"}}

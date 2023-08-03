@@ -1,6 +1,6 @@
 APP=pipx
 OMIT_ALL=True
-PYTHON_VERSION=3.10
+PYTHON_VERSION=3.11
 
 include ../default.mk
 
