@@ -18,7 +18,7 @@ all: ${APP_PREFIX}/bin/${APP_BINARY} ${MODULE_PATH} ${ZOXIDE_INIT}
 ${BINARY_TARGET}: | deps
 	${INIT_LMOD}
 	module load home/rust home/cmake
-	cargo install ${APP} --root=${APP_PREFIX} --version ${APP_VERSION}
+	cargo install ${APP} --locked --root=${APP_PREFIX} --version ${APP_VERSION}
 
 include ../lmod/module_target.mk
 

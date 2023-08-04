@@ -17,7 +17,7 @@ all: ${APP_PREFIX}/bin/${APP_BINARY} ${MODULE_PATH} ${APP_PREFIX}/shell/atuin_in
 ${BINARY_TARGET}: | deps
 	${INIT_LMOD}
 	module load home/cmake home/rust
-	cargo install ${APP} --root=${APP_PREFIX} --version ${APP_VERSION}
+	cargo install ${APP} --locked --root=${APP_PREFIX} --version ${APP_VERSION}
 	# also set the shell scripts
 	mkdir -p ${APP_PREFIX}/shell
 	cp ./bash-preexec.sh ${APP_PREFIX}/shell
