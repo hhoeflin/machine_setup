@@ -1,0 +1,6 @@
+help([[
+micromamba module by Holger Hoefling
+]])
+
+prepend_path( "PATH","${APP_PREFIX}/bin")
+source_sh("bash", "${APP_PREFIX}/shell/init_bash.sh")

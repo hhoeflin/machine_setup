@@ -16,8 +16,6 @@ ${BINARY_TARGET}: ${APP_DWNLOAD}
 	chmod 770 ${APP_DWNLOAD}
 	./${APP_DWNLOAD} -bf -p ${APP_PREFIX}
 
-${APP_PREFIX}/shell/init_bash.sh: mambaforge-init-template.sh
-	MAMBA_PATH=${APP_PREFIX} envsubst '$$MAMBA_PATH' < mambaforge-init-template.sh > ${APP_PREFIX}/shell/init_bash.sh
 
 .PHONY: clean
 clean:

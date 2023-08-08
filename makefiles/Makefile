@@ -65,7 +65,7 @@ all clean uninstall:
 	$(MAKE) -C rust_app APP=tokei APP_VERSION=12.1.2 $@
 	$(MAKE) -C rust_app APP=zellij APP_VERSION=0.37.2 $@
 	# $(MAKE) -C rust_app APP=qsv APP_VERSION=0.103.1 $@
-	$(MAKE) -C rust_app APP=tidy-viewer APP_BINARY=tv APP_VERSION=1.5.2 $@
+	$(MAKE) -C rust_app APP=tidy-viewer APP_BINARY=tidy-viewer APP_VERSION=1.5.2 $@
 	# $(MAKE) -C rust_app APP=joshuto APP_VERSION=0.9.4 $@
 	# go apps
 	$(MAKE) -C go_app APP_URL=github.com/charmbracelet/glow APP_BINARY=glow APP_VERSION=1.5.1 $@
@@ -85,6 +85,7 @@ all clean uninstall:
 	# $(MAKE) -C pipx_app APP=ranger-fm APP_BINARY=ranger $@
 	# nodejs apps
 	$(MAKE) -C nodejs_app APP=pyright APP_VERSION=1.1.320 $@
+	$(MAKE) -C nodejs_app APP=prettier APP_VERSION=3.0.1 $@
 	# install the std_module
 	$(MAKE) -C std_module $@
 	# stop here if at work; below here only games

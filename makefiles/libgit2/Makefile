@@ -8,7 +8,7 @@ include ../lmod/setup_lmod.mk
 APP_TARFILE=v${APP_VERSION}.tar.gz
 
 .PHONY: all
-all: ${APP_PREFIX}/bin/git2_cli ${MODULE_PATH}
+all: ${APP_PREFIX}/bin/git2 ${MODULE_PATH}
 
 ${APP_TARFILE}:
 	wget https://github.com/libgit2/libgit2/archive/refs/tags/${APP_TARFILE}
@@ -18,7 +18,7 @@ deps:
 	$(MAKE) -C ../cmake
 	$(MAKE) -C ../openssl
 
-${APP_PREFIX}/bin/git2_cli: ${APP_TARFILE} | deps
+${APP_PREFIX}/bin/git2: ${APP_TARFILE} | deps
 	tar zxvf ${APP_TARFILE}
 	cd libgit2-${APP_VERSION}
 	mkdir build
