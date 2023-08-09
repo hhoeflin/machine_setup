@@ -73,7 +73,7 @@ all clean uninstall:
 	$(MAKE) -C go_app APP_URL=github.com/go-task/task/v3/cmd/task APP_BINARY=task APP_VERSION=3.28.0 $@
 	$(MAKE) -C go_app APP_URL=github.com/twpayne/chezmoi APP_BINARY=chezmoi APP_VERSION=latest $@
 	$(MAKE) -C go_app APP_URL=github.com/jesseduffield/lazydocker APP_BINARY=lazydocker APP_VERSION=0.21.1 $@
-	$(MAKE) -C go_app APP_URL=github.com/junegunn/fzf APP_BINARY=fzf APP_VERSION=0.42.0 $@
+	$(MAKE) -C go_app APP_URL=github.com/junegunn/fzf APP_BINARY=fzf APP_VERSION=0.42.0 APP_VERSION_PREFIX='' $@
 	$(MAKE) -C lazygit
 	# $(MAKE) -C pistol
 	# $(MAKE) -C lf
