@@ -1,5 +1,5 @@
 APP=python
-APP_VERSION=3.12.1
+APP_VERSION=3.11.7
 
 include ../funcs.mk
 

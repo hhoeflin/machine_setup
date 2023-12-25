@@ -59,7 +59,7 @@ RUN make -C git all
 COPY --chown=docker:docker makefiles/nvim/Makefile makefiles/nvim/module_template /home/docker/makefiles/nvim/
 RUN make -C nvim all
 
-COPY --chown=docker:docker makefiles/pyenv/Makefile makefiles/pyenv/module_template makefiles/pyenv/python /home/docker/makefiles/pyenv/
+COPY --chown=docker:docker makefiles/pyenv/Makefile makefiles/pyenv/module_template /home/docker/makefiles/pyenv/
 RUN make -C pyenv all
 
 COPY --chown=docker:docker makefiles/pipx/Makefile makefiles/pipx/module_template /home/docker/makefiles/pipx/
