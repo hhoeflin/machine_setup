@@ -1,5 +1,5 @@
 APP=golang
-APP_VERSION=1.20.7
+APP_VERSION=1.21.0
 APP_BINARY=go
 
 include ../default.mk

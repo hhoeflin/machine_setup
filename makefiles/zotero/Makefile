@@ -1,5 +1,5 @@
 APP=zotero
-APP_VERSION=6.0.26
+APP_VERSION=6.0.30
 
 include ../default.mk
 
