@@ -59,7 +59,7 @@ RUN make -C git all
 COPY --chown=docker:docker makefiles/nvim/Makefile makefiles/nvim/module_template /home/docker/makefiles/nvim/
 RUN make -C nvim all
 
-COPY --chown=docker:docker makefiles/pyenv/Makefile makefiles/pyenv/module_template /home/docker/makefiles/pyenv/
+COPY --chown=docker:docker makefiles/pyenv/Makefile makefiles/pyenv/module_template makefiles/pyenv/python /home/docker/makefiles/pyenv/
 RUN make -C pyenv all
 
 COPY --chown=docker:docker makefiles/pipx/Makefile makefiles/pipx/module_template /home/docker/makefiles/pipx/
@@ -86,49 +86,60 @@ RUN make -C libgit2 all
 COPY --chown=docker:docker makefiles/exa/Makefile makefiles/exa/module_template /home/docker/makefiles/exa/
 RUN make -C exa all
 
+COPY --chown=docker:docker makefiles/eza/Makefile makefiles/eza/module_template /home/docker/makefiles/eza/
+RUN make -C eza all
+
+COPY --chown=docker:docker makefiles/lsd/Makefile makefiles/lsd/module_template /home/docker/makefiles/lsd/
+RUN make -C lsd all
+
 COPY --chown=docker:docker makefiles/atuin/Makefile makefiles/atuin/atuin_init_template.sh makefiles/atuin/bash-preexec.sh makefiles/atuin/module_template /home/docker/makefiles/atuin/
 RUN make -C atuin all
 
 COPY --chown=docker:docker makefiles/zoxide/Makefile makefiles/zoxide/module_template makefiles/zoxide/zoxide_init_template.sh /home/docker/makefiles/zoxide/
 RUN make -C zoxide all
 
-RUN make -C bzip2 all
-
 COPY --chown=docker:docker makefiles/nodejs/Makefile makefiles/nodejs/module_template /home/docker/makefiles/nodejs/
 RUN make -C nodejs all
 
-COPY --chown=docker:docker makefiles/purescript/Makefile makefiles/purescript/module_template /home/docker/makefiles/purescript/
-RUN make -C purescript all
-
 COPY --chown=docker:docker makefiles/rust_app/Makefile makefiles/rust_app/module_template /home/docker/makefiles/rust_app/
-RUN make -C rust_app APP=bat APP_VERSION=0.22.1 all
+RUN make -C rust_app APP=bat APP_VERSION=0.24.0 all
 
-RUN make -C rust_app APP=broot APP_VERSION=1.20.2 all
+RUN make -C rust_app APP=broot APP_VERSION=1.30.2 all
 
-RUN make -C rust_app APP=ripgrep APP_BINARY=rg APP_VERSION=13.0.0 all
+RUN make -C rust_app APP=ripgrep APP_BINARY=rg APP_VERSION=14.0.3 all
 
 RUN make -C rust_app APP=tealdeer APP_BINARY=tldr APP_VERSION=1.6.1 all
 
-RUN make -C rust_app APP=du-dust APP_BINARY=dust APP_VERSION=0.8.4 all
+RUN make -C rust_app APP=du-dust APP_BINARY=dust APP_VERSION=0.8.6 all
 
-RUN make -C rust_app APP=fd-find APP_BINARY=fd APP_VERSION=8.7.0 all
+RUN make -C rust_app APP=fd-find APP_BINARY=fd APP_VERSION=9.0.0 all
 
-RUN make -C rust_app APP=git-delta APP_BINARY=delta APP_VERSION=0.15.1 all
+RUN make -C rust_app APP=git-delta APP_BINARY=delta APP_VERSION=0.16.5 all
 
-RUN make -C rust_app APP=bottom APP_BINARY=btm APP_VERSION=0.8.0 all
+RUN make -C rust_app APP=bottom APP_BINARY=btm APP_VERSION=0.9.6 all
 
-RUN make -C rust_app APP=starship APP_VERSION=1.13.1 all
+RUN make -C rust_app APP=starship APP_VERSION=1.16.0 all
+
+RUN make -C rust_app APP=tokei APP_VERSION=12.1.2 all
+
+RUN make -C rust_app APP=zellij APP_VERSION=0.39.2 all
+
+RUN make -C rust_app APP=tidy-viewer APP_BINARY=tidy-viewer APP_VERSION=1.5.2 all
+
+RUN make -C rust_app APP=csvlens APP_BINARY=csvlens APP_VERSION=0.4.0 all
 
 COPY --chown=docker:docker makefiles/go_app/Makefile makefiles/go_app/module_template /home/docker/makefiles/go_app/
-RUN make -C go_app APP_URL=github.com/charmbracelet/glow APP_BINARY=glow APP_VERSION=1.5.0 all
+RUN make -C go_app APP_URL=github.com/charmbracelet/glow APP_BINARY=glow APP_VERSION=1.5.1 all
 
 RUN make -C go_app APP_URL=github.com/muesli/duf APP_BINARY=duf APP_VERSION=0.8.1 all
 
-RUN make -C go_app APP_URL=github.com/go-task/task/v3/cmd/task APP_BINARY=task APP_VERSION=3.22.0 all
+RUN make -C go_app APP_URL=github.com/go-task/task/v3/cmd/task APP_BINARY=task APP_VERSION=3.33.1 all
 
 RUN make -C go_app APP_URL=github.com/twpayne/chezmoi APP_BINARY=chezmoi APP_VERSION=latest all
 
-RUN make -C go_app APP_URL=github.com/jesseduffield/lazydocker APP_BINARY=lazydocker APP_VERSION=0.20.0 all
+RUN make -C go_app APP_URL=github.com/jesseduffield/lazydocker APP_BINARY=lazydocker APP_VERSION=0.23.1 all
+
+RUN make -C go_app APP_URL=github.com/junegunn/fzf APP_BINARY=fzf APP_VERSION=0.44.1 APP_VERSION_PREFIX='' all
 
 COPY --chown=docker:docker makefiles/lazygit/Makefile makefiles/lazygit/module_template /home/docker/makefiles/lazygit/
 RUN make -C lazygit
@@ -142,12 +153,12 @@ RUN make -C pipx_app APP=mypy all
 
 RUN make -C pipx_app APP=black all
 
-RUN make -C pipx_app APP=ranger-fm APP_BINARY=ranger all
-
 RUN make -C pipx_app APP=python-lsp-server APP_BINARY=pylsp PIPX_INJECT='pylsp-mypy pyls-isort python-lsp-black pylsp-rope' all
 
 COPY --chown=docker:docker makefiles/nodejs_app/Makefile makefiles/nodejs_app/module_template /home/docker/makefiles/nodejs_app/
-RUN make -C nodejs_app APP=pyright APP_VERSION=1.1.298 all
+RUN make -C nodejs_app APP=pyright APP_VERSION=1.1.342 all
+
+RUN make -C nodejs_app APP=prettier APP_VERSION=3.1.1 all
 
 COPY --chown=docker:docker makefiles/std_module/Makefile makefiles/std_module/std_module.lua /home/docker/makefiles/std_module/
 RUN make -C std_module all

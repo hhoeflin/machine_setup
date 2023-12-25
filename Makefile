@@ -9,7 +9,13 @@ docker: docker/Dockerfile_ubuntu
 
 include makefiles/lmod/setup_lmod.mk
 
-docker/Dockerfile_ubuntu: makefiles/Makefile docker/Dockerfile_head_ubuntu docker/create_dockerfile.py
+docker/conda_env: docker/conda_env.yaml
+	${INIT_LMOD}
+	ml home/mambaforge
+	mamba env create -f docker/conda_env.yaml -p docker/conda_env
+	mamba deactivate
+
+docker/Dockerfile_ubuntu: makefiles/Makefile docker/Dockerfile_head_ubuntu docker/create_dockerfile.py docker/conda_env
 	${INIT_LMOD}
 	ml home/mambaforge
 	mamba activate docker/conda_env
