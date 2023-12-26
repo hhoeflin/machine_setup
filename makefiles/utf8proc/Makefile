@@ -1,5 +1,5 @@
 APP=utf8proc
-APP_VERSION=2.9.0
+APP_VERSION=2.8.0
 BINARY_TARGET=${APP_PREFIX}/lib/libutf8proc.so
 
 include ../default.mk
