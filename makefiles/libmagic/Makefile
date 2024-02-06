@@ -1,5 +1,6 @@
 APP=libmagic
-APP_VERSION=5.45
+#APP_VERSION=5.45
+APP_VERSION=5.30
 OMIT_ALL=True
 
 include ../default.mk

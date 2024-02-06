@@ -49,7 +49,7 @@ all clean uninstall:
 	$(MAKE) -C atuin $@
 	$(MAKE) -C zoxide $@
 	$(MAKE) -C nodejs $@
-	# $(MAKE) -C libmagic $@
+	$(MAKE) -C libmagic $@
 	# $(MAKE) -C nnn $@
 	# $(MAKE) -C purescript $@
 	# rust apps
@@ -76,8 +76,8 @@ all clean uninstall:
 	$(MAKE) -C go_app APP_URL=github.com/jesseduffield/lazydocker APP_BINARY=lazydocker APP_VERSION=0.21.1 $@
 	$(MAKE) -C go_app APP_URL=github.com/junegunn/fzf APP_BINARY=fzf APP_VERSION=0.42.0 APP_VERSION_PREFIX='' $@
 	$(MAKE) -C lazygit
-	# $(MAKE) -C pistol
-	# $(MAKE) -C lf
+	$(MAKE) -C pistol
+	$(MAKE) -C lf
 	# pipx apps
 	$(MAKE) -C pipx_app APP=isort $@
 	$(MAKE) -C pipx_app APP=ruff $@
