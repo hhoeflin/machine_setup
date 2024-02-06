@@ -65,7 +65,7 @@ all clean uninstall:
 	$(MAKE) -C rust_app APP=tokei APP_VERSION=12.1.2 $@
 	$(MAKE) -C rust_app APP=zellij APP_VERSION=0.37.2 $@
 	$(MAKE) -C rust_app APP=csvlens APP_VERSION=0.3.1 $@
-	# $(MAKE) -C rust_app APP=qsv APP_VERSION=0.103.1 $@
+	# $(MAKE) -C rust_app APP=qsv APP_VERSION=0.119.0 $@
 	$(MAKE) -C rust_app APP=tidy-viewer APP_BINARY=tidy-viewer APP_VERSION=1.5.2 $@
 	$(MAKE) -C rust_app APP=csvlens APP_BINARY=csvlens APP_VERSION=0.4.0 $@
 	# $(MAKE) -C rust_app APP=joshuto APP_VERSION=0.9.6 $@
