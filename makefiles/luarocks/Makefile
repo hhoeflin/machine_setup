@@ -1,5 +1,5 @@
 APP=luarocks
-APP_VERSION=3.9.1
+APP_VERSION=3.9.2
 
 include ../funcs.mk
 include ../default.mk

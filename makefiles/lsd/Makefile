@@ -1,5 +1,5 @@
 APP=lsd
-APP_VERSION=0.23.1
+APP_VERSION=1.0.0
 
 include ../default.mk
 

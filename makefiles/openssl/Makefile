@@ -1,5 +1,5 @@
 APP=openssl
-APP_VERSION=1.1.1v
+APP_VERSION=1.1.1w
 OMIT_ALL=True
 
 include ../default.mk
