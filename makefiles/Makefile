@@ -16,7 +16,7 @@ AT_WORK ?= TRUE
 
 export PREFIX
 
-.PHONY: all clean uninstall
+.PHONY: all clean uninstall remove_versionless
 all clean uninstall:
 	set -e
 	# first we set up lmod
@@ -50,6 +50,7 @@ all clean uninstall:
 	$(MAKE) -C zoxide $@
 	$(MAKE) -C nodejs $@
 	$(MAKE) -C libmagic $@
+	$(MAKE) -C hledger $@
 	# $(MAKE) -C nnn $@
 	# $(MAKE) -C purescript $@
 	# rust apps
@@ -61,10 +62,9 @@ all clean uninstall:
 	$(MAKE) -C rust_app APP=fd-find APP_BINARY=fd APP_VERSION=9.0.0 $@
 	$(MAKE) -C rust_app APP=git-delta APP_BINARY=delta APP_VERSION=0.16.5 $@
 	$(MAKE) -C rust_app APP=bottom APP_BINARY=btm APP_VERSION=0.9.6 $@
-	$(MAKE) -C rust_app APP=starship APP_VERSION=1.16.0 $@
+	$(MAKE) -C rust_app APP=starship APP_VERSION=1.19.0 $@
 	$(MAKE) -C rust_app APP=tokei APP_VERSION=12.1.2 $@
 	$(MAKE) -C rust_app APP=zellij APP_VERSION=0.37.2 $@
-	$(MAKE) -C rust_app APP=csvlens APP_VERSION=0.3.1 $@
 	# $(MAKE) -C rust_app APP=qsv APP_VERSION=0.119.0 $@
 	$(MAKE) -C rust_app APP=tidy-viewer APP_VERSION=1.5.2 $@
 	$(MAKE) -C rust_app APP=csvlens APP_VERSION=0.4.0 $@
@@ -100,3 +100,10 @@ all clean uninstall:
 	# text-based roguelikes
 	$(MAKE) -C angband $@
 	$(MAKE) -C brogueCE $@
+
+remove_versionless:
+	rm -rf ${PREFIX}/pyenv ${PREFIX}/modules/pyenv
+	rm -rf ${PREFIX}/isort ${PREFIX}/modules/isort
+	rm -rf ${PREFIX}/ruff ${PREFIX}/modules/ruff
+	rm -rf ${PREFIX}/mypy ${PREFIX}/modules/mypy
+	rm -rf ${PREFIX}/black ${PREFIX}/modules/black
