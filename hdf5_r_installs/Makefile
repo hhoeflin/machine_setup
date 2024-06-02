@@ -5,7 +5,7 @@ SHELL=/bin/bash
         hdf5-1.8.19 hdf5-1.8.17 hdf5-1.8.14 hdf5-1.8.12
 
 ifndef INSTALL_DIR
-INSTALL_DIR=${HOME}/prog
+INSTALL_DIR=${HOME}/.local/progs
 endif
 
 all: emacs-24.5 R Python hdf5
@@ -15,6 +15,9 @@ hdf5: hdf5-1.12.1 hdf5-1.10.5 hdf5-1.10.3 hdf5-1.10.2 hdf5-1.10.1 hdf5-1.8.21 hd
 
 R-valgrind-3.5.3:
 	cd R-valgrind; make R_INSTALL_DIR=${INSTALL_DIR}/R-valgrind R_VERSION=3.5.3
+
+R-4.3.2:
+	cd R; make R_INSTALL_DIR=${INSTALL_DIR}/R R_VERSION=4.3.2
 
 R-4.1.3:
 	cd R; make R_INSTALL_DIR=${INSTALL_DIR}/R R_VERSION=4.1.3
