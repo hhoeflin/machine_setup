@@ -66,9 +66,13 @@ all clean uninstall:
 	$(MAKE) -C rust_app APP=zellij APP_VERSION=0.37.2 $@
 	$(MAKE) -C rust_app APP=csvlens APP_VERSION=0.3.1 $@
 	# $(MAKE) -C rust_app APP=qsv APP_VERSION=0.119.0 $@
-	$(MAKE) -C rust_app APP=tidy-viewer APP_BINARY=tidy-viewer APP_VERSION=1.5.2 $@
-	$(MAKE) -C rust_app APP=csvlens APP_BINARY=csvlens APP_VERSION=0.4.0 $@
+	$(MAKE) -C rust_app APP=tidy-viewer APP_VERSION=1.5.2 $@
+	$(MAKE) -C rust_app APP=csvlens APP_VERSION=0.4.0 $@
 	# $(MAKE) -C rust_app APP=joshuto APP_VERSION=0.9.6 $@
+	$(MAKE) -C rust_app APP=minijinja-cli APP_VERSION=1.0.12 $@
+	$(MAKE) -C rust_app APP=csv2json APP_VERSION=0.3.1 $@
+	$(MAKE) -C rust_app APP=jaq APP_VERSION=1.3.0 $@
+	$(MAKE) -C rust_app APP=sd APP_VERSION=1.0.0 $@
 	# go apps
 	$(MAKE) -C go_app APP_URL=github.com/charmbracelet/glow APP_BINARY=glow APP_VERSION=1.5.1 $@
 	$(MAKE) -C go_app APP_URL=github.com/muesli/duf APP_BINARY=duf APP_VERSION=0.8.1 $@
