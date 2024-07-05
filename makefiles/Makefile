@@ -90,6 +90,7 @@ all clean uninstall:
 	$(MAKE) -C pipx_app APP=black $@
 	$(MAKE) -C pipx_app APP=python-lsp-server APP_BINARY=pylsp PIPX_INJECT='pylsp-mypy pyls-isort python-lsp-black pylsp-rope' $@
 	# $(MAKE) -C pipx_app APP=ranger-fm APP_BINARY=ranger $@
+	$(MAKE) -C pdm
 	# nodejs apps
 	$(MAKE) -C nodejs_app APP=pyright APP_VERSION=1.1.342 $@
 	$(MAKE) -C nodejs_app APP=prettier APP_VERSION=3.1.1 $@
