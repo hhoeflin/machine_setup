@@ -1,0 +1,9 @@
+help([[
+dotenv module by Holger Hoefling
+]])
+
+
+load_str="function dotenv { set -a; . ${1:-.env} || true; set +a; }; "
+unload_str="unset -f dotenv; "
+execute{cmd=load_str, modeA={"load"}}
+execute{cmd=unload_str, modeA={"unload"}}
