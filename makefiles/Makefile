@@ -94,6 +94,8 @@ all clean uninstall:
 	# nodejs apps
 	$(MAKE) -C nodejs_app APP=pyright APP_VERSION=1.1.342 $@
 	$(MAKE) -C nodejs_app APP=prettier APP_VERSION=3.1.1 $@
+
+	$(MAKE) -C dotenv $@
 	# install the std_module
 	$(MAKE) -C std_module $@
 	# stop here if at work; below here only games
