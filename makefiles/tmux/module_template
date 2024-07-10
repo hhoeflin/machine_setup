@@ -3,5 +3,7 @@ tmux module by Holger Hoefling
 ]])
 
 load('home/utf8proc')
+load('home/libevent')
 
 prepend_path( "PATH","${APP_PREFIX}/bin")
+prepend_path( "LD_LIBRARY_PATH","${APP_PREFIX}/lib")
