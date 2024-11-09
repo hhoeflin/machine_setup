@@ -1,5 +1,5 @@
 APP=lmod
-APP_VERSION=8.7.32
+APP_VERSION=8.7.53
 OMIT_ALL=True
 
 include ../funcs.mk

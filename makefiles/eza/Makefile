@@ -1,5 +1,5 @@
 APP=eza
-APP_VERSION=0.18.6
+APP_VERSION=0.20.7
 
 include ../default.mk
 

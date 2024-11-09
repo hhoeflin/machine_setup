@@ -29,7 +29,7 @@ all clean uninstall:
 	$(MAKE) -C utf8proc $@
 	$(MAKE) -C ncurses $@
 	$(MAKE) -C tmux $@
-	$(MAKE) -C mambaforge $@
+	$(MAKE) -C miniforge $@
 	$(MAKE) -C golang $@
 	$(MAKE) -C rust $@
 	$(MAKE) -C cmake $@
@@ -47,6 +47,7 @@ all clean uninstall:
 	$(MAKE) -C eza $@
 	$(MAKE) -C lsd $@
 	$(MAKE) -C atuin $@
+	$(MAKE) -C yazi $@
 	$(MAKE) -C zoxide $@
 	$(MAKE) -C nodejs $@
 	$(MAKE) -C libmagic $@
@@ -55,31 +56,31 @@ all clean uninstall:
 	# $(MAKE) -C purescript $@
 	# rust apps
 	$(MAKE) -C rust_app APP=bat APP_VERSION=0.24.0 $@
-	$(MAKE) -C rust_app APP=broot APP_VERSION=1.30.2 $@
-	$(MAKE) -C rust_app APP=ripgrep APP_BINARY=rg APP_VERSION=14.0.3 $@
-	$(MAKE) -C rust_app APP=tealdeer APP_BINARY=tldr APP_VERSION=1.6.1 $@
-	$(MAKE) -C rust_app APP=du-dust APP_BINARY=dust APP_VERSION=0.8.6 $@
-	$(MAKE) -C rust_app APP=fd-find APP_BINARY=fd APP_VERSION=9.0.0 $@
-	$(MAKE) -C rust_app APP=git-delta APP_BINARY=delta APP_VERSION=0.16.5 $@
-	$(MAKE) -C rust_app APP=bottom APP_BINARY=btm APP_VERSION=0.9.6 $@
-	$(MAKE) -C rust_app APP=starship APP_VERSION=1.19.0 $@
+	$(MAKE) -C rust_app APP=broot APP_VERSION=1.44.2 $@
+	$(MAKE) -C rust_app APP=ripgrep APP_BINARY=rg APP_VERSION=14.1.1 $@
+	$(MAKE) -C rust_app APP=tealdeer APP_BINARY=tldr APP_VERSION=1.7.0 $@
+	$(MAKE) -C rust_app APP=du-dust APP_BINARY=dust APP_VERSION=1.1.1 $@
+	$(MAKE) -C rust_app APP=fd-find APP_BINARY=fd APP_VERSION=10.2.0 $@
+	$(MAKE) -C rust_app APP=git-delta APP_BINARY=delta APP_VERSION=0.18.2 $@
+	$(MAKE) -C rust_app APP=bottom APP_BINARY=btm APP_VERSION=0.10.2 $@
+	$(MAKE) -C rust_app APP=starship APP_VERSION=1.21.1 $@
 	$(MAKE) -C rust_app APP=tokei APP_VERSION=12.1.2 $@
-	$(MAKE) -C rust_app APP=zellij APP_VERSION=0.37.2 $@
+	$(MAKE) -C rust_app APP=zellij APP_VERSION=0.41.1 $@
 	# $(MAKE) -C rust_app APP=qsv APP_VERSION=0.119.0 $@
 	$(MAKE) -C rust_app APP=tidy-viewer APP_VERSION=1.5.2 $@
-	$(MAKE) -C rust_app APP=csvlens APP_VERSION=0.4.0 $@
+	$(MAKE) -C rust_app APP=csvlens APP_VERSION=0.10.1 $@
 	# $(MAKE) -C rust_app APP=joshuto APP_VERSION=0.9.6 $@
 	$(MAKE) -C rust_app APP=minijinja-cli APP_VERSION=1.0.12 $@
 	$(MAKE) -C rust_app APP=csv2json APP_VERSION=0.3.1 $@
 	$(MAKE) -C rust_app APP=jaq APP_VERSION=1.3.0 $@
 	$(MAKE) -C rust_app APP=sd APP_VERSION=1.0.0 $@
 	# go apps
-	$(MAKE) -C go_app APP_URL=github.com/charmbracelet/glow APP_BINARY=glow APP_VERSION=1.5.1 $@
+	$(MAKE) -C go_app APP_URL=github.com/charmbracelet/glow APP_BINARY=glow APP_VERSION=latest $@
 	$(MAKE) -C go_app APP_URL=github.com/muesli/duf APP_BINARY=duf APP_VERSION=0.8.1 $@
-	$(MAKE) -C go_app APP_URL=github.com/go-task/task/v3/cmd/task APP_BINARY=task APP_VERSION=3.33.1 $@
+	$(MAKE) -C go_app APP_URL=github.com/go-task/task/v3/cmd/task APP_BINARY=task APP_VERSION=3.40.0 $@
 	$(MAKE) -C go_app APP_URL=github.com/twpayne/chezmoi APP_BINARY=chezmoi APP_VERSION=latest $@
-	$(MAKE) -C go_app APP_URL=github.com/jesseduffield/lazydocker APP_BINARY=lazydocker APP_VERSION=0.23.1 $@
-	$(MAKE) -C go_app APP_URL=github.com/junegunn/fzf APP_BINARY=fzf APP_VERSION=0.44.1 APP_VERSION_PREFIX='' $@
+	$(MAKE) -C go_app APP_URL=github.com/jesseduffield/lazydocker APP_BINARY=lazydocker APP_VERSION=0.23.3 $@
+	$(MAKE) -C go_app APP_URL=github.com/junegunn/fzf APP_BINARY=fzf APP_VERSION=0.56.0 $@
 	$(MAKE) -C lazygit
 	$(MAKE) -C pistol
 	$(MAKE) -C lf

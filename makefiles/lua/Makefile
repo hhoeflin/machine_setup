@@ -1,5 +1,5 @@
 APP=lua
-APP_VERSION=5.4.6
+APP_VERSION=5.4.7
 
 include ../default.mk
 

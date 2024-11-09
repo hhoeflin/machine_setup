@@ -1,11 +1,11 @@
-APP=mambaforge
+APP=miniforge
 APP_BINARY=mamba
-APP_VERSION=24.3.0-0
+APP_VERSION=24.9.0-0
 OMIT_CLEAN=1
 
 include ../default.mk
 
-APP_DWNLOAD=Mambaforge-${APP_VERSION}-Linux-x86_64.sh
+APP_DWNLOAD=Miniforge3-${APP_VERSION}-Linux-x86_64.sh
 
 
 ${APP_DWNLOAD}:

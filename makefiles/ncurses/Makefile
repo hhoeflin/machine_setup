@@ -1,5 +1,5 @@
 APP=ncurses
-APP_VERSION=6.4
+APP_VERSION=6.5
 OMIT_ALL=True
 
 include ../default.mk

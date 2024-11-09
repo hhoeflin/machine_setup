@@ -41,8 +41,8 @@ RUN make -C ncurses all
 COPY --chown=docker:docker makefiles/tmux/Makefile makefiles/tmux/module_template /home/docker/makefiles/tmux/
 RUN make -C tmux all
 
-COPY --chown=docker:docker makefiles/mambaforge/Makefile makefiles/mambaforge/mambaforge-init-template.sh makefiles/mambaforge/module_template /home/docker/makefiles/mambaforge/
-RUN make -C mambaforge all
+COPY --chown=docker:docker  /home/docker/makefiles/miniforge/
+RUN make -C miniforge all
 
 COPY --chown=docker:docker makefiles/golang/Makefile makefiles/golang/module_template /home/docker/makefiles/golang/
 RUN make -C golang all
@@ -95,54 +95,77 @@ RUN make -C lsd all
 COPY --chown=docker:docker makefiles/atuin/Makefile makefiles/atuin/atuin_init_template.sh makefiles/atuin/bash-preexec.sh makefiles/atuin/module_template /home/docker/makefiles/atuin/
 RUN make -C atuin all
 
+COPY --chown=docker:docker  /home/docker/makefiles/yazi/
+RUN make -C yazi all
+
 COPY --chown=docker:docker makefiles/zoxide/Makefile makefiles/zoxide/module_template makefiles/zoxide/zoxide_init_template.sh /home/docker/makefiles/zoxide/
 RUN make -C zoxide all
 
 COPY --chown=docker:docker makefiles/nodejs/Makefile makefiles/nodejs/module_template /home/docker/makefiles/nodejs/
 RUN make -C nodejs all
 
+COPY --chown=docker:docker makefiles/libmagic/Makefile makefiles/libmagic/module_template /home/docker/makefiles/libmagic/
+RUN make -C libmagic all
+
+COPY --chown=docker:docker makefiles/hledger/Makefile makefiles/hledger/module_template /home/docker/makefiles/hledger/
+RUN make -C hledger all
+
 COPY --chown=docker:docker makefiles/rust_app/Makefile makefiles/rust_app/module_template /home/docker/makefiles/rust_app/
 RUN make -C rust_app APP=bat APP_VERSION=0.24.0 all
 
-RUN make -C rust_app APP=broot APP_VERSION=1.30.2 all
+RUN make -C rust_app APP=broot APP_VERSION=1.44.2 all
 
-RUN make -C rust_app APP=ripgrep APP_BINARY=rg APP_VERSION=14.0.3 all
+RUN make -C rust_app APP=ripgrep APP_BINARY=rg APP_VERSION=14.1.1 all
 
-RUN make -C rust_app APP=tealdeer APP_BINARY=tldr APP_VERSION=1.6.1 all
+RUN make -C rust_app APP=tealdeer APP_BINARY=tldr APP_VERSION=1.7.0 all
 
-RUN make -C rust_app APP=du-dust APP_BINARY=dust APP_VERSION=0.8.6 all
+RUN make -C rust_app APP=du-dust APP_BINARY=dust APP_VERSION=1.1.1 all
 
-RUN make -C rust_app APP=fd-find APP_BINARY=fd APP_VERSION=9.0.0 all
+RUN make -C rust_app APP=fd-find APP_BINARY=fd APP_VERSION=10.2.0 all
 
-RUN make -C rust_app APP=git-delta APP_BINARY=delta APP_VERSION=0.16.5 all
+RUN make -C rust_app APP=git-delta APP_BINARY=delta APP_VERSION=0.18.2 all
 
-RUN make -C rust_app APP=bottom APP_BINARY=btm APP_VERSION=0.9.6 all
+RUN make -C rust_app APP=bottom APP_BINARY=btm APP_VERSION=0.10.2 all
 
-RUN make -C rust_app APP=starship APP_VERSION=1.16.0 all
+RUN make -C rust_app APP=starship APP_VERSION=1.21.1 all
 
 RUN make -C rust_app APP=tokei APP_VERSION=12.1.2 all
 
-RUN make -C rust_app APP=zellij APP_VERSION=0.39.2 all
+RUN make -C rust_app APP=zellij APP_VERSION=0.41.1 all
 
-RUN make -C rust_app APP=tidy-viewer APP_BINARY=tidy-viewer APP_VERSION=1.5.2 all
+RUN make -C rust_app APP=tidy-viewer APP_VERSION=1.5.2 all
 
-RUN make -C rust_app APP=csvlens APP_BINARY=csvlens APP_VERSION=0.4.0 all
+RUN make -C rust_app APP=csvlens APP_VERSION=0.10.1 all
+
+RUN make -C rust_app APP=minijinja-cli APP_VERSION=1.0.12 all
+
+RUN make -C rust_app APP=csv2json APP_VERSION=0.3.1 all
+
+RUN make -C rust_app APP=jaq APP_VERSION=1.3.0 all
+
+RUN make -C rust_app APP=sd APP_VERSION=1.0.0 all
 
 COPY --chown=docker:docker makefiles/go_app/Makefile makefiles/go_app/module_template /home/docker/makefiles/go_app/
-RUN make -C go_app APP_URL=github.com/charmbracelet/glow APP_BINARY=glow APP_VERSION=1.5.1 all
+RUN make -C go_app APP_URL=github.com/charmbracelet/glow APP_BINARY=glow APP_VERSION=latest all
 
 RUN make -C go_app APP_URL=github.com/muesli/duf APP_BINARY=duf APP_VERSION=0.8.1 all
 
-RUN make -C go_app APP_URL=github.com/go-task/task/v3/cmd/task APP_BINARY=task APP_VERSION=3.33.1 all
+RUN make -C go_app APP_URL=github.com/go-task/task/v3/cmd/task APP_BINARY=task APP_VERSION=3.40.0 all
 
 RUN make -C go_app APP_URL=github.com/twpayne/chezmoi APP_BINARY=chezmoi APP_VERSION=latest all
 
-RUN make -C go_app APP_URL=github.com/jesseduffield/lazydocker APP_BINARY=lazydocker APP_VERSION=0.23.1 all
+RUN make -C go_app APP_URL=github.com/jesseduffield/lazydocker APP_BINARY=lazydocker APP_VERSION=0.23.3 all
 
-RUN make -C go_app APP_URL=github.com/junegunn/fzf APP_BINARY=fzf APP_VERSION=0.44.1 APP_VERSION_PREFIX='' all
+RUN make -C go_app APP_URL=github.com/junegunn/fzf APP_BINARY=fzf APP_VERSION=0.56.0 all
 
 COPY --chown=docker:docker makefiles/lazygit/Makefile makefiles/lazygit/module_template /home/docker/makefiles/lazygit/
 RUN make -C lazygit
+
+COPY --chown=docker:docker makefiles/pistol/Makefile makefiles/pistol/module_template /home/docker/makefiles/pistol/
+RUN make -C pistol
+
+COPY --chown=docker:docker makefiles/lf/Makefile makefiles/lf/module_template /home/docker/makefiles/lf/
+RUN make -C lf
 
 COPY --chown=docker:docker makefiles/pipx_app/Makefile makefiles/pipx_app/module_template /home/docker/makefiles/pipx_app/
 RUN make -C pipx_app APP=isort all
@@ -155,15 +178,21 @@ RUN make -C pipx_app APP=black all
 
 RUN make -C pipx_app APP=python-lsp-server APP_BINARY=pylsp PIPX_INJECT='pylsp-mypy pyls-isort python-lsp-black pylsp-rope' all
 
+COPY --chown=docker:docker makefiles/pdm/Makefile makefiles/pdm/module_template /home/docker/makefiles/pdm/
+RUN make -C pdm
+
 COPY --chown=docker:docker makefiles/nodejs_app/Makefile makefiles/nodejs_app/module_template /home/docker/makefiles/nodejs_app/
 RUN make -C nodejs_app APP=pyright APP_VERSION=1.1.342 all
 
 RUN make -C nodejs_app APP=prettier APP_VERSION=3.1.1 all
 
+COPY --chown=docker:docker makefiles/dotenv/Makefile makefiles/dotenv/module_template /home/docker/makefiles/dotenv/
+RUN make -C dotenv all
+
 COPY --chown=docker:docker makefiles/std_module/Makefile makefiles/std_module/std_module.lua /home/docker/makefiles/std_module/
 RUN make -C std_module all
 
-COPY --chown=docker:docker makefiles/angband/4.2.4.tar.gz makefiles/angband/Makefile makefiles/angband/module_template /home/docker/makefiles/angband/
+COPY --chown=docker:docker makefiles/angband/Makefile makefiles/angband/module_template /home/docker/makefiles/angband/
 RUN make -C angband all
 
 COPY --chown=docker:docker makefiles/brogueCE/Makefile makefiles/brogueCE/brogue_script.sh makefiles/brogueCE/config.mk makefiles/brogueCE/module_template /home/docker/makefiles/brogueCE/

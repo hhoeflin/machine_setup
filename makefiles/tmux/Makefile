@@ -1,5 +1,5 @@
 APP=tmux
-APP_VERSION=3.3a
+APP_VERSION=3.5a
 
 include ../funcs.mk
 include ../default.mk
@@ -32,5 +32,5 @@ ${APP_PREFIX}/bin/tmux: ${APP_TARFILE} | deps
 	PKG_CONFIG_PATH=$$PKG_CONFIG_PATH \
 	CPPFLAGS="-I${UTF8PROC_PREFIX}include" \
 	LDFLAGS="-L${UTF8PROC_PREFIX}lib" \
-	./configure --enable-utf8proc --prefix=${APP_PREFIX}
+	./configure --enable-utf8proc --enable-static --enable-sixel --prefix=${APP_PREFIX}
 	$(MAKE) -j && $(MAKE) install

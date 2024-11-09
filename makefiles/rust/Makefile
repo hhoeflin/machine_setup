@@ -1,5 +1,5 @@
 APP=rust
-APP_VERSION=1.78.0
+APP_VERSION=1.82.0
 APP_BINARY=cargo
 
 include ../default.mk

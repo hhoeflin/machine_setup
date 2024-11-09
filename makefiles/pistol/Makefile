@@ -1,6 +1,6 @@
 APP_URL=github.com/doronbehar/pistol/cmd/pistol
 APP_BINARY=pistol
-APP_VERSION=0.4.2
+APP_VERSION=0.5.2
 OMIT_BINARY_TARGET=True
 
 include ../go_app/Makefile

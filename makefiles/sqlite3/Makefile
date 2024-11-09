@@ -1,12 +1,12 @@
 APP=sqlite3
-APP_VERSION=3440200
+APP_VERSION=3470000
 
 include ../default.mk
 
 APP_TARFILE=sqlite-autoconf-${APP_VERSION}.tar.gz
 
 ${APP_TARFILE}:
-	wget https://sqlite.org/2023/${APP_TARFILE}
+	wget https://sqlite.org/2024/${APP_TARFILE}
 
 ${BINARY_TARGET}: ${APP_TARFILE}
 	tar zxvf ${APP_TARFILE}
