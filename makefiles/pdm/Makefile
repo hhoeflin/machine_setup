@@ -22,7 +22,7 @@ include ../lmod/setup_lmod.mk
 
 ${PIPX_BIN_DIR}/${APP_BINARY}: | deps
 	${INIT_LMOD}
-	module load home/mambaforge
+	module load home/miniforge
 	mamba activate ${PIPX_PREFIX}/conda_env
 	if [[ x${APP_VERSION} -eq 'xlatest' ]]
 	then

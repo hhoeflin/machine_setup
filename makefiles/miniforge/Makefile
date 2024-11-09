@@ -20,4 +20,4 @@ ${BINARY_TARGET}: ${APP_DWNLOAD}
 .PHONY: clean
 clean:
 	shopt -s extglob
-	rm -rf !(Makefile|module_template|mambaforge-init-template.sh)
+	rm -rf !(Makefile|module_template)
