@@ -43,7 +43,6 @@ all clean uninstall:
 	$(MAKE) -C zotero $@
 	$(MAKE) -C buildg $@
 	$(MAKE) -C libgit2 $@
-	$(MAKE) -C exa $@
 	$(MAKE) -C eza $@
 	$(MAKE) -C lsd $@
 	$(MAKE) -C atuin $@
