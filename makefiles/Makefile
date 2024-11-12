@@ -89,6 +89,7 @@ all clean uninstall:
 	$(MAKE) -C pipx_app APP=black $@
 	$(MAKE) -C pipx_app APP=cookiecutter $@
 	$(MAKE) -C pipx_app APP=debugpy $@
+	$(MAKE) -C pipx_app APP=cookiecutter $@
 	$(MAKE) -C pipx_app APP=python-lsp-server APP_BINARY=pylsp PIPX_INJECT='pylsp-mypy pyls-isort python-lsp-black pylsp-rope' $@
 	# $(MAKE) -C pipx_app APP=ranger-fm APP_BINARY=ranger $@
 	$(MAKE) -C pdm
