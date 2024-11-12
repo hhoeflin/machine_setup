@@ -88,6 +88,7 @@ all clean uninstall:
 	$(MAKE) -C pipx_app APP=ruff $@
 	$(MAKE) -C pipx_app APP=mypy $@
 	$(MAKE) -C pipx_app APP=black $@
+	$(MAKE) -C pipx_app APP=cookiecutter $@
 	$(MAKE) -C pipx_app APP=python-lsp-server APP_BINARY=pylsp PIPX_INJECT='pylsp-mypy pyls-isort python-lsp-black pylsp-rope' $@
 	# $(MAKE) -C pipx_app APP=ranger-fm APP_BINARY=ranger $@
 	$(MAKE) -C pdm
@@ -96,6 +97,7 @@ all clean uninstall:
 	$(MAKE) -C nodejs_app APP=prettier APP_VERSION=3.1.1 $@
 
 	$(MAKE) -C dotenv $@
+	$(MAKE) -C nginx $@
 	# install the std_module
 	$(MAKE) -C std_module $@
 	# stop here if at work; below here only games

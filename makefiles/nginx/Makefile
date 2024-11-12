@@ -1,5 +1,5 @@
 APP=nginx
-APP_VERSION=1.23.3
+APP_VERSION=1.26.1
 
 include ../funcs.mk
 include ../default.mk
