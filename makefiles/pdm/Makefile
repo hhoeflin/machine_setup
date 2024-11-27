@@ -5,7 +5,7 @@ include ../default.mk
 PIPX_PREFIX=$(call LATEST_VERSION_DIR,${PREFIX}/pipx)
 
 PIPX_INJECT=pdm-dockerize pdm-audit
-PDM_SELF_INSTALL=pdm-dockerize pdm-pip-index-url pdm-dotenv pdm-download pdm-version pdm-audit pdm-plugin-torch
+PDM_SELF_INSTALL=pdm-dotenv pdm-download pdm-version
 PIPX_HOME=${PIPX_PREFIX}
 PIPX_BIN_DIR=${APP_PREFIX}/bin
 export PIPX_HOME
