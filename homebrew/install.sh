@@ -151,11 +151,11 @@ then
   if [[ "${UNAME_MACHINE}" == "arm64" ]]
   then
     # On ARM macOS, this script installs to /opt/homebrew only
-    HOMEBREW_PREFIX="/opt/homebrew"
+    HOMEBREW_PREFIX=${HOMEBREW_PREFIX:-"/opt/homebrew"}
     HOMEBREW_REPOSITORY="${HOMEBREW_PREFIX}"
   else
     # On Intel macOS, this script installs to /usr/local only
-    HOMEBREW_PREFIX="/usr/local"
+    HOMEBREW_PREFIX=${HOMEBREW_PREFIX:-"/usr/local"}
     HOMEBREW_REPOSITORY="${HOMEBREW_PREFIX}/Homebrew"
   fi
   HOMEBREW_CACHE="${HOME}/Library/Caches/Homebrew"
@@ -171,7 +171,7 @@ else
   UNAME_MACHINE="$(uname -m)"
 
   # On Linux, this script installs to /home/linuxbrew/.linuxbrew only
-  HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
+  HOMEBREW_PREFIX=${HOMEBREW_PREFIX:-"/home/linuxbrew/.linuxbrew"}
   HOMEBREW_REPOSITORY="${HOMEBREW_PREFIX}/Homebrew"
   HOMEBREW_CACHE="${HOME}/.cache/Homebrew"
 
