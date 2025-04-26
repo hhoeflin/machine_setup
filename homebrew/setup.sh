@@ -17,6 +17,7 @@ export HOMEBREW_NO_ANALYTICS=1
 
 # download the install script
 curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh --output ${SCRIPTDIR}/install.sh
+patch -p1 < ${SCRIPTDIR}/install.sh.patch
 
 # execute the install script
 bash ${SCRIPTDIR}/install.sh
@@ -26,4 +27,4 @@ bash ${SCRIPTDIR}/install.sh
 
 # install the dotfiles 
 export CHEZMOI_TARGET_DIR=$HOME
-chezmoi init --apply git@github.com:hhoeflin/chezmoi_dotfiles.git -D CHEZMOI_TARGET_DIR
+chezmoi init --apply git@github.com:hhoeflin/chezmoi_dotfiles.git -D ${CHEZMOI_TARGET_DIR}

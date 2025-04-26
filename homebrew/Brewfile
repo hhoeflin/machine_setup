@@ -27,3 +27,6 @@ brew pyright
 brew prettier
 brew nginx
 brew micromamba
+brew bash-preexec
+brew fzf
+brew lmod

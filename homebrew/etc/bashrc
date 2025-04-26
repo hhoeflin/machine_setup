@@ -1,0 +1,104 @@
+# set name of shell being used
+SHELLNAME=$(basename ${SHELL})
+# set vars for homebrew itself
+export HOMEBREW_NO_ANALYTICS=1
+if ! [[ -v HOMEBREW_PREFIX ]]; then
+    # variable unset; we auto-detect
+    if [[ -d "/opt/homebrew" ]]; then
+        HOMEBREW_PREFIX="/opt/homebrew"
+    elif [[ -d "${HOME}/.homebrew" ]]; then
+        HOMEBREW_PREFIX="${HOME}/.homebrew"
+    else
+        echo "HOMEBREW_PREFIX not set and can't auto-detect"
+        exit 1
+    fi
+fi
+eval "$(${HOMEBREW_PREFIX}/bin/brew shellenv)"
+
+# source lmod if is installed
+# same for bash end zsh
+LMOD_INIT_SCRIPT=${HOMEBREW_PREFIX}/opt/lmod/init/profile
+if [[ -f ${LMOD_INIT_SCRIPT} ]]; then
+    source ${LMOD_INIT_SCRIPT}
+else
+    echo "${LMOD_INIT_SCRIPT} not found."
+fi
+# add some module paths if they are present
+if [[ -d "${HOME}/modules" ]]; then
+    module use "${HOME}/modules"
+fi
+if [[ -d "/opt/modules" ]]; then
+    module use "/opt/modules"
+fi
+
+
+##############################################################
+# Command that should be applied only for interactive shells.
+# are listed below here
+#############################################################
+[[ $- == *i* ]] || return
+
+# some settings for history
+HISTFILESIZE=100000
+HISTSIZE=10000
+
+shopt -s histappend
+shopt -s checkwinsize
+shopt -s extglob
+shopt -s globstar
+shopt -s checkjobs
+
+# ensure CTRL-S doesn't block the terminal
+if [[ -t 0 && $- = *i* ]]
+then
+  stty -ixon
+fi
+
+# default editor
+export EDITOR="nvim";
+
+# on python startup sourced
+export PYTHONSTARTUP=~/.config/python/pythonrc.py
+
+
+# setup for atuin in case of bash
+# source bash-preexec if homebrew is installed
+# and we are using bash
+if [[ ${SHELLNAME} == "bash" ]]; then
+    PREEXEC_INIT_SCRIPT=${HOMEBREW_PREFIX}/etc/profile.d/bash-preexec.sh 
+    if [[ -f ${PREEXEC_INIT_SCRIPT} ]]; then
+        source ${PREEXEC_INIT_SCRIPT}
+    else
+        echo "${PREEXEC_INIT_SCRIPT} not found."
+    fi
+fi
+eval "$(atuin init ${SHELLNAME})"
+
+eval "$(zoxide init ${SHELLNAME})"
+eval "$(starship init ${SHELLNAME})"
+eval "$(micromamba shell hook -s ${SHELLNAME})"
+
+# source an env file
+function dotenv { 
+    set -a; . ${1:-.env} || true; set +a; 
+}; 
+export -f dotenv
+
+###############################
+# Aliases
+###############################
+# lazygit
+alias lg='lazygit'
+
+# lsd
+alias ls='lsd -F'
+alias ll='lsd -lahF'
+alias lt='lsd -lahF --tree'
+alias lt2='lsd -lahF --tree --depth 2'
+alias lt3='lsd -lahF --tree --depth 3'
+
+# default taskfile
+alias dtask='task -t ~/.config/go-task/Taskfile.yml'
+# open editor with fzf search enabled
+alias e='$EDITOR `fzf -m --preview="bat --color always {}"`'
+
