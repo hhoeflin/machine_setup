@@ -14,6 +14,8 @@ export HOMEBREW_ARCHFLAGS="-march=skylake -mtune=generic"
 # needed in environment when running
 # don't send analytics
 export HOMEBREW_NO_ANALYTICS=1
+# done update
+export HOMEBREW_NO_AUTO_UPDATE=1
 
 ##########################
 # installation notes
@@ -39,3 +41,6 @@ chmod -R go-w "$(brew --prefix)/share/zsh"
 # install the dotfiles 
 export CHEZMOI_TARGET_DIR=$HOME
 chezmoi init --apply git@github.com:hhoeflin/chezmoi_dotfiles.git -D ${CHEZMOI_TARGET_DIR}
+
+# build apptainer image
+apptainer build rocky8_base.sif rocky8_base.def
