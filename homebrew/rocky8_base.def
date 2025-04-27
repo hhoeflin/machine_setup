@@ -1,0 +1,17 @@
+BootStrap: docker
+From: rockylinux:8
+
+%environment
+    export LANG=en_US.UTF-8
+    export LC_ALL=en_US.UTF-8
+    export HOMEBREW_GIT_PATH="/usr/bin/git"
+    export HOMEBREW_ARCHFLAGS="-march=skylake -mtune=generic"
+
+%post
+    # Install dependencies for Homebrew
+    yum -y groupinstall "Development Tools" && \
+    yum -y install curl git procps \
+    perl-ExtUtils-Command perl-IPC-Cmd perl-Pod-Html perl-Time-Piece perl-Test-Simple perl-Math-BigInt
+
+%runscript
+    exec /bin/bash "$@"
