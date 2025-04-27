@@ -1,7 +1,11 @@
+tap "hhoeflin/tap"
 brew "tmux"
 brew "golang"
+# elfutils fails in RHEL 8 without custom adjustment
+brew "hhoeflin/tap/elfutils"
+brew "hhoeflin/tap/util-linux"
 brew "rust"
-brew "git"
+brew "hhoeflin/tap/git"
 brew "neovim"
 brew "lsd"
 brew "atuin"
