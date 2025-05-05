@@ -1,0 +1,40 @@
+BootStrap: docker
+From: rockylinux:8
+
+%post
+    # Install dependencies for Homebrew
+    yum -y groupinstall "Development Tools" && \
+    yum -y install curl git procps \
+    perl-ExtUtils-Command perl-IPC-Cmd perl-Pod-Html perl-Time-Piece perl-Test-Simple perl-Math-BigInt
+
+    mkdir -p /opt/etc/bashrc.d
+
+    # add the bashrc.sh
+    config_lines=(
+'BASHRC_DIR=/opt/etc/bashrc.d'
+'if [ -d "$BASHRC_DIR" ]; then'
+'    for script in $(find "$BASHRC_DIR" -type f -name "*.sh" | sort); do'
+'       source "$script"'
+'    done'
+'fi'
+)
+    > /opt/etc/bashrc.sh
+    for line in "${config_lines[@]}"; do
+        echo "$line" >> /opt/etc/bashrc.sh
+    done
+
+    # add the 00_vars.sh
+    config_lines=(
+'export LANG=en_US.UTF-8'
+'export LC_ALL=en_US.UTF-8'
+)
+    > /opt/etc/bashrc.d/00_vars.sh
+    for line in "${config_lines[@]}"; do
+        echo "$line" >> /opt/etc/bashrc.d/00_vars
+    done
+
+%environment
+    source /opt/etc/bashrc.sh
+
+%runscript
+    exec /bin/bash "$@"

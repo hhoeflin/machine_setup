@@ -1,0 +1,27 @@
+BootStrap: localimage
+From: 00_rocky8_base.sif
+
+%files
+    install_homebrew.sh /root/install_homebrew.sh
+
+%post
+    yum install -y sudo passwd
+    useradd -m brewuser
+    chmod 755 /root
+    chmod +x /root/install_homebrew.sh
+    chown brewuser:brewuser /root/install_homebrew.sh
+    mkdir -p /home/hhoeflin/.homebrew
+    chmod 755 /home/hhoeflin/.homebrew
+    chown brewuser:brewuser /home/hhoeflin/.homebrew
+    su - brewuser -c "HOMEBREW_PREFIX=/home/hhoeflin/.homebrew /root/install_homebrew.sh"
+    rm /root/install_homebrew.sh
+
+%environment
+    export HOMEBREW_GIT_PATH="/usr/bin/git"
+    export HOMEBREW_ARCHFLAGS="-march=skylake -mtune=generic"
+    export HOMEBREW_NO_AUTO_UPDATE=1
+    export HOMEBREW_NO_ANALYTICS=1
+    eval $(/home/hhoeflin/.homebrew/bin/brew shellenv)
+
+%runscript
+    exec /bin/bash "$@"

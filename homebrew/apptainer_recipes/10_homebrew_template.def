@@ -1,0 +1,52 @@
+BootStrap: localimage
+From: 00_rocky8_base.sif
+
+
+%post
+    # we write out the config file
+    config_lines=(
+'export HOMEBREW_GIT_PATH="/usr/bin/git"'
+'export HOMEBREW_ARCHFLAGS="-march=skylake -mtune=generic"'
+'export HOMEBREW_NO_AUTO_UPDATE=1'
+'export HOMEBREW_NO_ANALYTICS=1'
+'eval $(__HOMEBREW_PREFIX__/bin/brew shellenv)'
+)
+    > /opt/etc/bashrc.d/10_config_homebrew.sh
+    for line in "${config_lines[@]}"; do
+        echo "$line" >> /opt/etc/bashrc.d/10_config_homebrew.sh
+    done
+
+    install_lines=(
+'#!/usr/bin/env bash'
+'export HOMEBREW_PREFIX=__HOMEBREW_PREFIX__'
+'set -xeuo pipefail  # exit on unset variables'
+'export HOMEBREW_BREW_GIT_REMOTE="https://github.com/Homebrew/brew"'
+'echo "Installing into $HOMEBREW_PREFIX"'
+'mkdir -p ${HOMEBREW_PREFIX} && curl -L ${HOMEBREW_BREW_GIT_REMOTE}/tarball/master | \'
+'    tar xz --strip-components 1 -C ${HOMEBREW_PREFIX}'
+'eval "$(${HOMEBREW_PREFIX}/bin/brew shellenv)"'
+'brew update --force --quiet'
+'chmod -R go-w "$(brew --prefix)/share/zsh"'
+)
+
+    > /root/install_homebrew.sh
+    for line in "${install_lines[@]}"; do
+        echo "$line" >> /root/install_homebrew.sh
+    done
+
+    yum install -y sudo passwd
+    useradd -m brewuser
+    chmod 755 /root
+    chmod +x /root/install_homebrew.sh
+    chown brewuser:brewuser /root/install_homebrew.sh
+    mkdir -p __HOMEBREW_PREFIX__
+    chmod 755 __HOMEBREW_PREFIX__
+    chown brewuser:brewuser __HOMEBREW_PREFIX__
+    su - brewuser -c ". /opt/etc/bashrc.sh && /root/install_homebrew.sh"
+    rm /root/install_homebrew.sh
+
+%environment
+    source /opt/etc/bashrc.sh
+
+%runscript
+    exec /bin/bash "$@"
