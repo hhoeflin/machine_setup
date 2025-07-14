@@ -96,6 +96,7 @@ all clean uninstall:
 	# nodejs apps
 	$(MAKE) -C nodejs_app APP=pyright APP_VERSION=1.1.342 $@
 	$(MAKE) -C nodejs_app APP=prettier APP_VERSION=3.1.1 $@
+	$(MAKE) -C nodejs_app APP=opencode-ai APP_BINARY=opencode APP_VERSION=0.3.2 $@
 
 	$(MAKE) -C dotenv $@
 	$(MAKE) -C nginx $@
