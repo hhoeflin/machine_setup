@@ -1,5 +1,5 @@
 BootStrap: localimage
-From: 00_rocky8_base.sif
+From: 00_rocky9_base.sif
 
 
 %post
@@ -34,7 +34,7 @@ From: 00_rocky8_base.sif
         echo "$line" >> /root/install_homebrew.sh
     done
 
-    yum install -y sudo passwd
+    dnf install -y sudo passwd
     useradd -m brewuser
     chmod 755 /root
     chmod +x /root/install_homebrew.sh

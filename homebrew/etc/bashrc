@@ -10,7 +10,7 @@ if ! [[ -v HOMEBREW_PREFIX ]]; then
         HOMEBREW_PREFIX="${HOME}/.homebrew"
     else
         echo "HOMEBREW_PREFIX not set and can't auto-detect"
-        exit 1
+        return 1
     fi
 fi
 eval "$(${HOMEBREW_PREFIX}/bin/brew shellenv)"

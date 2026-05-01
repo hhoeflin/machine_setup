@@ -1,8 +1,6 @@
-diff --git a/homebrew/install.sh b/homebrew/install.sh
-index 71ca08b..a4f80a9 100644
---- a/homebrew/install.sh
-+++ b/homebrew/install.sh
-@@ -151,11 +151,11 @@ then
+--- /home/hhoeflin/machine_setup/homebrew/install.sh.orig	2026-05-01 21:35:59.317325789 +0200
++++ /home/hhoeflin/machine_setup/homebrew/install.sh	2026-05-01 21:37:56.770258339 +0200
+@@ -162,11 +162,11 @@
    if [[ "${UNAME_MACHINE}" == "arm64" ]]
    then
      # On ARM macOS, this script installs to /opt/homebrew only
@@ -16,7 +14,7 @@ index 71ca08b..a4f80a9 100644
      HOMEBREW_REPOSITORY="${HOMEBREW_PREFIX}/Homebrew"
    fi
    HOMEBREW_CACHE="${HOME}/Library/Caches/Homebrew"
-@@ -171,7 +171,7 @@ else
+@@ -182,7 +182,7 @@
    UNAME_MACHINE="$(uname -m)"
  
    # On Linux, this script installs to /home/linuxbrew/.linuxbrew only
@@ -25,3 +23,11 @@ index 71ca08b..a4f80a9 100644
    HOMEBREW_REPOSITORY="${HOMEBREW_PREFIX}/Homebrew"
    HOMEBREW_CACHE="${HOME}/.cache/Homebrew"
  
+@@ -534,6 +534,7 @@
+ then
+   [[ "${EUID:-${UID}}" == "0" ]] || have_sudo_access
+ elif ! [[ -w "${HOMEBREW_PREFIX}" ]] &&
++     ! [[ -w "$(dirname "${HOMEBREW_PREFIX}")" ]] &&
+      ! [[ -w "/home/linuxbrew" ]] &&
+      ! [[ -w "/home" ]] &&
+      ! have_sudo_access

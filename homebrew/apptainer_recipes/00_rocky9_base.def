@@ -1,11 +1,11 @@
 BootStrap: docker
-From: rockylinux:8
+From: rockylinux:9
 
 %post
     # Install dependencies for Homebrew
-    yum -y groupinstall "Development Tools" && \
-    yum -y install curl git procps \
-    perl-ExtUtils-Command perl-IPC-Cmd perl-Pod-Html perl-Time-Piece perl-Test-Simple perl-Math-BigInt
+    dnf -y groupinstall "Development Tools" && \
+    dnf -y install curl git procps \
+    perl-ExtUtils-Command perl-IPC-Cmd perl-Pod-Html perl-Time-Piece perl-Test-Simple
 
     mkdir -p /opt/etc/bashrc.d
 
@@ -30,7 +30,7 @@ From: rockylinux:8
 )
     > /opt/etc/bashrc.d/00_vars.sh
     for line in "${config_lines[@]}"; do
-        echo "$line" >> /opt/etc/bashrc.d/00_vars
+        echo "$line" >> /opt/etc/bashrc.d/00_vars.sh
     done
 
 %environment
