@@ -6,8 +6,8 @@ if [[ -n "${HTTP_PROXY}" ]]; then
     echo "http_proxy=${HTTP_PROXY}" >> "${APPEND_FILE}"
 fi
 if [[ -n "${HTTPS_PROXY}" ]]; then
-    echo "HTTPS_PROXY=${HTTP_PROXY}" >> "${APPEND_FILE}"
-    echo "https_proxy=${HTTP_PROXY}" >> "${APPEND_FILE}"
+    echo "HTTPS_PROXY=${HTTPS_PROXY}" >> "${APPEND_FILE}"
+    echo "https_proxy=${HTTPS_PROXY}" >> "${APPEND_FILE}"
 fi
 if [[ -n "${FTP_PROXY}" ]]; then
     echo "FTP_PROXY=${FTP_PROXY}" >> "${APPEND_FILE}"

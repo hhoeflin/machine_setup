@@ -1,21 +1,10 @@
 BootStrap: localimage
 From: 00_rocky9_base.sif
 
+%files
+    ./10_config_homebrew___VARIANT__.sh /opt/etc/bashrc.d/10_config_homebrew.sh
 
 %post
-    # we write out the config file
-    config_lines=(
-'export HOMEBREW_GIT_PATH="/usr/bin/git"'
-'export HOMEBREW_ARCHFLAGS="-march=skylake -mtune=generic"'
-'export HOMEBREW_NO_AUTO_UPDATE=1'
-'export HOMEBREW_NO_ANALYTICS=1'
-'eval $(__HOMEBREW_PREFIX__/bin/brew shellenv)'
-)
-    > /opt/etc/bashrc.d/10_config_homebrew.sh
-    for line in "${config_lines[@]}"; do
-        echo "$line" >> /opt/etc/bashrc.d/10_config_homebrew.sh
-    done
-
     install_lines=(
 '#!/usr/bin/env bash'
 'export HOMEBREW_PREFIX=__HOMEBREW_PREFIX__'

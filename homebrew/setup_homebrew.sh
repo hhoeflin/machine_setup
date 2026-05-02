@@ -1,9 +1,12 @@
+#!/usr/bin/env bash
 ###############################
 #
-# Installation script for homebrew 
+# Installation script for homebrew
 # in user mode without sudo
 #
 ###############################
+set -euo pipefail
+
 SCRIPTDIR="$( dirname -- "$BASH_SOURCE"; )"
 
 # needed during installation
@@ -33,18 +36,3 @@ mkdir -p "${HOMEBREW_PREFIX}"
 # execute the install script
 NONINTERACTIVE=1 bash "${SCRIPTDIR}/install.sh"
 
-
-# alternative installation method (commented out - runs unconditionally after main installer)
-# https://docs.brew.sh/Installation#alternative-installs
-# mkdir ${HOMEBREW_PREFIX} && curl -L ${HOMEBREW_BREW_GIT_REMOTE}/tarball/master | tar xz --strip-components 1 -C ${HOMEBREW_PREFIX}
-# eval "$(${HOMEBREW_PREFIX}/bin/brew shellenv)"
-# brew update --force --quiet
-# chmod -R go-w "$(brew --prefix)/share/zsh"
-
-
-# install the dotfiles 
-export CHEZMOI_TARGET_DIR=$HOME
-chezmoi init --apply git@github.com:hhoeflin/chezmoi_dotfiles.git -D ${CHEZMOI_TARGET_DIR}
-
-# build apptainer image
-apptainer build rocky9_base.sif rocky9_base.def

@@ -1,5 +1,5 @@
---- /home/hhoeflin/machine_setup/homebrew/install.sh.orig	2026-05-01 21:35:59.317325789 +0200
-+++ /home/hhoeflin/machine_setup/homebrew/install.sh	2026-05-01 21:37:56.770258339 +0200
+--- a/install.sh
++++ b/install.sh
 @@ -162,11 +162,11 @@
    if [[ "${UNAME_MACHINE}" == "arm64" ]]
    then
