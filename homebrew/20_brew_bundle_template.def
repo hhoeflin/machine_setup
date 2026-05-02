@@ -1,0 +1,15 @@
+BootStrap: localimage
+From: __BASE_IMAGE__
+
+
+%files
+    ./Brewfile /opt/Brewfile
+
+
+%post
+    chmod 644 /opt/Brewfile
+    su - brewuser -c ". /opt/etc/bashrc.sh && brew bundle --file=/opt/Brewfile && brew cleanup --prune=all && rm -rf ~/.cache/Homebrew"
+
+
+%runscript
+    exec /bin/bash "$@"

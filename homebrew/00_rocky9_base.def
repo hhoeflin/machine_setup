@@ -4,8 +4,9 @@ From: rockylinux:9
 %post
     # Install dependencies for Homebrew
     dnf -y groupinstall "Development Tools" && \
-    dnf -y install curl git procps \
-    perl-ExtUtils-Command perl-IPC-Cmd perl-Pod-Html perl-Time-Piece perl-Test-Simple
+    dnf -y install git procps perl-core glibc-langpack-en && \
+    dnf clean all && \
+    rm -rf /var/cache/dnf
 
     mkdir -p /opt/etc/bashrc.d
 

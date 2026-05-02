@@ -9,7 +9,7 @@ From: 00_rocky9_base.sif
 'export HOMEBREW_ARCHFLAGS="-march=skylake -mtune=generic"'
 'export HOMEBREW_NO_AUTO_UPDATE=1'
 'export HOMEBREW_NO_ANALYTICS=1'
-'eval $(__HOMEBREW_PREFIX__/bin/brew shellenv)'
+'eval $(/opt/linuxbrew/bin/brew shellenv)'
 )
     > /opt/etc/bashrc.d/10_config_homebrew.sh
     for line in "${config_lines[@]}"; do
@@ -18,7 +18,7 @@ From: 00_rocky9_base.sif
 
     install_lines=(
 '#!/usr/bin/env bash'
-'export HOMEBREW_PREFIX=__HOMEBREW_PREFIX__'
+'export HOMEBREW_PREFIX=/opt/linuxbrew'
 'set -xeuo pipefail  # exit on unset variables'
 'export HOMEBREW_BREW_GIT_REMOTE="https://github.com/Homebrew/brew"'
 'echo "Installing into $HOMEBREW_PREFIX"'
@@ -39,9 +39,9 @@ From: 00_rocky9_base.sif
     chmod 755 /root
     chmod +x /root/install_homebrew.sh
     chown brewuser:brewuser /root/install_homebrew.sh
-    mkdir -p __HOMEBREW_PREFIX__
-    chmod 755 __HOMEBREW_PREFIX__
-    chown brewuser:brewuser __HOMEBREW_PREFIX__
+    mkdir -p /opt/linuxbrew
+    chmod 755 /opt/linuxbrew
+    chown brewuser:brewuser /opt/linuxbrew
     su - brewuser -c ". /opt/etc/bashrc.sh && /root/install_homebrew.sh"
     rm /root/install_homebrew.sh
 
