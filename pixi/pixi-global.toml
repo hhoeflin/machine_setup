@@ -1,0 +1,145 @@
+version = 1
+
+# -------------------------------------------------------------------
+# CLI tools — shell utilities, file tools, TUI apps
+# -------------------------------------------------------------------
+[envs.cli-tools]
+channels = ["conda-forge"]
+
+[envs.cli-tools.dependencies]
+tmux        = "*"
+git         = "*"
+nvim        = "*"   # brew: neovim — conda-forge package is named nvim
+lsdeluxe    = "*"   # brew: lsd — conda-forge package is named lsdeluxe
+atuin       = "*"
+yazi        = "*"
+zoxide      = "*"
+bat         = "*"
+broot       = "*"
+ripgrep     = "*"
+tealdeer    = "*"
+dust        = "*"   # brew: dust
+fd-find     = "*"   # brew: fd
+git-delta   = "*"   # brew: git-delta
+starship    = "*"
+csvlens     = "*"
+taskwarrior = "*"   # brew: task
+just        = "*"
+chezmoi     = "*"
+lazygit     = "*"
+fzf         = "*"
+imagemagick = "*"
+gh          = "*"   # GitHub CLI; copilot-cli is a gh extension (see note below)
+
+[envs.cli-tools.exposed]
+tmux      = "tmux"
+git       = "git"
+nvim      = "nvim"
+lsd       = "lsd"
+atuin     = "atuin"
+yazi      = "yazi"
+zoxide    = "zoxide"
+bat       = "bat"
+broot     = "broot"
+rg        = "rg"
+tldr      = "tldr"
+dust      = "dust"
+fd        = "fd"
+delta     = "delta"
+starship  = "starship"
+csvlens   = "csvlens"
+task      = "task"
+just      = "just"
+chezmoi   = "chezmoi"
+lazygit   = "lazygit"
+fzf       = "fzf"
+convert   = "convert"
+magick    = "magick"
+gh        = "gh"
+
+# -------------------------------------------------------------------
+# Go toolchain
+# -------------------------------------------------------------------
+[envs.golang]
+channels = ["conda-forge"]
+
+[envs.golang.dependencies]
+go = "*"
+
+[envs.golang.exposed]
+go    = "go"
+gofmt = "gofmt"
+
+# -------------------------------------------------------------------
+# Rust toolchain
+# NOTE: consider using rustup (https://rustup.rs) instead for better
+# toolchain management (stable/nightly/cross-compilation).
+# -------------------------------------------------------------------
+[envs.rust]
+channels = ["conda-forge"]
+
+[envs.rust.dependencies]
+rust = "*"
+
+[envs.rust.exposed]
+rustc   = "rustc"
+cargo   = "cargo"
+rustfmt = "rustfmt"
+
+# -------------------------------------------------------------------
+# Python dev tools
+# -------------------------------------------------------------------
+[envs.python-dev]
+channels = ["conda-forge"]
+
+[envs.python-dev.dependencies]
+pdm      = "*"
+pyright  = "*"
+prettier = "*"
+
+[envs.python-dev.exposed]
+pdm      = "pdm"
+pyright  = "pyright"
+prettier = "prettier"
+
+# -------------------------------------------------------------------
+# Infrastructure / system tools
+# -------------------------------------------------------------------
+[envs.infra]
+channels = ["conda-forge"]
+
+[envs.infra.dependencies]
+nginx      = "*"
+micromamba = "*"
+
+[envs.infra.exposed]
+nginx      = "nginx"
+micromamba = "micromamba"
+
+# -------------------------------------------------------------------
+# NOT available in conda-forge — install separately:
+#
+# bash-preexec  — shell script, not a package:
+#   curl https://raw.githubusercontent.com/rcaloras/bash-preexec/master/bash-preexec.sh \
+#     -o ~/.bash-preexec.sh && echo '[[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh' >> ~/.bashrc
+#
+# copilot-cli   — this is a gh CLI extension, not a standalone binary:
+#   after pixi global sync, run once:
+#   gh extension install github/gh-copilot
+#   usage: gh copilot suggest / gh copilot explain
+#
+# opencode      — not in conda-forge; install via npm (nodejs already available on most HPC):
+#   npm install -g opencode-ai
+#   or use the official install script:
+#   curl -fsSL https://opencode.ai/install | bash
+#
+# gemini-cli    — not in conda-forge:
+#   npm install -g @google/gemini-cli
+#   or official binary: https://github.com/google-gemini/gemini-cli/releases
+#
+# glow          — "glow" in conda-forge is a PySpark library, not the markdown viewer:
+#   go install github.com/charmbracelet/glow@latest
+#   or grab the binary from https://github.com/charmbracelet/glow/releases
+#
+# claude-code   — macOS cask only, not applicable on Linux/HPC
+# -------------------------------------------------------------------
